@@ -11,6 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {
+    return view('test');
+});*/
+
+
+
+Route::get("/", "HomeController@index");
+
+
+
+Route::post("cotizar", "QuotationController@createQuotation");
+Route::get("cotizar/{url_code}", "QuotationController@displayQuotation");
+Route::post("cotizar/obtener", "QuotationController@obtainQuotationOptions");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// admin
+Route::get("backoffice/cotizaciones", "AdminPanelController@showQuotations");
+Route::get("backoffice/cotizaciones/{id}", "AdminPanelController@quotationDetails");
