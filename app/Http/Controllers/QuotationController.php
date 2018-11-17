@@ -117,4 +117,10 @@ class QuotationController extends Controller
 	}
 
 
+
+    public function cotizador()
+    {
+    	return view("form");
+    }
+
 }

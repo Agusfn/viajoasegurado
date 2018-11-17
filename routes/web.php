@@ -17,7 +17,7 @@
 
 
 
-Route::get("/", "HomeController@index");
+Route::get("/", "QuotationController@cotizador");
 
 
 
