@@ -8,14 +8,22 @@ use \App\Quotation;
 
 class AdminPanelController extends Controller
 {
-    
 
-	public function showQuotations()
+
+	public function home()
+	{
+		return view("back.home2");
+	}
+
+
+
+
+	public function quotationList()
 	{
 
 		$quotations = Quotation::all();
 
-		return view("admin.quotations")->with("quotations", $quotations);
+		return view("back.quotations2")->with("quotations", $quotations);
 	}
 
 
@@ -26,13 +34,28 @@ class AdminPanelController extends Controller
 		if($quotation != null)
 		{
 			$quotationProducts = $quotation->products()->get();
-			return view("admin.quotation")->with(["quotation" => $quotation, "quotationProducts" => $quotationProducts]);
+			return view("back.quotation2")->with(["quotation" => $quotation, "quotationProducts" => $quotationProducts]);
 		}
 		else
-			return view("admin.quotation")->with("quotation", $quotation);
+			return view("back.quotation2")->with("quotation", $quotation);
 
 		
 
 	}
+
+
+
+	public function contractList()
+	{
+		return view("back.contracts");
+	}
+
+
+
+	public function settings()
+	{
+		return view("back.settings");
+	}
+
 
 }

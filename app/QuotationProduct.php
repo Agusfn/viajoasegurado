@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use \App\Library\AseguratuViaje\ATVApi;
 
 class QuotationProduct extends Model
 {
@@ -11,49 +12,54 @@ class QuotationProduct extends Model
 	protected $guarded = [];
 
 
+	/**
+	 * Propiedades ocultas al enviar Json
+	 * @var array
+	 */
+	protected $hidden = [
+		"id", 
+		"created_at", 
+		"updated_at", 
+		"quotation_id", 
+		"provider_atv_id", 
+		"coverage_details_json", 
+		"cost", 
+		"gross_cost", 
+		"cost_currency_code"
+	];
+
+
 
 	/**
-	 * Crea y guarda un producto cotizado a partir del id de cotizacion y el array de datos del producto obtenido desde la API de ATV
-	 * @param array $product_data 	array con datos del producto obtenido desde la api cotizadora de atv
-	 * @param int $quotation_id 	id de cotización asociada
+	 * Obtiene montos de coberturas via API de ATV y los guarda en un campo de la DB como JSON (procesado)
+	 * 
+	 * @return boolean	success
 	 */
-	public static function addProductFromApiArray($product_data, $quotation_id)
+	public function fetchAndSaveCoverageDetails($locale)
 	{
+		
+		$coverages = ATVApi::getProductCoverage($locale, $this->product_atv_id);
 
-		$quotationProduct = new Self();
-
-		$quotationProduct->fill([
-			"quotation_id" => $quotation_id,
-			"img_url" => $product_data["UrlIMG"],
-			"provider" => $product_data["Proveedor"],
-			"provider_atv_id" => $product_data["ProveedorId"],
-			"product_atv_id" => $product_data["ProductoId"],
-			"age_from" => $product_data["EdadDesde"],
-			"age_to" => $product_data["EdadHasta"],
-			"product_name" => $product_data["Producto"],
-			"terms_url" => $product_data["Condiciones"],
-			"category" => $product_data["Categoria"],
-			"bonification" => $product_data["Bonificacion"],
-			"discount" => $product_data["Descuento"],
-			"type" => $product_data["Tipo"],
-			"recommended" => $product_data["Recomendado"],
-			"disease_insured_amt" => $product_data["CoberturaEnfermedad"] != null ? $product_data["CoberturaEnfermedad"] : "",
-			"accident_insured_amt" => $product_data["CoberturaAccidente"] != null ? $product_data["CoberturaAccidente"] : "",
-			"baggage_insured_amt" => $product_data["CoberturaEquipaje"] != null ? $product_data["CoberturaEquipaje"] : "",
-			"is_deductible" => $product_data["EsDeducible"],
-			"cost" => $product_data["Costo"],
-			"gross_cost" => $product_data["CostoBruto"],
-			"orig_cost" => $product_data["CostoOrigen"],
-			"orig_gross_cost" => $product_data["CostoBrutoOrigen"],
-			"currency" => $product_data["Moneda"],
-			"currency_atv_id" => $product_data["MonedaId"],
-			"passengers_cost" => "",
-		]);
-
-		$quotationProduct->save();
+		if($coverages === false)
+			return false;
 
 
+		$new_coverages = []; // array de arrays con nombre y monto de cobertura.
+
+		foreach($coverages["beneficios"] as $coverage)
+		{
+			array_push($new_coverages, array(
+				"description" => $coverage["Descripcion"],
+				"ammount" => $coverage["Coberturas"][0]["Valor"]
+			));
+		}
+
+		$this->coverage_details_json = json_encode($new_coverages);
+		$this->save();
+
+		return true;
 	}
+
 
 
 }

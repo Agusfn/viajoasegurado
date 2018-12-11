@@ -18,29 +18,21 @@ class CreateQuotationProductsTable extends Migration
             $table->timestamps();
             $table->integer('quotation_id');
             $table->string('img_url');
-            $table->string('provider');
+            $table->string('provider_name');
             $table->integer('provider_atv_id');
             $table->integer('product_atv_id');
-            $table->integer('age_from');
-            $table->integer('age_to');
             $table->string('product_name');
             $table->string('terms_url');
-            $table->integer('category');
-            $table->float('bonification');
-            $table->float('discount');
-            $table->integer('type');
-            $table->integer('recommended');
             $table->string('disease_insured_amt');
             $table->string('accident_insured_amt');
             $table->string('baggage_insured_amt');
-            $table->boolean('is_deductible');
+            $table->text('coverage_details_json')->nullable();
             $table->float('cost');
             $table->float('gross_cost');
-            $table->float('orig_cost');
-            $table->float('orig_gross_cost');
-            $table->string('currency');
-            $table->integer('currency_atv_id');
-            $table->string('passengers_cost');
+            $table->string('cost_currency_code');
+            $table->float('price');
+            $table->float('gross_price');
+            $table->string('price_currency_code');
         });
     }
 

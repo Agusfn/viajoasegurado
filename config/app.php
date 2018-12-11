@@ -78,7 +78,12 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
+
+    'langs' => array('es', 'en'), // lenguajes soportados
+
+    'locale_prefix' => '', // prefijo url de lenguaje actual (asignado en runtime)
+
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------

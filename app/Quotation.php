@@ -3,8 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use \App\Library\AseguratuViajeApi;
+use \App\Library\AseguratuViaje\ATV;
+
 use \App\QuotationProduct;
+use \App\Currency;
+
+use anlutro\LaravelSettings\SettingStore;
+
+
 
 class Quotation extends Model
 {
@@ -21,14 +27,11 @@ class Quotation extends Model
     {
 
     	$new_code = str_random(32);
-    	//$new_code = "hola";
 
     	$repetitions = self::where('url_code', $new_code)->count();
 
-    	//echo [$new_code, $number];
-
     	if($repetitions > 0)
-    		return $this->generateUrlCode();
+    		return self::generateUrlCode();
     	else
     		return $new_code;
 
@@ -47,12 +50,108 @@ class Quotation extends Model
 
 
     /**
+     * Devuelve CSV de edades a partir de edades
+     * @param int $ammount  limite superior de edades
+     * @param  int ...$ages edades
+     * @return string   csv edades
+     */
+    public static function agesToCsv($limit, ...$ages)
+    {
+        $csv = "";
+        for($i=0; $i<sizeof($ages); $i++) 
+        {
+            if($i >= $limit)
+                break;
+            $csv .= $ages[$i].",";
+        }
+
+        if(strlen($csv) > 0)
+            $csv = substr($csv, 0, -1);
+
+        return $csv;
+    }
+
+    
+    /**
+     * Da un array de edades dado un CSV
+     * @param  string $ages_csv    csv de edades
+     * @param  int $lower_limit     minima cantidad de elementos a devolver (los que no se proporcionan son cero)
+     * @return array              edades
+     */
+    public static function agesCsvToArray($ages_csv, $lower_limit)
+    {
+        $ages = array_map("intval", explode(",", $ages_csv));
+        return array_pad($ages, $lower_limit, 0);
+    }
+
+
+    /**
+     * Devuelve un monto tal que si se le resta el porcentaje $percentage se obtiene $ammount
+     * @param float $ammount
+     * @param float $percentage     porcentaje 0-100
+     */
+    public static function addPercentage2($ammount, $percentage)
+    {
+        return round(100 * $ammount / (100 - $percentage), 2);
+    }
+
+
+    /**
+     * Calcula precios de venta de un determinado producto a partir de su costo.
+     * @param  float $cost          costo final
+     * @param  float $gross_cost    costo sin descuento
+     * @param  string $currency_code codigo de moneda
+     * @return array                precio de venta final, bruto, y moneda.
+     */
+    public static function calculateSellingPrices($cost, $gross_cost, $currency_code)
+    {
+
+        $profit_margin = setting()->get("profit_margin");
+
+
+        if($currency_code == "EUR") 
+        {
+
+            $prices["price"] = self::addPercentage2(Currency::toUsd($cost, "EUR"), $profit_margin);
+            $prices["gross_price"] = self::addPercentage2(Currency::toUsd($gross_cost, "EUR"), $profit_margin);
+            $prices["currency"] = "USD";
+        }
+        else
+        {
+            $prices["price"] = self::addPercentage2($cost, $profit_margin);
+            $prices["gross_price"] = self::addPercentage2($gross_cost, $profit_margin);
+            $prices["currency"] = $currency_code;
+        }
+
+        return $prices;
+
+    }
+
+
+
+
+
+
+
+
+    /**
      * Devuelve los productos cotizados asociados a la cotización
-     * @return Illuminate\Database\Eloquent\Relations\HasMany	colección de elementos
+     * @return Illuminate\Database\Eloquent\Relations\HasMany   colección de elementos
      */
     public function products()
     {
-    	return $this->hasMany('App\QuotationProduct');
+        return $this->hasMany('App\QuotationProduct');
+    }
+
+    
+    /**
+     * Obtener un producto de esta cotización con su ID de producto de aseguratuviaje
+     * @param  int $product_atv_id
+     * @return mixed                 QuotationProduct o null
+     */
+    public function getProductByAtvId($product_atv_id)
+    {
+        return $this->products()->where("product_atv_id", $product_atv_id)->first();
     }
 
 
@@ -62,56 +161,63 @@ class Quotation extends Model
      * Además, asigna el token a la Quotation y la marca como cotizada.
      * Se debe llamar para una Quotation sólo una vez
      * 
-     * @return boolean	success
+     * @return boolean  success
      */
     public function saveQuotationProductsFromATV()
     {
 
-    	$atvApi = new AseguratuViajeApi();
+        $ages = self::agesCsvToArray($this->passenger_ages, 5);
+        
+        $response = ATV::obtainQuotedProducts(
+            $this->origin_country_code,
+            $this->destination_region_code,
+            $this->trip_type_code,
+            $this->date_from,
+            $this->date_to,
+            $ages[0], $ages[1], $ages[2], $ages[3], $ages[4],
+            ATV::getLocale($this->lang),
+            $this->customer_email,
+            $this->gestation_weeks
+        );
 
-		$ages = $this->getPassengerAgeArray();
+        if($response == false)
+            return false;
+        
 
-    	$response = $atvApi->obtainInsuranceRates(
-    		$this->origin_country_code,
-    		$this->destination_region_code,
-    		$this->trip_type_code,
-    		$this->date_from,
-    		$this->date_to,
-    		$ages[0], $ages[1], $ages[2], $ages[3], $ages[4],
-    		$this->customer_lang."-".$this->customer_country,
-    		$this->customer_email,
-    		$this->gestation_weeks,
-    		""
-    	);
+        foreach($response["Productos"] as $product)
+        {
 
-    	if($response == false)
-    		return false;
-    	
+            $prices = self::calculateSellingPrices($product["real_cost"], $product["real_gross_cost"], $product["real_cost_currency"]);
 
-    	$productos = $response["Productos"];
+            QuotationProduct::create([
+                "quotation_id" => $this->id,
+                "img_url" => $product["UrlIMG"],
+                "provider_name" => $product["Proveedor"],
+                "provider_atv_id" => $product["ProveedorId"],
+                "product_atv_id" => $product["ProductoId"],
+                "product_name" => $product["Producto"],
+                "terms_url" => $product["Condiciones"],
+                "disease_insured_amt" => $product["CoberturaEnfermedad"] != null ? $product["CoberturaEnfermedad"] : "",
+                "accident_insured_amt" => $product["CoberturaAccidente"] != null ? $product["CoberturaAccidente"] : "",
+                "baggage_insured_amt" => $product["CoberturaEquipaje"] != null ? $product["CoberturaEquipaje"] : "",
+                "coverage_details_json" => null,
+                "cost" => $product["real_cost"],
+                "gross_cost" => $product["real_gross_cost"],
+                "cost_currency_code" => $product["real_cost_currency"],
+                "price" => $prices["price"],
+                "gross_price" => $prices["gross_price"],
+                "price_currency_code" => $prices["currency"]
+            ]);
 
-    	foreach($productos as $producto)
-    	{
-    		QuotationProduct::addProductFromApiArray($producto, $this->id);
-    	}
+        }
 
+        $this->atv_token = ATV::lastToken();
+        $this->quoted = true;
+        $this->save();
 
-    	$this->atv_token = $atvApi->lastToken();
-		$this->quoted = true;
-		$this->save();    	
+        return true;
     }
 
-
-
-    /**
-     * Devuelve un array de 5 numeros de las edades de cada pasajero. Si hay menos de 5 pasajeros, los valores de los que no existen son cero.
-     * @return int[]
-     */
-    public function getPassengerAgeArray()
-    {
-    	$ages = explode(",", $this->passenger_ages);
-    	return array_pad($ages, 5, 0);
-    }
 
 
     /**

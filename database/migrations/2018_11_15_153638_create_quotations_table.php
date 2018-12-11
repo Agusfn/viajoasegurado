@@ -27,12 +27,11 @@ class CreateQuotationsTable extends Migration
             $table->string('passenger_ages');
             $table->integer('gestation_weeks');
             $table->string('url_code');
-            $table->string('customer_lang');
-            $table->string('customer_country');
+            $table->string('lang');
             $table->string('customer_ip');
             $table->string('atv_token');
             $table->boolean('quoted');
-            $table->boolean('contracted');
+            $table->integer('contract_id')->nullable();
         });
     }
 
