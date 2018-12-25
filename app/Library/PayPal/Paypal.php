@@ -2,6 +2,8 @@
 
 namespace App\Library\PayPal;
 
+use \App\PaypalRequest;
+
 class Paypal
 {
 
@@ -29,7 +31,7 @@ class Paypal
 	}
 
 
-	public function createPayment(\App\PaypalRequest $ppRequest)
+	public function createPayment(PaypalRequest $ppRequest)
 	{
 
         
@@ -53,8 +55,8 @@ class Paypal
         $transaction->setAmount($amount)->setItemList($itemList);
 
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl("https://example.com/your_redirect_url.html")
-            ->setCancelUrl("https://example.com/your_cancel_url.html");
+        $redirectUrls->setReturnUrl(env("APP_URL")."/contract/payment/paypal")
+            ->setCancelUrl(env("APP_URL")."/contract/payment/paypal");
 
         $payment = new \PayPal\Api\Payment();
         $payment->setIntent('sale')
@@ -68,8 +70,6 @@ class Paypal
         {
             $payment->create($this->apiContext);
 
-            dump($payment);
-
             return $payment;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) 
@@ -80,7 +80,58 @@ class Paypal
 
 	}
 
+    /**
+     * Ejecuta y concreta un pago de PayPal ya preparado.
+     * @param  string $paymentId    Id de pago de PayPal
+     * @param  string $payerId      Id de payer de PayPal
+     * @return \PayPal\Api\Payment | false
+     */
+    public function executePayment($paymentId, $payerId)
+    {
+            
+        $payment = $this->getPaymentById($paymentId);
 
+        if(!$payment)
+            return false;
+
+
+        $execution = new \PayPal\Api\PaymentExecution();
+        $execution->setPayerId($payerId);
+        
+        try {
+            $result = $payment->execute($execution, $this->apiContext);
+        } 
+        catch (\Exception $ex) 
+        {
+            //dump("Executed Payment", "Payment", null, null, $ex);
+            return false;
+        }
+
+        return $this->getPaymentById($paymentId);
+    }
+
+
+    /**
+     * [getPaymentById description]
+     * @param  [type] $paymentId [description]
+     * @return [type]            [description]
+     */
+    public function getPaymentById($paymentId)
+    {
+        try 
+        {
+            $payment = \PayPal\Api\Payment::get($paymentId, $this->apiContext);
+            return $payment;
+        } 
+        catch (\Exception $ex) 
+        {
+            //dump("Executed Payment", "Payment", null, null, $ex);
+            return false;
+        } 
+    }
+
+
+    
 
 
 }

@@ -1,0 +1,17 @@
+/* Home page */
+
+#gestation-weeks-form-group {
+	/*display: inline-block;*/
+	display:none;
+}
+
+.short-input {
+	width: 60px; 
+	display: inline;
+}
+
+.form-error {
+	color: #a94442; 
+	font-size: 14px !important; 
+	display: none
+}

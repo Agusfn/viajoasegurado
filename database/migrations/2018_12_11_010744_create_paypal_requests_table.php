@@ -17,10 +17,15 @@ class CreatePaypalRequestsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->integer('payment_request_id')->nullable();
             $table->string('item_title');
             $table->integer('item_quantity');
             $table->float('item_unit_price');
-            $table->string('approval_url');
+            $table->string('approval_url')->nullable();
+            $table->string('pp_payment_id')->nullable();
+            $table->string('pp_payment_token')->nullable();
+            $table->string('pp_payer_id')->nullable();
+            $table->string('pp_transaction_id')->nullable();
         });
     }
 

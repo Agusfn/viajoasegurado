@@ -10,4 +10,10 @@ class ContractStatusHistory extends Model
     protected $guarded = [];
 
     
+    public function status()
+    {
+    	return $this->belongsTo("App\ContractStatus");
+    }
+
+
 }

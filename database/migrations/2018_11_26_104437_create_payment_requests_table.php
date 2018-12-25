@@ -17,9 +17,14 @@ class CreatePaymentRequestsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('contract_id');
-            $table->string('payment_method');
+            $table->string('payment_method_codename');
             $table->integer('method_request_id');
             $table->string('status');
+            $table->string('payment_url');
+            $table->float('total_ammount');
+            $table->float('transaction_fee')->nullable();
+            $table->float('net_ammount')->nullable();
+            $table->string('currency_code');
             $table->datetime('date_paid')->nullable();
         });
     }

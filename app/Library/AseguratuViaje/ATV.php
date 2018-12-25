@@ -91,7 +91,7 @@ class ATV
 	 * @param  float 	$ammount
 	 * @return float    costo sin comisión
 	 */
-	public static function substractCommission($ammount)
+	private static function substractCommission($ammount)
 	{
 		return round($ammount * ((100 - self::ATV_COMMISSION)/100), 2);
 	}
@@ -124,5 +124,23 @@ class ATV
 			return "en-US";
 	}
 
+
+
+	/**
+	 * Obtiene nombre de región de destino (traducido)
+	 * @param  int $code codigo de region (en config.custom.insurances)
+	 * @return string       nombre de la region
+	 */
+	public static function getRegionName($code)
+	{
+		$regions_to = \Config::get("custom.insurances.regions_to");
+
+		foreach($regions_to as $region)
+		{
+			if($region["id"] == $code)
+				return __($region["name"]);
+		}
+		return false;
+	}
 
 }

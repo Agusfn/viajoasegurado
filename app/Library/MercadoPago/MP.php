@@ -48,9 +48,9 @@ class MP
 			
 
 			$preference->back_urls = array(
-			    "success" => env("APP_URL")."/contratar/pago/mercadopago/",
-			    "failure" => env("APP_URL")."/contratar/pago/mercadopago/?ft=".$mpRequest->failure_url_token,
-			    "pending" => env("APP_URL")."/contratar/pago/mercadopago/"
+			    "success" => env("APP_URL")."/contract/payment/mercadopago/",
+			    "failure" => env("APP_URL")."/contract/payment/mercadopago/?ft=".$mpRequest->failure_url_token,
+			    "pending" => env("APP_URL")."/contract/payment/mercadopago/"
 			);
 
 			//$preference->external_reference = $mpRequest->id;

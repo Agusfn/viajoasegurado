@@ -2,7 +2,7 @@
 
 return [
 
-
+	// paises soportados de aseguratuviaje, son menos que los almacenados en la DB.
 	"countries_from" => [
 		["id" => 4, "name" => "Afghanistan"], 
 		["id" => 8, "name" => "Albania"], 

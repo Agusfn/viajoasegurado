@@ -1,4 +1,4 @@
-@extends('back.layouts.main2')
+@extends('back.layouts.main')
 
 @section('title', 'MyTitle')
 

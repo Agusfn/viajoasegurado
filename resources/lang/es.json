@@ -221,7 +221,17 @@
   "Asia": "Asia",
   "Europe": "Europa",
   "Rest of the world": "Resto del mundo",
-  "National Coverage": "Cobertura Local"
+  "National Coverage": "Cobertura Local",
+
+
+
+
+
+  "Payment pending": "Pago pendiente",
+  "Processing": "Procesando",
+  "Completed": "Completado",
+  "Expired": "Expirado",
+  "Canceled": "Cancelado"
 
 
   

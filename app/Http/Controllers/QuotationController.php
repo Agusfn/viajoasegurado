@@ -21,7 +21,8 @@ class QuotationController extends Controller
      */
 	public function createQuotation(Request $req)
 	{
-
+		
+		dd($req);
 		// **validar parametros!**
 
 		if($req->has("travel_pregnant"))
@@ -31,7 +32,7 @@ class QuotationController extends Controller
 		}
 		else
 		{
-			$ages = Quotation::agesToCsv($req->passenger_ammt, $req->age1, $req->age2, $req->age3, $req->age4, $req->age5);
+			$ages = Quotation::agesToCsv($req->passenger_ammount, $req->age1, $req->age2, $req->age3, $req->age4, $req->age5);
 			$gest_weeks = 0;
 		}
 
@@ -46,7 +47,7 @@ class QuotationController extends Controller
 			"trip_type_code" => $req->trip_type,
 			"date_from" => $req->date_from,
 			"date_to" => $req->date_to,
-			"passenger_ammount" => $req->passenger_ammt,
+			"passenger_ammount" => $req->passenger_ammount,
 			"passenger_ages" => $ages,
 			"gestation_weeks" => $gest_weeks,
 			"url_code" => Quotation::generateUrlCode(),
@@ -80,7 +81,7 @@ class QuotationController extends Controller
 				$quotationExpired = false;
 
 
-			return view("frontoffice.quotations.show_options")->with([
+			return view("front.quotations.show_options")->with([
 				"quotationFound" => true,
 				"quotationExpired" => $quotationExpired,
 				"url_code" => $quotation->url_code
@@ -88,7 +89,7 @@ class QuotationController extends Controller
 
 		}
 		else
-			return view("frontoffice.quotations.show_options")->with("quotationFound", false);
+			return view("front.quotations.show_options")->with("quotationFound", false);
 	}
 
 
@@ -116,7 +117,13 @@ class QuotationController extends Controller
 				{
 
 					if(!$quotation->quoted)
-						$quotation->saveQuotationProductsFromATV();
+					{
+						if(!$quotation->saveQuotationProductsFromATV())
+						{
+							$response["error_text"] = "Hubo un problema cargando los productos del proveedor.";
+							return $response;
+						}
+					}
 										
 					$response["products"] = $quotation->products()->get()->toArray();
 					$response["success"] = true;

@@ -16,7 +16,7 @@ class MercadoPagoRequest extends Model
 
 
 	/**
-	 * Crea un PaymentRequest, un MercadoPagoRequest asociado, y genera la solicitud de pago.
+	 * Crea un PaymentRequest, un MercadoPagoRequest asociado, y genera la solicitud de pago en ARS.
 	 * @param int 		$contract_id 	id de la contratacion asociada.
 	 * @param array		$attributes		atributos del modelo
 	 * @return mixed 	MercadoPagoRequest o FALSE
@@ -50,21 +50,24 @@ class MercadoPagoRequest extends Model
 			return false;
 		}
 
+
+		$paymentRequest = PaymentRequest::create([
+			"contract_id" => $contract_id,
+			"payment_method_codename" => self::METHOD_CODE_NAME,
+			"method_request_id" => $mpRequest->id,
+			"status" => PaymentRequest::STATUS_PENDING,
+			"payment_url" => $preference->init_point,
+			"total_ammount" => round($item_quantity * $unit_price, 2),
+			"currency_code" => "ARS"
+		]);
+
 		$mpRequest->fill([
+			"payment_request_id" => $paymentRequest->id,
 			"preference_id" => $preference->id,
 			"preference_url" => $preference->init_point,
 			"preference_sandbox_url" => $preference->sandbox_init_point
 		]);
 		$mpRequest->save();
-
-
-		$paymentRequest = PaymentRequest::create([
-			"contract_id" => $contract_id,
-			"status" => PaymentRequest::STATUS_PENDING,
-			"payment_method" => self::METHOD_CODE_NAME,
-			"method_request_id" => $mpRequest->id
-		]);
-
 
 
 		return $mpRequest;
@@ -80,7 +83,7 @@ class MercadoPagoRequest extends Model
 
 
 
-	public function markAsPaidOut($merchant_order_id, $collection_id, $collection_method, $date_paid)
+	public function markAsPaidOut($merchant_order_id, $collection_id, $collection_method, $date_paid, $transaction_fee)
 	{
 		
 		$this->merchant_order_id = $merchant_order_id;
@@ -88,18 +91,15 @@ class MercadoPagoRequest extends Model
 		$this->collection_method = $collection_method;
 		$this->save();
 
-		$payRequest = $this->parentRequest();
-		$payRequest->markAsPaidOut($date_paid);
+		$payRequest = $this->parentRequest->markAsPaidOut($date_paid, $transaction_fee);
 	}
 
 
-	/**
-	 * Devuelve instancia del objeto "padre" PaymentRequest
-	 * @return mixed
-	 */
+
+
 	public function parentRequest()
 	{
-		return PaymentRequest::where([["payment_method", self::METHOD_CODE_NAME], ["method_request_id", $this->id]])->first();
+		return $this->belongsTo("App\PaymentRequest", "payment_request_id");
 	}
 
 

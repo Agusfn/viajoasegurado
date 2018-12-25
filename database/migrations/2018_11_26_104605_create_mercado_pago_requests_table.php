@@ -17,6 +17,7 @@ class CreateMercadoPagoRequestsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->integer('payment_request_id')->nullable();
             $table->integer('item_id');
             $table->string('item_title');
             $table->integer('item_quantity');

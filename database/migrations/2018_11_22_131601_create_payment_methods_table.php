@@ -32,7 +32,7 @@ class CreatePaymentMethodsTable extends Migration
 
         DB::table('payment_methods')->insert([
             'code_name' => 'mercadopago-ar',
-            'name' => 'MercadoPago AR',
+            'name' => 'MercadoPago',
             'currency_code' => 'ARS'
         ]);
 

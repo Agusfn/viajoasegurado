@@ -72,8 +72,9 @@ class ATVApi
 		if(self::$req_response_code == 200)
 			return $response["Token"];
 		else
-		{
-			self::$error_text = "Error obteniendo token. Respuesta: " . $response["Message"];
+		{	
+			self::$error_text = "Error obteniendo token ATV Api. Respuesta: " . $response["Message"];
+			\Log::notice(self::$error_text);
 			return false;
 		}
 
@@ -97,7 +98,8 @@ class ATVApi
 			return $response;
 		else
 		{
-			self::$error_text = "Error obteniendo precios. Respuesta: " . $response["Message"];
+			self::$error_text = "Error obteniendo precios ATV Api. Respuesta: " . $response["Message"];
+			\Log::notice(self::$error_text);
 			return false;
 		}
 
@@ -128,7 +130,8 @@ class ATVApi
 			return $response;
 		else
 		{
-			self::$error_text = "An error ocurred requesting product coverage details.";
+			self::$error_text = "Http resp code ".self::$req_response_code." obtaining product coverage details in ATV Api";
+			\Log::notice(self::$error_text);
 			return false;
 		}
 	}
@@ -180,6 +183,7 @@ class ATVApi
 		else // failed
 		{
 			self::$error_text = curl_error($ch);
+			\Log::notice("Error realizando solicitud http CURL en makeRequest() en ATVApi. Texto: ".self::$error_text);
 			curl_close($ch);
 			return false;
 		}

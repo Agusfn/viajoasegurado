@@ -262,7 +262,7 @@ class CreateCountriesTable extends Migration
                     array("name_english" => "Ukraine", "code_alpha2" => "UA", "code_alpha3" => "UKR", "code_number" => 804, "currency_code" => ""),
                     array("name_english" => "United Arab Emirates", "code_alpha2" => "AE", "code_alpha3" => "ARE", "code_number" => 784, "currency_code" => ""),
                     array("name_english" => "United Kingdom", "code_alpha2" => "GB", "code_alpha3" => "GBR", "code_number" => 826, "currency_code" => ""),
-                    array("name_english" => "United States of America", "code_alpha2" => "US", "code_alpha3" => "USA", "code_number" => 840, "currency_code" => ""),
+                    array("name_english" => "United States", "code_alpha2" => "US", "code_alpha3" => "USA", "code_number" => 840, "currency_code" => ""),
                     array("name_english" => "US Minor Outlying Islands", "code_alpha2" => "UM", "code_alpha3" => "UMI", "code_number" => 581, "currency_code" => ""),
                     array("name_english" => "Uruguay", "code_alpha2" => "UY", "code_alpha3" => "URY", "code_number" => 858, "currency_code" => ""),
                     array("name_english" => "Uzbekistan", "code_alpha2" => "UZ", "code_alpha3" => "UZB", "code_number" => 860, "currency_code" => ""),

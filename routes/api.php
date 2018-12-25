@@ -23,3 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Instant Payment Notifications (IPN) MercadoPago
 
 Route::post("mercadopago_ipn", "Api\MPagoNotificationsController@paymentUpdate");
+
+Route::post("paypal_ipn", "Api\PPalNotificationsController@paymentUpdate");

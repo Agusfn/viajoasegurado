@@ -26,23 +26,24 @@ class PaymentRequest extends Model
 	public function provider_request()
 	{
 
-		if($this->payment_method == MercadoPagoRequest::METHOD_CODE_NAME)
+		if($this->payment_method_codename == MercadoPagoRequest::METHOD_CODE_NAME)
 			return MercadoPagoRequest::find($this->method_request_id);
 
-		else if($this->payment_method == PaypalRequest::METHOD_CODE_NAME)
+		else if($this->payment_method_codename == PaypalRequest::METHOD_CODE_NAME)
 			return PaypalRequest::find($this->method_request_id);
 
 	}
 
 
-	public function markAsPaidOut($date_paid)
+	public function markAsPaidOut($date_paid, $transaction_fee)
 	{
 		
-
 		$this->status = self::STATUS_APPROVED;
 		$this->date_paid = $date_paid;
-		$this->save();
+		$this->transaction_fee = $transaction_fee;
+		$this->net_ammount = $this->total_ammount - $transaction_fee;
 
+		$this->save();
 
 		// Cambiar estado de la contratacion asociada
 		// Mandar mail?
@@ -56,11 +57,20 @@ class PaymentRequest extends Model
 		$this->save();
 	}
 
-	/*public function contract()
-	{
-		return $this->hasOne('App\Contract');
-	}*/
 
+
+
+
+	public function contract()
+	{
+		return $this->belongsTo('\App\Contract');
+	}
+
+
+	public function payment_method()
+	{
+		return $this->belongsTo("App\PaymentMethod", "payment_method_codename", "code_name");
+	}
 
 
 

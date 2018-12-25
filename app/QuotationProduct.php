@@ -61,5 +61,29 @@ class QuotationProduct extends Model
 	}
 
 
+	public function quotation()
+	{
+		return $this->belongsTo("App\Quotation");
+	}
+
+
+	/**
+	 * Devuelve una lista de texto con los detalles de cada tipo de cobertura y su monto (si los tiene almacenados)
+	 * @return string|null
+	 */
+	/*public function coverageDetailsList()
+	{
+		if($this->coverage_details_json != null)
+		{
+			$text = "";
+			$details = json_decode($this->coverage_details_json, true);
+			foreach($details as $detail)
+			{
+				$text .= $detail["description"].": ".$detail["ammount"]."\/r\/n";
+			}
+			return $text;
+		}
+		return null;
+	}*/
 
 }

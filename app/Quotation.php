@@ -143,7 +143,6 @@ class Quotation extends Model
         return $this->hasMany('App\QuotationProduct');
     }
 
-    
     /**
      * Obtener un producto de esta cotización con su ID de producto de aseguratuviaje
      * @param  int $product_atv_id
@@ -151,7 +150,20 @@ class Quotation extends Model
      */
     public function getProductByAtvId($product_atv_id)
     {
-        return $this->products()->where("product_atv_id", $product_atv_id)->first();
+        return $this->products->where("product_atv_id", $product_atv_id)->first();
+    }
+
+
+
+    public function country_from()
+    {
+        return $this->belongsTo("App\Country", "origin_country_code", "code_number");
+    }
+
+
+    public function contract()
+    {
+        return $this->belongsTo("App\Contract");
     }
 
 
@@ -179,6 +191,7 @@ class Quotation extends Model
             $this->customer_email,
             $this->gestation_weeks
         );
+
 
         if($response == false)
             return false;

@@ -18,7 +18,7 @@ class CreateContractStatusHistoriesTable extends Migration
             $table->timestamps();
 
             $table->integer('contract_id');
-            $table->string('status_code');
+            $table->integer('status_id');
         });
     }
 
