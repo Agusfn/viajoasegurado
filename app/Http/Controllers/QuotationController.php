@@ -22,16 +22,14 @@ class QuotationController extends Controller
 	public function createQuotation(Request $req)
 	{
 		
-		dd($req);
+		//dd($req);
 		// **validar parametros!**
 
 		if($req->has("travel_pregnant"))
 		{
 			$ages = $req->age1;
 			$gest_weeks = $req->gestation_weeks;
-		}
-		else
-		{
+		} else {
 			$ages = Quotation::agesToCsv($req->passenger_ammount, $req->age1, $req->age2, $req->age3, $req->age4, $req->age5);
 			$gest_weeks = 0;
 		}
@@ -42,11 +40,11 @@ class QuotationController extends Controller
 		$quotation->fill([
 			"expiration_date" => date("Y-m-d H:i:s", strtotime("+3 hour")),
 			"customer_email" => $req->email,
-			"origin_country_code" => $req->country_from_id,
-			"destination_region_code" => $req->region_to_id,
-			"trip_type_code" => $req->trip_type,
-			"date_from" => $req->date_from,
-			"date_to" => $req->date_to,
+			"origin_country_code" => $req->country_code_from,
+			"destination_region_code" => $req->region_code_to,
+			"trip_type_code" => 1, // configurar bien esto
+			"date_from" => \DateTime::createFromFormat('d/m/Y', $req->date_start)->format("Y-m-d"),
+			"date_to" => \DateTime::createFromFormat('d/m/Y', $req->date_end)->format("Y-m-d"),
 			"passenger_ammount" => $req->passenger_ammount,
 			"passenger_ages" => $ages,
 			"gestation_weeks" => $gest_weeks,
@@ -81,7 +79,7 @@ class QuotationController extends Controller
 				$quotationExpired = false;
 
 
-			return view("front.quotations.show_options")->with([
+			return view("front.quotations.search_results")->with([
 				"quotationFound" => true,
 				"quotationExpired" => $quotationExpired,
 				"url_code" => $quotation->url_code
@@ -89,7 +87,7 @@ class QuotationController extends Controller
 
 		}
 		else
-			return view("front.quotations.show_options")->with("quotationFound", false);
+			return view("front.quotations.search_results")->with("quotationFound", false);
 	}
 
 

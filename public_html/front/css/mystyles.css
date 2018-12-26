@@ -1,3 +1,14 @@
+.spinner-dark {
+	border-color: #666;
+}
+
+.spinner-dark::before, .spinner-dark > .spinner-clock-hour, .spinner-dark > .spinner-clock-minute {
+	background-color: #666;
+}
+
+
+
+
 /* Home page */
 
 #gestation-weeks-form-group {
@@ -15,3 +26,8 @@
 	font-size: 14px !important; 
 	display: none
 }
+
+
+
+/* Quotation list page */
+

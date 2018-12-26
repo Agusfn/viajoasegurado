@@ -2,312 +2,18 @@
 
 @section('content')
         <div class="container">
-            <ul class="breadcrumb">
-                <li><a href="index.html">Home</a>
-                </li>
-                <li><a href="#">United States</a>
-                </li>
-                <li><a href="#">New York (NY)</a>
-                </li>
-                <li><a href="#">New York City</a>
-                </li>
-                <li class="active">New York City Flights</li>
-            </ul>
+            
             <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
                 <h3>Search for Flight</h3>
-                <form>
-                    <div class="tabbable">
-                        <ul class="nav nav-pills nav-sm nav-no-br mb10" id="flightChooseTab">
-                            <li class="active"><a href="#flight-search-1" data-toggle="tab">Round Trip</a>
-                            </li>
-                            <li><a href="#flight-search-2" data-toggle="tab">One Way</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="flight-search-1">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
-                                            <label>From</label>
-                                            <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
-                                            <label>To</label>
-                                            <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="input-daterange" data-date-format="MM d, D">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                                                <label>Departing</label>
-                                                <input class="form-control" name="start" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-highlight"></i>
-                                                <label>Returning</label>
-                                                <input class="form-control" name="end" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-lg form-group-select-plus">
-                                                <label>Passengers</label>
-                                                <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                    <label class="btn btn-primary active">
-                                                        <input type="radio" name="options" />1</label>
-                                                    <label class="btn btn-primary">
-                                                        <input type="radio" name="options" />2</label>
-                                                    <label class="btn btn-primary">
-                                                        <input type="radio" name="options" />3</label>
-                                                    <label class="btn btn-primary">
-                                                        <input type="radio" name="options" />4</label>
-                                                    <label class="btn btn-primary">
-                                                        <input type="radio" name="options" />5</label>
-                                                    <label class="btn btn-primary">
-                                                        <input type="radio" name="options" />5+</label>
-                                                </div>
-                                                <select class="form-control hidden">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option selected="selected">6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                    <option>10</option>
-                                                    <option>11</option>
-                                                    <option>12</option>
-                                                    <option>13</option>
-                                                    <option>14</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="flight-search-2">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
-                                            <label>From</label>
-                                            <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-highlight"></i>
-                                            <label>To</label>
-                                            <input class="typeahead form-control" placeholder="City, Airport or U.S. Zip Code" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                            <label>Departing</label>
-                                            <input class="date-pick form-control" data-date-format="MM d, D" type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group form-group-lg form-group-select-plus">
-                                            <label>Passengers</label>
-                                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <input type="radio" name="options" />1</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />2</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />3</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />4</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />5</label>
-                                                <label class="btn btn-primary">
-                                                    <input type="radio" name="options" />5+</label>
-                                            </div>
-                                            <select class="form-control hidden">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option selected="selected">6</option>
-                                                <option>7</option>
-                                                <option>8</option>
-                                                <option>9</option>
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option>12</option>
-                                                <option>13</option>
-                                                <option>14</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-lg" type="submit">Search for Flights</button>
-                </form>
+                FORMULARIO
             </div>
-            <h3 class="booking-title">12 Flights from London to New York on Mar 22 for 1 adult <small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Change search</a></small></h3>
-            <form class="booking-item-dates-change mb30">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                            <label>From</label>
-                            <input class="typeahead form-control" value="Great Britan, London" placeholder="City, Hotel Name or U.S. Zip Code" type="text" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                            <label>To</label>
-                            <input class="typeahead form-control" value="United States, New York" placeholder="City, Hotel Name or U.S. Zip Code" type="text" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group form-group-icon-left"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                            <label>Departing</label>
-                            <input class="date-pick form-control" data-date-format="MM d, D" type="text" />
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group form-group-select-plus">
-                            <label>Passengers</label>
-                            <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                                <label class="btn btn-primary active">
-                                    <input type="radio" name="options" />1</label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" />2</label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" />3</label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" />4</label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="options" />4+</label>
-                            </div>
-                            <select class="form-control hidden">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option selected="selected">5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div class="row">
-                <div class="col-md-3">
-                    <aside class="booking-filters text-white">
-                        <h3>Filter By:</h3>
-                        <ul class="list booking-filters-list">
-                            <li>
-                                <h5 class="booking-filters-title">Stops <small>Price from</small></h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Non-stop<span class="pull-right">$215</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />1 Stop<span class="pull-right">$154</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />2+ Stops<span class="pull-right">$197</span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Price </h5>
-                                <input type="text" id="price-slider">
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Flight Class <small>Price from</small></h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Economy<span class="pull-right">$154</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Business<span class="pull-right">$316</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />First<span class="pull-right">$450</span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Airlines <small>Price from</small></h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Lufthansa<span class="pull-right">$215</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />American Airlines<span class="pull-right">$350</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Airfrance<span class="pull-right">$154</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Croatia Airlines<span class="pull-right">$197</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Delta<span class="pull-right">$264</span>
-                                    </label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Air Canada<span class="pull-right">$445</span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <h5 class="booking-filters-title">Departure Time</h5>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Morning (5:00a - 11:59a)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Afternoon (12:00p - 5:59p)</label>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input class="i-check" type="checkbox" />Evening (6:00p - 11:59p)</label>
-                                </div>
-                            </li>
-                        </ul>
-                    </aside>
-                </div>
-                <div class="col-md-9">
+
+            <h3 class="booking-title"><span id="title">12 seguros desde Argentina a América del Norte</span><small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Cambiar búsqueda</a></small></h3>
+            
+
+            <div class="row" id="search-results" style="">
+                
+                <div class="col-md-12">
                     <div class="nav-drop booking-sort">
                         <h5 class="booking-sort-title"><a href="#">Sort: Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
                         <ul class="nav-drop-menu">
@@ -967,6 +673,23 @@
                     </p>
                 </div>
             </div>
+
+            <div id="loading" style="text-align: center; display: none">
+                <div class="spinner-clock spinner-dark">
+                    <div class="spinner-clock-hour"></div>
+                    <div class="spinner-clock-minute"></div>
+                </div>
+                <h2 class="mb5">Buscando coberturas para tu viaje</h2>
+                <p class="text-bigger">tomará algunos segundos</p>
+            </div>
+
             <div class="gap"></div>
         </div>
+@endsection
+
+
+
+
+@section('custom-js')
+<script src="{{ asset('front/js/home-pg.js') }}"></script>
 @endsection
