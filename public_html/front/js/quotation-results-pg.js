@@ -1,15 +1,21 @@
 $(document).ready(function() {
 
-	/*$("#loading").show();
+    var quot_url_code = $('meta[name="url-code"]').attr('content');
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
    
-    $.ajax({
-        url: "{{ url()->to('quotation/getquotation') }}",
+    /*$.ajax({
+        url: $('meta[name="req-url"]').attr('content'),
 
         type: 'POST',
 
         data: {_token: CSRF_TOKEN, url_code: quot_url_code},
 
         dataType: 'JSON',
+        
+        beforeSend: function() {
+            $("#loading").show();
+        },
+
         success: function (data) {
 
         	$("#loading").hide(); 
@@ -25,7 +31,8 @@ $(document).ready(function() {
 				});
 
             }
-        }
-    }); */
+       }
+    });*/
+
 
 });
