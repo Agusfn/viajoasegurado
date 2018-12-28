@@ -69,25 +69,29 @@ class QuotationController extends Controller
 	 */
 	public function displayQuotation(Request $request)
 	{
-		
+		$parameters = [
+			"countries_from" => ATV::getCountriesFrom(), 
+            "regions_to" => ATV::getRegionsTo(),
+            "quotationFound" => false
+		];
+
 		if($request->url_code != null && $quotation = Quotation::findByUrlCode($request->url_code))
 		{
 
+			$parameters["quotationFound"] = true;
+			$parameters["url_code"] = $request->url_code;
+
 			if($quotation->expired() || $quotation->contract_id != null) // si expiró o ya se generó una contratación
-				$quotationExpired = true;
+				$parameters["quotationExpired"] = true;
 			else
-				$quotationExpired = false;
+				$parameters["quotationExpired"] = false;
 
 
-			return view("front.quotations.search_results")->with([
-				"quotationFound" => true,
-				"quotationExpired" => $quotationExpired,
-				"url_code" => $quotation->url_code
-			]);
+			return view("front.quotations.search_results")->with($parameters);
 
 		}
 		else
-			return view("front.quotations.search_results")->with("quotationFound", false);
+			return view("front.quotations.search_results")->with($parameters);
 	}
 
 
@@ -118,11 +122,16 @@ class QuotationController extends Controller
 					{
 						if(!$quotation->saveQuotationProductsFromATV())
 						{
-							$response["error_text"] = "Hubo un problema cargando los productos del proveedor.";
+							$response["error_text"] = "Problem loading products from the resource.";
 							return $response;
 						}
 					}
-										
+					
+					$response["date_from"] = \App\Library\Dates::translate($quotation->date_from);
+					$response["date_to"] = \App\Library\Dates::translate($quotation->date_to);
+					$response["country_from"] = __($quotation->country_from->name_english);
+					$response["region_to"] = ATV::getRegionName($quotation->destination_region_code);
+					$response["passenger_count"] = $quotation->passenger_ammount;
 					$response["products"] = $quotation->products()->get()->toArray();
 					$response["success"] = true;
 				}
@@ -162,9 +171,14 @@ class QuotationController extends Controller
 					$response["coverage"] = json_decode($quotationProduct->coverage_details_json, true);
 
 				}
-
+				else
+					$response["error"] = "Product not found";
 			}
+			else
+				$response["error"] = "Quotation not found";
 		}
+		else
+			$response["error"] = "Data not provided";
 
 		return $response;
 	}

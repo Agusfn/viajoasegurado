@@ -1,5 +1,9 @@
 "use strict";
 
+
+
+
+
 $('ul.slimmenu').slimmenu({
     resizeWidth: '992',
     collapserTitle: 'Main Menu',
@@ -48,7 +52,7 @@ $('.form-group').each(function() {
     });
 });
 
-
+/*
 $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
     todayHighlight: true
 });
@@ -66,6 +70,7 @@ $('input.date-pick-years').datepicker({
     startView: 2
 });
 
+*/
 
 
 
@@ -111,6 +116,8 @@ $('.booking-item-price-calc .checkbox label').click(function() {
         animateInt(tPriceInt, tPrice, false);
     }
 });
+
+
 
 
 $('div.bg-parallax').each(function() {

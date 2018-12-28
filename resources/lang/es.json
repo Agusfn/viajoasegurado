@@ -231,7 +231,21 @@
   "Processing": "Procesando",
   "Completed": "Completado",
   "Expired": "Expirado",
-  "Canceled": "Cancelado"
+  "Canceled": "Cancelado",
+
+
+  "jan": "ene",
+  "feb": "feb",
+  "mar": "mar",
+  "apr": "abr",
+  "may": "may",
+  "jun": "jun",
+  "jul": "jul",
+  "aug": "ago",
+  "sep": "sep",
+  "oct": "oct",
+  "nov": "nov",
+  "dec": "dic"
 
 
   

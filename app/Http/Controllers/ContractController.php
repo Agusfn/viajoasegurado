@@ -22,7 +22,9 @@ class ContractController extends Controller
 
 	public function showContractForm(Request $request)
 	{
-
+		$parameters = [
+			"validContract" => false
+		];
 		
 		if($quotation = Quotation::findByUrlCode($request->quot_url_code))
 		{
@@ -39,9 +41,10 @@ class ContractController extends Controller
 						$quotationProduct->fetchAndSaveCoverageDetails(ATV::getLocale($quotation->lang));
 
 
-					return view("front.contract.form")->with([
+					return view("front.contract.form2")->with([
+						"validContract" => true,
 						"quotation" => $quotation, 
-						"quotation_product" => $quotationProduct, 
+						"product" => $quotationProduct, 
 						"product_coverage" => json_decode($quotationProduct->coverage_details_json, true)
 					]);
 				}
@@ -50,7 +53,8 @@ class ContractController extends Controller
 
 		}
 
-		return view("front.contract.notfound");
+
+		return view("front.contract.form2")->with($parameters);
 
 
 	}
@@ -61,7 +65,8 @@ class ContractController extends Controller
 	public function processContractForm(Request $request)
 	{
 
-
+		dd($request);
+		
 		$quotation = Quotation::findByUrlCode($request->quotation_code);
 
 		if($quotation == null)

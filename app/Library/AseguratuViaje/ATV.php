@@ -143,4 +143,54 @@ class ATV
 		return false;
 	}
 
+
+
+
+	/**
+	 * Obtiene lista de países (con nombre traducido y codigo) de origen soportados por aseguratuviaje.
+	 * @param boolean $orderByName	ordenar lista por nombre de país
+	 * @return array de arrays con codigo y nombre de paises
+	 */
+	public static function getCountriesFrom($orderByName = true)
+	{
+        $countries_from = \Config::get("custom.insurances.countries_from");
+
+
+        if(!\App::isLocale("en"))
+        {  
+            for($i=0; $i<sizeof($countries_from); $i++) {
+                $countries_from[$i]["name"] = __($countries_from[$i]["name"]);
+            }
+        }
+
+        if($orderByName)
+        {
+	        usort($countries_from, function ($item1, $item2) {
+            	return $item1['name'] <=> $item2['name'];
+       		});
+        }
+
+        return $countries_from;
+	}
+
+
+
+	/**
+	 * Obtiene lista de regiones (con nombre traducido y codigo atv) de destino soportadas por aseguratuviaje.
+	 * @return array de arrays con codigo y nombre de paises
+	 */
+	public static function getRegionsTo()
+	{
+        $regions_to = \Config::get("custom.insurances.regions_to"); // paises y regiones vienen en ingles
+
+        if(!\App::isLocale("en"))
+        {
+            for($i=0; $i<sizeof($regions_to); $i++) {
+                $regions_to[$i]["name"] = __($regions_to[$i]["name"]);
+            }
+        }
+
+        return $regions_to;
+	}
+
 }

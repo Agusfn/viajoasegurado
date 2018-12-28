@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App;
 use \Config;
+use App\Library\AseguratuViaje\ATV;
+
+
 
 class HomeController extends Controller
 {
-    
 
 
     /**
@@ -31,33 +33,9 @@ class HomeController extends Controller
     public function index()
     {
 
-
-        $countries_from = Config::get("custom.insurances.countries_from");
-        $regions_to = Config::get("custom.insurances.regions_to"); // paises y regiones vienen en ingles
-
-
-        if(!App::isLocale("en"))
-        {
-            
-            for($i=0; $i<sizeof($countries_from); $i++) {
-                $countries_from[$i]["name"] = __($countries_from[$i]["name"]);
-            }
-
-            for($i=0; $i<sizeof($regions_to); $i++) {
-                $regions_to[$i]["name"] = __($regions_to[$i]["name"]);
-            }
-
-        }
-
-
-        usort($countries_from, function ($item1, $item2) {
-            return $item1['name'] <=> $item2['name'];
-        });
-
-
-        return view("front.home2")->with([
-            "countries_from" => $countries_from, 
-            "regions_to" => $regions_to
+        return view("front.home")->with([
+            "countries_from" => ATV::getCountriesFrom(), 
+            "regions_to" => ATV::getRegionsTo()
         ]);
 
     }

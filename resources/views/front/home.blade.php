@@ -1,119 +1,182 @@
-@extends('front.layouts.main')
+@extends('front.layouts.main2')       
 
 
-@section('scripts')
+@section('title', 'titulo')
 
-	<script>
 
-		$(document).ready(function() {
-
-			$("#travel_pregnant").on("change", function() {
-
-				if($(this).is(":checked"))
-				{
-					$("#gest-weeks").show();
-					$("#passenger_ammt").val("1").trigger("change").prop("disabled", true);
-				}
-				else
-				{
-					$("#gest-weeks").hide();
-					$("#passenger_ammt").prop("disabled", false);
-				}
-
-			});
-
-			$("#passenger_ammt").on("change", function() {
-
-				var val = parseInt($(this).val());
-				$("#passenger_ammt_hidden").val(val);
-
-				$("#age2,#age3,#age4,#age5").hide();
-				for(var i=1; i<(val+1); i++)
-				{
-					$("#age"+i).show();
-				}
-
-			});
-
-		});
-
-	</script> 
+@section('custom-css')
 
 @endsection
 
 
 
 @section('content')
+        
+        <!-- TOP AREA -->
+        <div class="top-area show-onload">
+            <div class="bg-holder full">
+                <div class="bg-mask"></div>
+                <div class="bg-parallax" style="background-image:url({{ asset('front/img/backgrounds/road.jpg') }});"></div>
+                <div class="bg-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="search-tabs search-tabs-bg mt50">
+                                    <h1>Find Your Perfect Trip</h1>
+
+                                            
+                                    <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">
+                                        <h2 style="margin-bottom: 25px">Buscar seguros</h2>
+                                        
+                                        @include('front.layouts.request-quotation-form')
+                                    </div>
+                                            
+
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END TOP AREA  -->
+
+        <div class="gap"></div>
 
 
-{{ Form::open( array("url" => uri_localed("quotation/create"), "method" => "post") ) }}
+        <div class="container">
+            <div class="row row-wrap" data-gutter="60">
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <header class="thumb-header"><i class="fa fa-briefcase box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                        </header>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title"><a class="text-darken" href="#">Combine & Save</a></h5>
+                            <p class="thumb-desc">Sagittis non laoreet augue nulla lectus auctor accumsan cubilia sollicitudin mattis leo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <header class="thumb-header"><i class="fa fa-thumbs-o-up box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                        </header>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title"><a class="text-darken" href="#">Best Travel Agent</a></h5>
+                            <p class="thumb-desc">Vel morbi class sollicitudin cubilia quisque penatibus dictumst faucibus dui natoque ultricies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <header class="thumb-header"><i class="fa fa-lock box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                        </header>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title"><a class="text-darken" href="#">Trust & Safety</a></h5>
+                            <p class="thumb-desc">Montes congue pellentesque aliquet lectus dictum est volutpat class odio elementum quis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap gap-small"></div>
+        </div>
+        <div class="bg-holder">
+            <div class="bg-mask"></div>
+            <div class="bg-parallax" style="background-image:url({{ asset('front/img/backgrounds/bridge.jpg') }});"></div>
+            <div class="bg-content">
+                <div class="container">
+                    <div class="gap gap-big text-center text-white">
+                        <h2 class="text-uc mb20">Last Minute Deal</h2>
+                        <ul class="icon-list list-inline-block mb0 last-minute-rating">
+                            <li><i class="fa fa-star"></i>
+                            </li>
+                            <li><i class="fa fa-star"></i>
+                            </li>
+                            <li><i class="fa fa-star"></i>
+                            </li>
+                            <li><i class="fa fa-star"></i>
+                            </li>
+                            <li><i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <h5 class="last-minute-title">The Peninsula - New York</h5>
+                        <p class="last-minute-date">Fri 14 Mar - Sun 16 Mar</p>
+                        <p class="mb20"><b>$120</b> / person</p><a class="btn btn-lg btn-white btn-ghost" href="#">Book Now <i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="gap"></div>
+            <h2 class="text-center">Top Destinations</h2>
+            <div class="gap">
+                <div class="row row-wrap">
+                    <div class="col-md-3">
+                        <div class="thumb">
+                            <header class="thumb-header">
+                                <a class="hover-img curved" href="#">
+                                    <img src="{{ asset('front/img/800x600.png') }}" alt="Image Alternative text" title="Upper Lake in New York Central Park" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <h4 class="thumb-title">USA</h4>
+                                <p class="thumb-desc">Scelerisque montes class curabitur class aenean aliquam eu</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="thumb">
+                            <header class="thumb-header">
+                                <a class="hover-img curved" href="#">
+                                    <img src="{{ asset('front/img/800x600.png') }}" alt="Image Alternative text" title="lack of blue depresses me" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <h4 class="thumb-title">Greece</h4>
+                                <p class="thumb-desc">Condimentum odio eget curabitur scelerisque vivamus ipsum congue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="thumb">
+                            <header class="thumb-header">
+                                <a class="hover-img curved" href="#">
+                                    <img src="{{ asset('front/img/800x600.png') }}" alt="Image Alternative text" title="people on the beach" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <h4 class="thumb-title">Australia</h4>
+                                <p class="thumb-desc">Ornare cras scelerisque volutpat nulla porttitor commodo cubilia</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="thumb">
+                            <header class="thumb-header">
+                                <a class="hover-img curved" href="#">
+                                    <img src="{{ asset('front/img/400x300.png') }}" alt="Image Alternative text" title="the journey home" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                                </a>
+                            </header>
+                            <div class="thumb-caption">
+                                <h4 class="thumb-title">Africa</h4>
+                                <p class="thumb-desc">Dictumst risus montes ipsum faucibus vel sodales cubilia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	<label>@lang("front/home.country_from"):</label><br/>
-
-	<select name="country_from_id">
-		@foreach($countries_from as $country)
-		<option value="{{ $country['id'] }}">{{ $country["name"] }}</option>
-		@endforeach
-	</select>
-	<br/><br/>
-	<label>@lang("front/home.region_to"):</label><br/>
-
-	<select name="region_to_id">
-		@foreach($regions_to as $region)
-		<option value="{{ $region['id'] }}">{{ $region["name"] }}</option>
-		@endforeach
-	</select>
-	<br/><br/>
-	<label>{{ __("front/home.trip_type") }}</label><br/>
-	<input type="text" name="trip_type" ><br/>
-
-	<label>{{ __("front/home.date_from") }}</label><br/>
-	<input type="text" name="date_from" ><br/>
-
-	<label>{{ __("front/home.date_to") }}</label><br/>
-	<input type="text" name="date_to" ><br/><br/>
-
-	<div class="form-group">
-		<label>
-			<input type="checkbox" name="travel_pregnant" id="travel_pregnant"> {{ __("front/home.travel_pregnant") }}
-		</label>
-	</div>
-
-	<div class="form-group" id="gest-weeks" style="display: none">
-		<label>{{ __("front/home.gestation_weeks") }}</label><br/>
-		<input type="text" name="gestation_weeks" style="width: 60px">
-	</div>
+        </div>
 
 
-	<div class="form-group">
-		<label>{{ __("front/home.travelers_count") }}</label><br/>
-		<select id="passenger_ammt">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select>
-		<input type="hidden" name="passenger_ammt" id="passenger_ammt_hidden" value="1">
-	</div>
+@endsection
 
 
-	<div class="form-group">
-		<label>{{ __("front/home.ages") }}</label><br/>
-		<input type="text" name="age1" id="age1" placeholder="1º" style="width: 60px">
-		<input type="text" name="age2" id="age2" placeholder="2º" style="width: 60px;display: none;">
-		<input type="text" name="age3" id="age3" placeholder="3º" style="width: 60px;display: none;">
-		<input type="text" name="age4" id="age4" placeholder="4º" style="width: 60px;display: none;">
-		<input type="text" name="age5" id="age5" placeholder="5º" style="width: 60px;display: none;">
-	</div>
 
-	<div class="form-group">
-		<label>{{ __("front/home.email") }}</label><br/>
-		<input type="text" name="email" >
-	</div>
-
-	<br/>
-	<input type="submit" value="{{ __('front/home.quote') }}" />
-
-{{ Form::close() }}
+@section('custom-js')
+<script>
+    var countries_from = '@php echo json_encode($countries_from) @endphp';
+</script>
+<script src="{{ asset('front/js/quotation-form.js') }}"></script>
 @endsection

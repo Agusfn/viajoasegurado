@@ -249,4 +249,14 @@ class Quotation extends Model
     }
 
 
+    public function ageEnum()
+    {
+        $enum = "";
+        foreach(self::agesCsvToArray($this->passenger_ages, 0) as $age) {
+            $enum .= $age." años, ";
+        }
+        return substr($enum, 0, -2);
+    }
+
+
 }

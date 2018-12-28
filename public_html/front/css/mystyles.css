@@ -7,9 +7,8 @@
 }
 
 
+/* Shared */
 
-
-/* Home page */
 
 #gestation-weeks-form-group {
 	/*display: inline-block;*/
@@ -29,6 +28,12 @@
 
 
 
+/* Home page */
+
+
+
+
+
 /* Quotation list page */
 
 #search-results {
@@ -43,10 +48,41 @@
 
 
 .booking-item-airline-logo > img {
+    max-width: 161px;
     width: inherit;
 }
 
 
 .insurance-icon {
 	font-size:16px;
+}
+
+.booking-item-price {
+	font-size: 35px;
+}
+
+.booking-item-details .coverage-loading {
+	text-align: center;
+	display: none
+}
+.booking-item-details .coverage-loading > i {
+
+}
+
+
+/* Contract form page */
+
+
+#contract-form label {
+	font-weight: 100;
+	font-size: 14px;
+}
+
+.coverage-details-list {
+	font-size: 12px;
+	font-weight: 200;
+}
+
+.coverage-details-list strong {
+	opacity:1;
 }

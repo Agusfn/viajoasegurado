@@ -1874,7 +1874,7 @@ body {
 }
 .top-area,
 .special-area {
-  height: 700px;
+  height: 750px;
   position: relative;
   overflow: hidden;
 }
@@ -6855,7 +6855,7 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   border: 1px solid #e6e6e6;
   border-top: none;
   position: relative;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6em;
   opacity: 1;
   -ms-filter: none;
@@ -7364,10 +7364,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
 .booking-item-payment .booking-item-payment-details > li > h5 {
   line-height: 1em;
 }
-.booking-item-payment .booking-item-payment-details > li > p {
+/*.booking-item-payment .booking-item-payment-details > li > p {
   margin-bottom: 0;
   color: #686868;
-}
+}*/
 .booking-item-payment .booking-item-payment-details > li .booking-item-payment-item-title {
   color: #515151;
 }
