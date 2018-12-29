@@ -1,15 +1,29 @@
 @extends('front.layouts.main2')        
 
 
+
 @section('content')
+    
+        @php (dump($errors))
+
         <div class="gap"></div>
 
         @if ($validContract)
         <div class="container">
 
-            <div class="alert alert-danger" id="error-list" style="display: none">
+            <div class="alert alert-danger alert-dismissible" role="alert" id="error-list" style="display: none">
+                <button type="button" class="close" aria-label="Close" onclick="$(this).parent().hide();"><span aria-hidden="true">&times;</span></button>
                 Se encontraron errores en el formulario:
                 <ul>
+                    <li id="passenger-name-error">Ingresa el nombre y apellido de todos los pasajeros.</li>
+                    <li id="passenger-document-error">Ingresa el número de documento o de identificación de todos los pasajeros.</li>
+                    <li id="passenger-birthdate-error">Ingresa la fecha de nacimiento válida de todos los pasajeros de acuerdo a sus edades.</li>
+                    <li id="billing-name-error">Ingresa el nombre y apellido o razón social de facturación.</li>
+                    <li id="billing-tax-no-error">Ingresa el DNI o CUIT correctamente (cuit con guiones).</li>
+                    <li id="billing-address-error">Ingresa la dirección de facturación.</li>
+                    <li id="contact-phone-error">Ingresa números de teléfono de contacto válidos (sin caracteres especiales).</li>
+                    <li id="contact-email-error">Ingresa un e-mail de contacto válido.</li>
+                    <li id="contact-emerg-name-error">Ingresa el nombre del contacto de emergencia.</li>
                 </ul>
             </div>
 
@@ -48,7 +62,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Fecha de nacimiento</label>
-                                            <input class="date-pick-years form-control" type="text" name="passg{{$i}}_birthdate" data-age="{{ $ages[$i-1] }}" maxlength="10" data-date-format="dd/mm/yyyy" />
+                                            <input class="date-pick-years form-control" type="text" name="passg{{$i}}_birthdate" data-age="{{ $ages[$i-1] }}" maxlength="10" data-date-format="dd/mm/yyyy" data-date-language="{{ \App::getLocale() }}" />
                                         </div>
                                     </div>
                                 </div>

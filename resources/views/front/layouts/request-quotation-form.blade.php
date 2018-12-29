@@ -1,7 +1,7 @@
 {{ Form::open( array("url" => uri_localed("quotation/create"), "method" => "post", "id" => "quote-form") ) }}
     
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-map-marker input-icon"></i>
                 <label>Desde</label>
@@ -10,7 +10,7 @@
                 <label class="form-error" id="country-from-error">Selecciona un país válido</label>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-map-marker input-icon"></i>
                 <label>Hacia</label>
@@ -25,23 +25,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-calendar input-icon input-icon-highlight"></i>
                 <label>Fecha salida</label>
-                <input class="form-control" name="date_start" type="text" data-date-format="dd/mm/yyyy" />
+                <input class="form-control" name="date_start" type="text" data-date-format="dd/mm/yyyy" data-date-language="{{ \App::getLocale() }}" />
                 <label class="form-error" id="date-start-error">Selecciona una fecha válida mayor a hoy</label>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-calendar input-icon input-icon-highlight"></i>
                 <label>Fecha vuelta</label>
-                <input class="form-control" name="date_end" type="text" data-date-format="dd/mm/yyyy" />
+                <input class="form-control" name="date_end" type="text" data-date-format="dd/mm/yyyy" data-date-language="{{ \App::getLocale() }}" />
                 <label class="form-error" id="date-end-error">Selecciona una fecha válida después de la fecha de salida</label>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <div class="form-group" style="padding-top: 28px">
                 <label><input type="checkbox" class="icheckbox" name="travel_pregnant"> El seguro es para una mujer embarazada</label>
             </div>

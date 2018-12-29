@@ -86,3 +86,8 @@
 .coverage-details-list strong {
 	opacity:1;
 }
+
+
+#error-list ul li {
+	display: none;
+}

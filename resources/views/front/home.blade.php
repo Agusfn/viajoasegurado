@@ -21,8 +21,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="search-tabs search-tabs-bg mt50">
-                                    <h1>Find Your Perfect Trip</h1>
+                                <div class="search-tabs search-tabs-bg mt50" id="aa">
+                                    <!--h1>Find Your Perfect Trip</h1-->
 
                                             
                                     <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">
@@ -178,5 +178,6 @@
 <script>
     var countries_from = '@php echo json_encode($countries_from) @endphp';
 </script>
+<script src="{{ asset('front/js/home-pg.js') }}"></script>
 <script src="{{ asset('front/js/quotation-form.js') }}"></script>
 @endsection

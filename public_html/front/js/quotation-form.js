@@ -8,21 +8,22 @@ $(document).ready(function() {
         source: countries_from
     });
 
-    $("#country-from-input").change(function() {
-        var selected_option = $(this).typeahead("getActive");
-        if(selected_option != null) {
-            $("input[name='country_code_from']").val(selected_option.id);
-        }
-    });
 
-    
-    $('input[name="date_end"]').datepicker('setDate', '+7d');
-    $('input[name="date_start"]').datepicker('setDate', 'today');
-    /*$('input[name="date_start"]').datepicker({
-        startDate: '+1d'
-    });*/
-    // CONFIGURAR START DATE Y END DATE
-    
+    /* Datepicker */
+    $('input[name="date_start"]').datepicker({
+        autoclose: true,
+        startDate: '+0d',
+        endDate: '+365d'
+    });
+    $('input[name="date_start"]').datepicker("setDate", "+0d");
+
+    $('input[name="date_end"]').datepicker({
+        autoclose: true,
+        startDate: '+0d',
+        endDate: '+365d'
+    });
+    $('input[name="date_end"]').datepicker("setDate", "+7d");
+
 
 
     $('input[name=travel_pregnant]').iCheck('uncheck');
@@ -30,7 +31,23 @@ $(document).ready(function() {
 
 
 
+
     //***     Eventos         ****//
+
+
+    $("#country-from-input").change(function() {
+        var selected_option = $(this).typeahead("getActive");
+        if(selected_option != null) {
+            $("input[name='country_code_from']").val(selected_option.id);
+        }
+    });
+
+    $('input[name="date_start"]').datepicker().on("changeDate", function(e) {
+        $('input[name="date_end"]').datepicker("setStartDate", e.date);
+        $('input[name="date_end"]').datepicker("setDate", e.date);
+        $('input[name="date_end"]').focus();
+    });
+
 
     $("input[name=passenger_ammount]").on("change", function() {
         var val = parseInt($('input[name=passenger_ammount]:checked').val());
@@ -128,6 +145,13 @@ function validateQuoteForm()
         $("#email-error").show();
         valid = false;
     }
+
+    /*if(!valid) {
+        if($(".top-area").length) {
+            //alert(1);
+            $(".top-area").attr("style", "height: 800px");
+        }
+    }*/
 
     return valid;
 }

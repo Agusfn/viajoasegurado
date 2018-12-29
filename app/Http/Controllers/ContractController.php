@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use \App\Http\Requests\CreateContract;
+
 use \App\Contract;
 use \App\Quotation;
 use \App\QuotationProduct;
@@ -62,8 +64,20 @@ class ContractController extends Controller
 
 
 
-	public function processContractForm(Request $request)
+	public function processContractForm(CreateContract $request)
 	{
+
+		$request->validated();
+
+		$request->validate([
+            "quotation_code" => "required|unique:posts|max:255",
+            "quotationproduct_atvid" => "required",
+            "contact_phone" => "",
+            "contact_email" => "",
+            "emergency_contact_fullname" => "",
+            "emergency_contact_phone" => ""
+		]);
+
 
 		dd($request);
 		
@@ -80,6 +94,17 @@ class ContractController extends Controller
 		if($quotationProduct == null)
 			return "error";
 
+
+		if($quotation->origin_country_code == 32) { // ARG
+			$request->validate([
+	            "quotation_code" => "required|unique:posts|max:255",
+	            "quotationproduct_atvid" => "required",
+	            "contact_phone" => "",
+	            "contact_email" => "",
+	            "emergency_contact_fullname" => "",
+	            "emergency_contact_phone" => ""
+			]);
+		}
 
 
 		/* Validar datos!! */
@@ -114,7 +139,7 @@ class ContractController extends Controller
 			"billing_address_city" => $request->billing_address_city,
 			"billing_address_state" => $request->billing_address_state,
 			"billing_address_zip" => $request->billing_address_zip,
-			"billing_address_country" => $request->billing_address_country,
+			"billing_address_country" => 32, 
 			"final_price" => $quotationProduct->price
 		]);
 		$contract->changeStatus(Contract::STATUS_PAYMENT_PENDING);
