@@ -66,50 +66,39 @@ class ContractController extends Controller
 
 	public function processContractForm(CreateContract $request)
 	{
-
 		$request->validated();
-
-		$request->validate([
-            "quotation_code" => "required|unique:posts|max:255",
-            "quotationproduct_atvid" => "required",
-            "contact_phone" => "",
-            "contact_email" => "",
-            "emergency_contact_fullname" => "",
-            "emergency_contact_phone" => ""
-		]);
-
-
-		dd($request);
 		
 		$quotation = Quotation::findByUrlCode($request->quotation_code);
 
 		if($quotation == null)
-			return "error";
+			return view("front.contract.error")->with("error", "other");
 
 		if($quotation->expired() || $quotation->contract_id != null)
-			return "expiro";
+			return view("front.contract.error")->with("error", "expired");
+
+
+		for($i=1; $i<=$quotation->passenger_ammount; $i++) 
+		{
+			if(!$request->filled("passg".$i."_name", "passg".$i."_surname", "passg".$i."_document", "passg".$i."_birthdate"))
+				return redirect()->back()->withErrors('Input all the passenger information.');
+		}
+
+		if($quotation->origin_country_code == 32) // ARG
+		{ 
+			if(!$request->filled("billing_fiscal_condition", "billing_fullname", "billing_tax_number", "billing_address_street", "billing_address_number", "billing_address_city", "billing_address_zip", "billing_address_state")) {
+				return redirect()->back()->withErrors('Input all the billing information.');
+			}
+		}
+
 
 		$quotationProduct = $quotation->getProductByAtvId($request->quotationproduct_atvid);
 
 		if($quotationProduct == null)
-			return "error";
+			return view("front.contract.error")->with("error", "other");
 
 
-		if($quotation->origin_country_code == 32) { // ARG
-			$request->validate([
-	            "quotation_code" => "required|unique:posts|max:255",
-	            "quotationproduct_atvid" => "required",
-	            "contact_phone" => "",
-	            "contact_email" => "",
-	            "emergency_contact_fullname" => "",
-	            "emergency_contact_phone" => ""
-			]);
-		}
 
-
-		/* Validar datos!! */
-
-		$passg_details = [null, null, null, null, null];
+		$passg_details = [null, null, null, null, null, null];
 		for($i=1; $i<=$quotation->passenger_ammount; $i++) {
 			$passg_details[$i] = $request->{"passg".$i."_name"}.",".$request->{"passg".$i."_surname"}.",".$request->{"passg".$i."_document"}.",".$request->{"passg".$i."_birthdate"};
 		}
@@ -128,8 +117,8 @@ class ContractController extends Controller
 			"beneficiary_5" => $passg_details[5],
 			"contact_phone" => $request->contact_phone,
 			"contact_email" => $request->contact_email,
-			"emergency_contact_fullname" => $request->emerg_contact_name,
-			"emergency_contact_phone" => $request->emerg_contact_phone,
+			"emergency_contact_fullname" => $request->emergency_contact_fullname,
+			"emergency_contact_phone" => $request->emergency_contact_phone,
 			"billing_fiscal_condition" => $request->billing_fiscal_condition,
 			"billing_fullname" => $request->billing_fullname,
 			"billing_tax_number" => $request->billing_tax_number,
@@ -169,12 +158,12 @@ class ContractController extends Controller
 			);
 		}
 		else
-			return "Error no hay medios de pagos disponibles";
+			return "No payment methods available";
 
 
 		if($customRequest == false) {
 			$contract->delete();
-			return "Error generando solicitud de pago";
+			return view("front.contract.error")->with("error", "payment-request-error");
 		}
 
 
@@ -202,16 +191,18 @@ class ContractController extends Controller
 			{
 
 
-				return view("front.contract.details")->with([
+				return view("front.contract.details2")->with([
 					"contract_found" => true,
 					"contract" => $contract,
+					"quotation" => $contract->quotation,
 					"product" => $contract->product,
+					"product_coverage" => json_decode($contract->product->coverage_details_json, true),
 					"paymentReq" => $contract->active_payment_request
 				]);
 
 			}
 			else
-				return view("front.contract.details")->with(["contract_found" => false]);
+				return view("front.contract.details2")->with(["contract_found" => false]);
 
 		}
 		else

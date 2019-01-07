@@ -10,11 +10,11 @@ class MP
 {
 
 
-    const MP_CLIENT_ID = "6411514145865143";
+    const MP_CLIENT_ID = "6411514145865143"; // credenciales cta daniela682@hotmail.com
     const MP_CLIENT_SECRET = "1iOXdoSLUxy9dyQVsaMyckJwbiVuDjWt";
     const ACCESS_TOKEN = "";
 
-    const MP_CLIENT_ID_TEST = "6838767400124210";
+    const MP_CLIENT_ID_TEST = "6838767400124210"; // credenciales cta vendedora test test_user_50902160@testuser.com
     const MP_CLIENT_SECRET_TEST = "5ljVzV6i9k9nW1UMabuYKeyCwaIg0mWz";
     const ACCESS_TOKEN_TEST = "APP_USR-6838767400124210-112618-3b3c111f0486b481eb7a55b1c56e1669-381137003";
 

@@ -11,10 +11,10 @@ class PaymentRequest extends Model
     
 	protected $guarded = [];
 
-	
-	const STATUS_PENDING = "pending";
+	const STATUS_UNPAID = "unpaid";	// no se hizo el pago ni el intento del mismo
+	const STATUS_PROCESSING = "processing"; // el procesador de pago lo está procesando (por lo gral no se usa)
 	const STATUS_APPROVED = "approved";
-	const STATUS_CANCELED = "canceled";
+	const STATUS_CANCELED = "canceled"; // Se canceló y ya no sirve más.
 	const STATUS_REFUNDED = "refunded";
 
 

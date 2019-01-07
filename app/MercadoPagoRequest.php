@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \App\PaymentRequest;
+
 use Illuminate\Database\Eloquent\Model;
 use \App\Library\MercadoPago\MP;
 
@@ -55,7 +57,7 @@ class MercadoPagoRequest extends Model
 			"contract_id" => $contract_id,
 			"payment_method_codename" => self::METHOD_CODE_NAME,
 			"method_request_id" => $mpRequest->id,
-			"status" => PaymentRequest::STATUS_PENDING,
+			"status" => PaymentRequest::STATUS_UNPAID,
 			"payment_url" => $preference->init_point,
 			"total_ammount" => round($item_quantity * $unit_price, 2),
 			"currency_code" => "ARS"
@@ -91,7 +93,18 @@ class MercadoPagoRequest extends Model
 		$this->collection_method = $collection_method;
 		$this->save();
 
-		$payRequest = $this->parentRequest->markAsPaidOut($date_paid, $transaction_fee);
+		$this->parentRequest->markAsPaidOut($date_paid, $transaction_fee);
+	}
+
+
+
+	public function markAsProcessing($collection_id) 
+	{
+		$this->collection_id = $collection_id;
+		$this->save();
+
+		$this->parentRequest->status = PaymentRequest::STATUS_PROCESSING;
+		$this->parentRequest->save();
 	}
 
 

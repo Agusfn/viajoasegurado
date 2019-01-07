@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use \App\Contract;
 use \App\PaymentRequest; 
 use \App\MercadoPagoRequest;
 
@@ -54,7 +55,7 @@ class MPagoNotificationsController extends Controller
 			return $this->error("MpRequest resource not found.", 404);
 
 
-		$paymentRequest = $mpRequest->parentRequest();
+		$paymentRequest = $mpRequest->parentRequest;
 
 
 		if($paymentRequest->status == PaymentRequest::STATUS_APPROVED) // Si ya había sido marcado como aprobado.
@@ -65,8 +66,13 @@ class MPagoNotificationsController extends Controller
 			$merchantOrder->id, 
 			$payment->id, 
 			$payment->payment_method_id,
-			date("Y-m-d H:i:s", strtotime($payment->date_approved))
+			date("Y-m-d H:i:s", strtotime($payment->date_approved)),
+			$payment->fee_details[0]->amount
 		);
+		
+		$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
+
+
 
 		return response("Payment marked as paid.", 200);		
 	}
@@ -75,7 +81,7 @@ class MPagoNotificationsController extends Controller
 
 	public function error($msg = "", $code = 400)
 	{
-		// Log::
+		\Log::warning("MercadoPago IPN error: " . $msg);
 		return response($msg, $code);
 	}
 

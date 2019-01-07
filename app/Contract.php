@@ -13,8 +13,8 @@ class Contract extends Model
 {
     
 	const STATUS_PAYMENT_PENDING = 1;
-	const STATUS_PAID = 2;
-	const STATUS_COMPLETED = 3;
+	const STATUS_PROCESSING = 2; // pagada exitosamente, esperando envio de poliza
+	const STATUS_COMPLETED = 3; // poliza ya enviada
 	const STATUS_CANCELED_UNPAID = 4;
 	const STATUS_CANCELED_REQUESTED = 5;
 

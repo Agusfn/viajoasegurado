@@ -4,12 +4,23 @@
 
 @section('content')
     
-        @php (dump($errors))
-
         <div class="gap"></div>
 
         @if ($validContract)
         <div class="container">
+
+
+
+            @if($errors->any())
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" aria-label="Close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+            @endif
+
+
 
             <div class="alert alert-danger alert-dismissible" role="alert" id="error-list" style="display: none">
                 <button type="button" class="close" aria-label="Close" onclick="$(this).parent().hide();"><span aria-hidden="true">&times;</span></button>

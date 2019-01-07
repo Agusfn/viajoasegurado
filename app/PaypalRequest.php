@@ -44,7 +44,7 @@ class PaypalRequest extends Model
 			"contract_id" => $contract_id,
 			"payment_method_codename" => self::METHOD_CODE_NAME,
 			"method_request_id" => $ppRequest->id,
-			"status" => PaymentRequest::STATUS_PENDING,
+			"status" => PaymentRequest::STATUS_UNPAID,
 			"payment_url" => $payment->getApprovalLink(),
 			"total_ammount" => round($item_quantity * $unit_price, 2),
 			"currency_code" => "USD"

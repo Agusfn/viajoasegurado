@@ -32,8 +32,10 @@ class ProcessPaymentController extends Controller
 			// si presiona "volver al sitio del vendedor" sin que la solicitud sea rechazada.
 			if($request->collection_id == "null" && $request->collection_status == "null")
 			{
-				// buscar contratacion por preference id y redirigir a pag contratacion
-				return "pago no realizado (ni cancelado)";
+				$mpRequest = MercadoPagoRequest::findByPreferenceId($request->preference_id);
+				if($mpRequest == null)
+					return "Error.";
+				return redirect(uri_localed("{contract}/".$mpRequest->parentRequest->contract->number));
 			}
 
 
@@ -52,12 +54,11 @@ class ProcessPaymentController extends Controller
 			$paymentRequest = $mpRequest->parentRequest;
 
 
-			if($paymentRequest->status == PaymentRequest::STATUS_PENDING)
+			if($paymentRequest->status == PaymentRequest::STATUS_UNPAID)
 			{
 				
 				if($request->collection_status == "approved" && $payment->status == "approved") // pagó
-				{
-					
+				{	
 					$mpRequest->markAsPaidOut(
 						$merchantOrder->id, 
 						$payment->id, 
@@ -66,24 +67,24 @@ class ProcessPaymentController extends Controller
 						$payment->fee_details[0]->amount 
 					);
 
-					$paymentRequest->contract->changeStatus(Contract::STATUS_PAID);
-
-					return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
+					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING); // ya se pagó, ahora se "procesa" la contratacion
+				}
+				else if($request->collection_status == "in_process" && $payment->status == "in_process")
+				{
+					$mpRequest->markAsProcessing($request->collection_id);
 				}
 				else if(/*$request->collection_status == "rejected" &&*/ $request->has("ft") && $request->ft == $mpRequest->failure_url_token)
 				{
 					$paymentRequest->markAsCanceled();
-					return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
 				}
 
 			}
 
 			return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
 
-
 		}
 		else 
-			return "error";
+			return redirect("");
 
 	}
 
@@ -107,7 +108,7 @@ class ProcessPaymentController extends Controller
 			$paymentRequest = $ppRequest->parentRequest;
 
 			
-			if($paymentRequest->status == PaymentRequest::STATUS_PENDING)
+			if($paymentRequest->status == PaymentRequest::STATUS_UNPAID)
 			{
 
 				$paypal = new Paypal();
@@ -128,7 +129,7 @@ class ProcessPaymentController extends Controller
 						$payment->transactions[0]->related_resources[0]->sale->transaction_fee->value
 					);
 
-					$paymentRequest->contract->changeStatus(Contract::STATUS_PAID);
+					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
 
 
 					return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
@@ -148,7 +149,7 @@ class ProcessPaymentController extends Controller
 			return "[ir a pagina de la contratacion a partir del token]";
 		}
 		else
-			return "No se proporcionaron los params.";
+			return redirect("");
 
 
 
