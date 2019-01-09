@@ -36,10 +36,10 @@
                             <h5 class="text-center mb30">La póliza fue enviada por e-mail a {{ $contract->contact_email }}.</h5>
                         @endif
                         
-                    @elseif ($paymentReq->status == \App\PaymentRequest::STATUS_CANCELED)
+                    @elseif ($paymentReq->status == \App\PaymentRequest::STATUS_FAILED)
                         <i class="fa fa-times round box-icon-large box-icon-center box-icon-success mb30"></i>  
                         <h2 class="text-center">El pago ha fallado</h2>
-                        <h5 class="text-center mb30">Vuelve a intentarlo desde aqui.</h5>
+                        <h5 class="text-center mb30">Vuelve a solicitar la cotización.</h5>
                     @endif
                     
                 </div>

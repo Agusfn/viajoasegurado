@@ -64,6 +64,16 @@ class PaypalRequest extends Model
 	}
 
 
+	/**
+	 * Buscar solicitud de pago de PayPal por medio del token
+	 * @return PaypalRequest|null
+	 */
+	public static function findByPPToken($token)
+	{
+		return self::where("pp_payment_token", $token)->first();
+	}
+
+
 
 	public function parentRequest()
 	{

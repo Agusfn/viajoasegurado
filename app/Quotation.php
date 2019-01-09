@@ -249,6 +249,7 @@ class Quotation extends Model
     }
 
 
+
     public function ageEnum()
     {
         $enum = "";

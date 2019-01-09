@@ -1,6 +1,6 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand" style="padding: 26px 39px;">
-				<a href="{{ url('') }}"><h2 style="margin: 0;color: #4a4a4a;font-size: 25px;">{{ config('app.name') }}</h2></a>
+			<div class="brand" style="padding: 25px 39px;">
+				<a href="{{ url('') }}"><h2 style="margin: 0;color: #4a4a4a;font-size: 25px;"><img src="{{ asset('back/img/logo2.png') }}" alt="{{ config('app.name') }}" width="200"></h2></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">

@@ -14,7 +14,7 @@ class PaymentRequest extends Model
 	const STATUS_UNPAID = "unpaid";	// no se hizo el pago ni el intento del mismo
 	const STATUS_PROCESSING = "processing"; // el procesador de pago lo está procesando (por lo gral no se usa)
 	const STATUS_APPROVED = "approved";
-	const STATUS_CANCELED = "canceled"; // Se canceló y ya no sirve más.
+	const STATUS_FAILED = "failed"; // Falló y ya no sirve más.
 	const STATUS_REFUNDED = "refunded";
 
 
@@ -51,9 +51,9 @@ class PaymentRequest extends Model
 	}
 
 
-	public function markAsCanceled()
+	public function markAsFailed()
 	{
-		$this->status = self::STATUS_CANCELED;
+		$this->status = self::STATUS_FAILED;
 		$this->save();
 	}
 

@@ -142,6 +142,14 @@ class Contract extends Model
 	}
 
 
+	/**
+	 * Obtiene colección de solicitudes de pago asociadas a esta contratación. De más vieja a más nueva (siendo la última la activa)
+	 * @return \Illuminate\Database\Eloquent\Collection
+	 */
+	public function payment_requests()
+	{
+		return PaymentRequest::where("contract_id", $this->id)->orderBy("created_at", "asc")->get();
+	}
 
 
 }

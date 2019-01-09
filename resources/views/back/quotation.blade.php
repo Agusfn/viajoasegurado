@@ -38,7 +38,7 @@
 								</div>
 
 								<div class="col-md-2">
-									<label>E-mail:</label><br/>
+									<label>E-mail interesado:</label><br/>
 									{{ $quotation->customer_email }}
 								</div>
 								<div class="col-md-2">
@@ -46,11 +46,7 @@
 									@if ($quotation->contract_id == null)
 										<span class="label label-danger">No</span>
 									@else
-	                            		@if ($quotation->contract->current_status_id == App\Contract::STATUS_PAYMENT_PENDING)
-	                            		<a href="{{ url('contracts/'.$quotation->contract->id) }}"><span class="label label-warning">Pago pendiente</span></a>
-	                            		@else
-	                            		<a href="{{ url('contracts/'.$quotation->contract->id) }}"><span class="label label-success">Si</span></a>
-	                            		@endif
+	                            		<a href="{{ url('contracts/'.$quotation->contract_id) }}">#{{ $quotation->contract->number }}</a>
 									@endif
 								</div>
 								<div class="col-md-1">

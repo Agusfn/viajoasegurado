@@ -31,8 +31,13 @@ class ContractController extends Controller
 		if($quotation = Quotation::findByUrlCode($request->quot_url_code))
 		{
 			
-			if(!$quotation->expired() && $quotation->contract_id == null)
+			if(!$quotation->expired())
 			{
+
+				if($quotation->contract_id != null) {
+					return redirect(uri_localed("{contract}/".$quotation->contract->number));
+				}
+
 
 				$quotationProduct = $quotation->getProductByAtvId($request->quotproduct_atvid);
 
@@ -42,13 +47,12 @@ class ContractController extends Controller
 					if($quotationProduct->coverage_details_json == null)
 						$quotationProduct->fetchAndSaveCoverageDetails(ATV::getLocale($quotation->lang));
 
-
-					return view("front.contract.form2")->with([
+					$parameters = [
 						"validContract" => true,
 						"quotation" => $quotation, 
 						"product" => $quotationProduct, 
 						"product_coverage" => json_decode($quotationProduct->coverage_details_json, true)
-					]);
+					];
 				}
 
 			}
@@ -100,7 +104,8 @@ class ContractController extends Controller
 
 		$passg_details = [null, null, null, null, null, null];
 		for($i=1; $i<=$quotation->passenger_ammount; $i++) {
-			$passg_details[$i] = $request->{"passg".$i."_name"}.",".$request->{"passg".$i."_surname"}.",".$request->{"passg".$i."_document"}.",".$request->{"passg".$i."_birthdate"};
+			$date = date_create_from_format('d/m/Y', $request->{"passg".$i."_birthdate"});
+			$passg_details[$i] = $request->{"passg".$i."_name"}.",".$request->{"passg".$i."_surname"}.",".$request->{"passg".$i."_document"}.",".date_format($date, 'Y-m-d');;
 		}
 
 		
@@ -166,12 +171,13 @@ class ContractController extends Controller
 			return view("front.contract.error")->with("error", "payment-request-error");
 		}
 
+		$contract->active_payment_req_id = $customRequest->parentRequest->id;
+		$contract->save();
+
+
 
 		$quotation->contract_id = $contract->id;
 		$quotation->save();
-
-		$contract->active_payment_req_id = $customRequest->parentRequest->id;
-		$contract->save();
 
 
 		return redirect()->away($customRequest->parentRequest->payment_url);

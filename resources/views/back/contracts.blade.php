@@ -18,16 +18,17 @@
 								<thead>
 									<tr>
 										<th></th>
+										<th>Fecha</th>
 										<th>Número</th>
 										<th>Producto</th>
 										<th>Fechas</th>
 										<th>País desde</th>
 										<th>Región hacia</th>
 										<th>Pasajeros</th>
+										<th>Pago</th>
 										<th>Estado</th>
 										<th>Precio final</th>
 										<th>Medio de pago</th>
-										<th>Fecha</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -35,21 +36,48 @@
 
 		                            	<tr>
 		                            		<td><a href="{{ url('contracts/'.$contract->id) }}" class="btn btn-primary btn-sm">Ver</a></td>
-		                            		<td>{{ $contract->number }}</td>
-		                            		<td>{{ $contract->product->product_name }} - <span style="color:#999;font-size: 13px">{{ $contract->product->provider_name }}</span></td>
+		                            		<td>{{ date("d/m/Y", strtotime($contract->created_at)) }}</td>
+		                            		<td>#{{ $contract->number }}</td>
+		                            		<td>{{ $contract->product->product_name }}<br/><span style="color:#999;font-size: 13px">{{ $contract->product->provider_name }}</span></td>
 		                            		<td>
-		                            			{{ date("d/m/Y", strtotime($contract->quotation->date_from)) }} a <br/>{{ date("d/m/Y", strtotime($contract->quotation->date_to)) }}
-		                            			({{ (new DateTime($contract->quotation->date_to))->diff(new DateTime($contract->quotation->date_from))->format("%a") }} días)
+		                            			{{ \App\Library\Dates::translate($contract->quotation->date_from) }}-<br/>{{ \App\Library\Dates::translate($contract->quotation->date_to) }}
+		                            			<small>({{ \App\Library\Dates::diffDays($contract->quotation->date_from, $contract->quotation->date_to) }} días)</small>
 		                            		</td>
 		                            		<td>{{ __($contract->quotation->country_from->name_english) }}</td>
 		                            		<td>{{ \App\Library\AseguratuViaje\ATV::getRegionName($contract->quotation->destination_region_code) }}</td>
 		                            		<td>{{ $contract->quotation->passenger_ammount }}</td>
 		                            		<td>
-		                            			<span class="label" style="background-color: {{ $contract->status->color }};">{{ __($contract->status->name_english) }}</span>
+												@if ($contract->active_payment_request != null)
+													@if ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_UNPAID)
+													<span class="label label-default">Pendiente</span> 
+													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_PROCESSING)
+													<span class="label label-warning">Procesando</span> 
+													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
+													<span class="label label-success">Completado</span> 
+													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_FAILED)
+													<span class="label label-danger">Fallido</span> 
+													@endif
+												@endif
 		                            		</td>
-		                            		<td>{{ $contract->active_payment_request->total_ammount." ".$contract->active_payment_request->currency_code }}</td>
-		                            		<td>{{ $contract->active_payment_request->payment_method->name }}</td>
-		                            		<td>{{ date("d/m/Y", strtotime($contract->created_at)) }}</td>
+		                            		<td>
+		                            			@if ($contract->current_status_id == \App\Contract::STATUS_PAYMENT_PENDING)
+		                            			<span class="label label-warning">Pendiente de pago</span> 
+		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
+		                            			<span class="label label-primary">Esperando póliza</span>
+		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_COMPLETED)
+		                            			<span class="label label-primary">Completado</span>
+		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
+		                            			<span class="label label-danger">Cancelado - Impago</span>
+		                            			@endif
+		                            		</td>
+		                            		<td>{{ $contract->product->price." ".$contract->product->price_currency_code }}</td>
+		                            		<td>
+		                            			@if ($contract->active_payment_request != null)
+		                            			{{ $contract->active_payment_request->payment_method->name }}
+		                            			@else
+		                            			-
+		                            			@endif
+		                            		</td>
 		                            	</tr>
 
 		                            @endforeach

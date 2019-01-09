@@ -595,10 +595,10 @@ ul.list-justify > li {
     border-color: #00a0f0; }
 
 .btn-warning {
-  background-color: #e4cb10;
+  background-color: #e49710;
   border-color: #d6be0f; }
   .btn-warning:hover, .btn-warning:focus {
-    background-color: #d6be0f;
+    background-color: #d59320;
     border-color: #d6be0f; }
 
 .btn-default:hover, .btn-default:focus {
@@ -978,8 +978,8 @@ ul.activity-list > li {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  width: 70%;
-  height: 450px;
+  width: 25%;
+  /*height: 450px;*/
   margin: 0 auto;
   background-color: #fff; }
   .auth-box:before {
@@ -997,13 +997,13 @@ ul.activity-list > li {
     *vertical-align: auto;
     *zoom: 1;
     *display: inline;
-    width: 99%;
+    width: 98%;
     vertical-align: middle; }
   .auth-box .left {
     float: left;
-    width: 42%;
+    width: 100%;
     height: 100%;
-    padding: 0 30px;
+    padding: 30px;
     text-align: center; }
     .auth-box .left:before {
       display: inline-block;

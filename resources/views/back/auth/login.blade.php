@@ -8,8 +8,8 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<div class="logo text-center"><img src="{{ asset('back/img/logo-dark.png') }}" alt="Klorofil Logo"></div>
-								<p class="lead">Login to your account</p>
+								<div class="logo text-center"><img src="{{ asset('back/img/logo2.png') }}" height="35" alt="Klorofil Logo"></div>
+								<p class="lead">Iniciar sesión</p>
 							</div>
 							<form class="form-auth-small" method="POST" action="{{ route('login') }}">
 								@csrf
@@ -34,21 +34,14 @@
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">
 										<input type="checkbox" name="remember">
-										<span>Remember me</span>
+										<span>Recordarme</span>
 									</label>
 								</div>
 								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
 								<div class="bottom">
-									<span class="helper-text"><i class="fa fa-lock"></i> <a href="{{ route('password.request') }}">Forgot password?</a></span>
+									<span class="helper-text"><i class="fa fa-lock"></i> <a href="{{ route('password.request') }}">Olvidaste la contraseña?</a></span>
 								</div>
 							</form>
-						</div>
-					</div>
-					<div class="right" style="background-image: url('{{ asset('back/img/login-bg.jpg') }}');">
-						<div class="overlay"></div>
-						<div class="content text">
-							<h1 class="heading">Free Bootstrap dashboard template</h1>
-							<p>by The Develovers</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

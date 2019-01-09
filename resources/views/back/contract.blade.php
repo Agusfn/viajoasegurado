@@ -13,7 +13,7 @@
 
 					@if ($contract != null)					
 
-					<h3 class="page-title">Contratación #{{ $contract->id }}</h3>
+					<h3 class="page-title">Contratación nro. #{{ $contract->number }}</h3>
 					
 					<div class="row">
 						
@@ -27,46 +27,104 @@
 
 								<div class="panel-body">
 									
+									@if ($contract->current_status_id != \App\Contract::STATUS_COMPLETED)
 									<div class="well well-sm">
-										<button class="btn btn-primary btn-sm">Botón 1</button>&nbsp;&nbsp;
-										<button class="btn btn-primary btn-sm">Botón 2</button>&nbsp;&nbsp;
-										<button class="btn btn-primary btn-sm">Botón 3</button>&nbsp;&nbsp;
-										<button class="btn btn-primary btn-sm">Botón 4</button>&nbsp;&nbsp;
-									</div>
 
-									<h4 style="text-align: center;">Estado</h4>
+										@if ($contract->current_status_id != \App\Contract::STATUS_COMPLETED)
+										<button class="btn btn-primary btn-sm">Enviar póliza y completar</button>&nbsp;&nbsp;
+										@endif
+
+										@if ($contract->current_status_id == \App\Contract::STATUS_PAYMENT_PENDING)
+
+											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_UNPAID)
+											<button class="btn btn-danger btn-sm">Cancelar solicitud</button>&nbsp;&nbsp;
+											@endif
+
+										@elseif($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
+
+											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
+											<button class="btn btn-danger btn-sm">Cancelar y reembolsar</button>&nbsp;&nbsp;
+											@endif
+
+										@endif
+
+									</div>
+									@endif
+
+									<h4 style="text-align: center;">Historial de estados</h4>
 
 									<table class="table">
 										<tbody>
 
-											@foreach ($contract->status_history as $status_change)
-											<tr {{ $status_change->status_id == $contract->current_status_id ? "style=color:#FFF;background-color:".$status_change->status->color : "" }}>
-												<td>{{ __($status_change->status->name_english) }}</td>
-												<td>{{ date("d/m/Y H:i:s", strtotime($status_change->created_at)) }}</td>
+											@foreach ($contract->status_history as $statusChange)
+
+											<tr>
+												@if ($statusChange->status_id == \App\Contract::STATUS_PAYMENT_PENDING)
+												<td>Creación de solicitud</td>
+												@elseif ($statusChange->status_id == \App\Contract::STATUS_PROCESSING)
+												<td>Pago realizado</td>
+												@elseif ($statusChange->status_id == \App\Contract::STATUS_COMPLETED)
+												<td>Envío de datos de póliza de seguro</td>
+												@endif
+												<td>{{ date("d/m/Y H:i:s", strtotime($statusChange->created_at)) }}</td>
 											</tr>
+
 											@endforeach
 											
-
 										</tbody>
 									</table>
-									
-									<div class="well">
-										<div class="row">
-											<div class="col-md-8">
-												<select class="form-control">
-
-												</select>
-											</div>
-											<div class="col-md-4">
-												<button class="btn btn-primary" type="button">Actualizar el estado</button>
-											</div>
-										</div>
-									</div>
-									
 
 								</div>
 							</div>
 
+
+
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">Detalles del producto</h3>
+								</div>
+								<div class="panel-body">
+								
+									<div class="row">
+										<div class="col-xs-3">
+											<dt>Cotización</dt>
+											<p><a href="{{ url('quotations/'.$contract->quotation_id) }}">#{{ $contract->quotation_id }}</a></p>
+										</div>
+										<div class="col-xs-3">
+											<dt>Producto</dt>
+											<p>{{ $contract->product->product_name }}</p>
+										</div>
+										<div class="col-xs-2">
+											<dt>ID ATV</dt>
+											<p>{{ $contract->product->product_atv_id }}</p>
+										</div>										
+										<div class="col-xs-4">
+											<dt>Proveedor</dt>
+											<p>{{ $contract->product->provider_name }}</p>
+										</div>
+									</div>
+
+									<div class="row" style="margin-top: 20px">
+										<div class="col-xs-3">
+											<dt>Costo</dt>
+											<p>{{ $contract->product->cost." ".$contract->product->cost_currency_code }}</p>
+										</div>
+										<div class="col-xs-3">
+											<dt>Precio de venta</dt>
+											<p>{{ $contract->product->price." ".$contract->product->price_currency_code }}</p>
+										</div>
+										<div class="col-xs-3">
+											<p><a href="{{ $contract->product->terms_url }}" target="_blank" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-file"></span> Ver condiciones</a></p>
+										</div>
+										<div class="col-xs-3">
+											<p><a href="javascript:void(0);" class="btn btn-sm btn-info" id="show-coverage-btn" data-coverage-json='{{ $contract->product->coverage_details_json }}'><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Ver cobertura</a></p>
+										</div>
+									</div>
+
+
+
+								</div>
+							</div>
 
 							<div class="panel">
 								<div class="panel-heading">
@@ -74,9 +132,98 @@
 								</div>
 								<div class="panel-body">
 									
+									@if ($contract->active_payment_request != null)
+										@if ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_PROCESSING)
+										<div class="alert alert-warning"><span class="glyphicon glyphicon-time"></span> {{ $contract->active_payment_request->payment_method->name }} se encuentra procesando el pago y pronto se actualizará automáticamente el estado del mismo.</div>
+										@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
+										<div class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> El pago se realizó correctamente.</div>
+										@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_FAILED)
+										<div class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> El pago falló y no se pudo concretar.</div>
+										@endif
+									@endif
 									
+
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Medio de pago</th>
+												<th>Total</th>
+												<th>Tarifa</th>
+												<th>Neto</th>
+												<th>Estado del pago</th>
+												<th>Fecha de pago</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											@foreach ($contract->payment_requests() as $paymentRequest)
+											<tr>
+												<td>{{ $paymentRequest->payment_method->name }}</td>
+												<td>{{ $paymentRequest->total_ammount." ".$paymentRequest->currency_code }}</td>
+												<td>
+													@if ($paymentRequest->status == \App\PaymentRequest::STATUS_APPROVED)
+													{{ $paymentRequest->transaction_fee." ".$paymentRequest->currency_code }}
+													@endif
+												</td>
+												<td>
+													@if ($paymentRequest->status == \App\PaymentRequest::STATUS_APPROVED)
+													{{ $paymentRequest->net_ammount." ".$paymentRequest->currency_code }}
+													@endif
+												</td>
+												<td>
+													@if ($paymentRequest->status == \App\PaymentRequest::STATUS_UNPAID)
+														<span class="label label-default">Pendiente</span>
+													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_PROCESSING)
+														<span class="label label-warning">Procesando</span>
+													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_APPROVED)
+														<span class="label label-success">Completado</span>
+													@endif
+												</td>
+												<td>
+													@if ($paymentRequest->status == \App\PaymentRequest::STATUS_APPROVED)
+													{{ date("d/m/Y H:i:s", strtotime($paymentRequest->date_paid)) }}
+													@else
+													-
+													@endif
+												</td>
+											</tr>
+											@endforeach
+										</tbody>
+
+									</table>
+
+									<div class="row" style="margin-top: 40px">
+										<div class="col-xs-3">
+											<dt>Cobrado</dt>
+											<p>{{ $contract->product->price." ".$contract->product->price_currency_code }}</p>
+										</div>
+										<div class="col-xs-3">
+											<dt>Neto recibido</dt>
+											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
+											<p>{{ $contract->active_payment_request->net_ammount." ".$contract->active_payment_request->currency_code }}</p>
+											@else
+											-
+											@endif
+										</div>
+										<div class="col-xs-3">
+											<dt>Costo producto</dt>
+											<p>{{ $contract->product->cost." ".$contract->product->cost_currency_code }}</p>
+										</div>										
+										<div class="col-xs-3">
+											<dt>Ganancia</dt>
+											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED && $contract->product->cost_currency_code == $contract->product->price_currency_code)
+
+											<p>{{ ($contract->active_payment_request->net_ammount-$contract->product->cost)." ".$contract->product->cost_currency_code }}</p>
+
+											@else
+											-
+											@endif											
+										</div>									
+									</div>									
 								</div>
 							</div>	
+
+							
 
 						</div>
 
@@ -105,7 +252,7 @@
 											<dt>Fecha hasta</dt>
 											<p>
 												{{ date("d/m/Y", strtotime($contract->quotation->date_to)) }}
-												({{ (new DateTime($contract->quotation->date_to))->diff(new DateTime($contract->quotation->date_from))->format("%a") }} días)
+												({{ \App\Library\Dates::diffDays($contract->quotation->date_to, $contract->quotation->date_from) }} días)
 											</p>
 										</div>
 									</div>
@@ -212,10 +359,24 @@
 
 							</div>
 
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">Notas</h3>
+								</div>
+								<div class="panel-body">
+									<textarea class="form-control" style="margin-bottom: 10px"></textarea>
+									<input type="button" class="btn btn-primary" value="Guardar">
+								</div>
+							</div>
+
 
 						</div>
 
+
+
 					</div>
+
+					
 
 					@else
 					<h3 class="page-title">Contratación</h3>
@@ -228,6 +389,19 @@
 
 
 @section('custom-js')
+<script>
+$(document).ready(function() {
+	$("#show-coverage-btn").click(function() {
+		
+		var coverage_details = JSON.parse($(this).attr("data-coverage-json"));
+    	var list = "";
+    	coverage_details.forEach(function(elem) {
+    		list += elem.description + ": " + elem.ammount + "\n";
+    	});	
 
+    	alert(list);
 
+	});
+});
+</script>
 @endsection

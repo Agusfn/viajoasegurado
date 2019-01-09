@@ -75,7 +75,7 @@ class ProcessPaymentController extends Controller
 				}
 				else if(/*$request->collection_status == "rejected" &&*/ $request->has("ft") && $request->ft == $mpRequest->failure_url_token)
 				{
-					$paymentRequest->markAsCanceled();
+					$paymentRequest->markAsFailed();
 				}
 
 			}
@@ -112,12 +112,9 @@ class ProcessPaymentController extends Controller
 			{
 
 				$paypal = new Paypal();
-
-				if(!$payment = $paypal->executePayment($request->paymentId, $request->PayerID))
-					return "Error executing payment"; // ver si esto se genera por un error de conexion/del sistema o simplemente por algun problema con el pago
-
+				$payment = $paypal->executePayment($request->paymentId, $request->PayerID);
 				
-				if($payment->state == "approved")
+				if($payment != false && $payment->state == "approved")
 				{
 					
 					$pay_time = $payment->transactions[0]->related_resources[0]->sale->create_time;
@@ -131,22 +128,24 @@ class ProcessPaymentController extends Controller
 
 					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
 
-
-					return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
-
 				}
 				else
-					return "Payment failed."; // la solicitud de pago no sirve mas? O sigue sirviendo?
-
+					$paymentRequest->markAsFailed();
 			}
-			else
-				return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
+			
+
+			return redirect(uri_localed("{contract}/".$paymentRequest->contract->number));
 			
 
 		}
-		else if($request->has("token")) // el pago no se concretó
+		else if($request->has("token")) // si se presiona "volver atras", o se vuelve al link de pago ya habiendo pagado
 		{
-			return "[ir a pagina de la contratacion a partir del token]";
+			$ppRequest = PaypalRequest::findByPPToken($request->token);
+			if($ppRequest)
+				return redirect(uri_localed("{contract}/".$ppRequest->parentRequest->contract->number));
+			else
+				return "Error.";
+			
 		}
 		else
 			return redirect("");
