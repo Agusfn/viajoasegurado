@@ -22,14 +22,14 @@
 							
 							<div class="row" style="font-size: 16px">
 
-								<div class="col-md-1">
+								<div class="col-sm-1">
 									<label>ID:</label> {{ $quotation->id }}
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-3">
 									<label>Fecha creada:</label><br/>
 									{{ date("d/m/Y H:i:s", strtotime($quotation->created_at)) }}
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-3">
 									<label>Expira:</label><br/>
 									{{ date("d/m/Y H:i:s", strtotime($quotation->expiration_date)) }}
 									@if (time() > strtotime($quotation->expiration_date))
@@ -37,19 +37,19 @@
 									@endif
 								</div>
 
-								<div class="col-md-2">
+								<div class="col-sm-2">
 									<label>E-mail interesado:</label><br/>
 									{{ $quotation->customer_email }}
 								</div>
-								<div class="col-md-2">
+								<div class="col-sm-2">
 									<label>Contratado:</label><br/>
 									@if ($quotation->contract_id == null)
-										<span class="label label-danger">No</span>
+										<span class="label label-default">No</span>
 									@else
 	                            		<a href="{{ url('contracts/'.$quotation->contract_id) }}">#{{ $quotation->contract->number }}</a>
 									@endif
 								</div>
-								<div class="col-md-1">
+								<div class="col-sm-1">
 									<label>Lenguaje:</label><br/>
 									{{ $quotation->lang }}
 								</div>
@@ -72,31 +72,31 @@
 										
 									<div class="row" style="margin-bottom:30px">
 
-										<div class="col-md-5">
+										<div class="col-sm-3">
 											<label>País desde:</label><br/>
 											{{ __($quotation->country_from->name_english) }}
 										</div>
-										<div class="col-md-5">
+										<div class="col-sm-3">
 											<label>Región hacia:</label><br/>
 											{{ \App\Library\AseguratuViaje\ATV::getRegionName($quotation->destination_region_code) }}
 										</div>
-										<div class="col-md-2">
-											<label>Tipo de viaje:</label><br/>
+
+										<div class="col-sm-4">
+											<label>Fechas:</label><br/>
+											{{ \App\Library\Dates::translate($quotation->date_from) }}-<br/>
+											{{ \App\Library\Dates::translate($quotation->date_to) }}
+											({{ \App\Library\Dates::diffDays($quotation->date_to, $quotation->date_from) }} días)
+										</div>
+										<div class="col-sm-2">
+											<label>Tipo viaje:</label><br/>
 											{{ $quotation->trip_type_code }}
 										</div>
+
 									</div>
 
 
 									<div class="row">
-										<div class="col-md-6">
-											<label>Fecha desde:</label><br/>
-											{{ date("d/m/Y", strtotime($quotation->date_from)) }}
-										</div>
-										<div class="col-md-6">
-											<label>Fecha hasta:</label><br/>
-											{{ date("d/m/Y", strtotime($quotation->date_to)) }}
-											({{ (new DateTime($quotation->date_to))->diff(new DateTime($quotation->date_from))->format("%a") }} días)
-										</div>
+
 
 									</div>
 

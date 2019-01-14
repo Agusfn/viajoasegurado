@@ -245,8 +245,12 @@
   "sep": "sep",
   "oct": "oct",
   "nov": "nov",
-  "dec": "dic"
+  "dec": "dic",
 
 
+  "Select": "Seleccionar",
+  "Country": "País",
+  "years": "años",
+  "here": "aquí"
   
 }

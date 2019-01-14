@@ -8,9 +8,9 @@
 		
 @section('content')
 			
-					<h3 class="page-title">Cotizaciones</h3>
 					<div class="panel">
 						<div class="panel-heading">
+							<h3 class="panel-title">Cotizaciones</h3>
 						</div>
 						<div class="panel-body">
 							<table class="table table-hover">
@@ -56,6 +56,7 @@
 		                            @endforeach
 								</tbody>
 							</table>
+							{{ $quotations->links() }}
 						</div>
 					</div>
 

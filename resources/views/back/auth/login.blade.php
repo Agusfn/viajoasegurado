@@ -1,6 +1,6 @@
 @extends('back.layouts.main-auth')
 
-@section('title', 'Login | Klorofil - Free Bootstrap Dashboard Template')
+@section('title', 'Login')
 
 
 
@@ -38,9 +38,9 @@
 									</label>
 								</div>
 								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
-								<div class="bottom">
+								<!--div class="bottom">
 									<span class="helper-text"><i class="fa fa-lock"></i> <a href="{{ route('password.request') }}">Olvidaste la contraseña?</a></span>
-								</div>
+								</div-->
 							</form>
 						</div>
 					</div>

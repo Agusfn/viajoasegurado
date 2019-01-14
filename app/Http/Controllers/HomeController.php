@@ -25,11 +25,6 @@ class HomeController extends Controller
 
 
 
-    public function searchdemo()
-    {
-        return view("front.searchdemo");
-    }
-
     public function index()
     {
 
@@ -38,6 +33,27 @@ class HomeController extends Controller
             "regions_to" => ATV::getRegionsTo()
         ]);
 
+    }
+
+
+    public function support()
+    {
+        return view("front.support");
+    }
+
+    public function sendContactForm(Request $request)
+    {
+        
+        $request->validate([
+            "name" => "required|max:100",
+            "email" => "required|email|max:100",
+            "reason" => "required|in:inquire,inquire-contract,other",
+            "message" => "required"
+        ]);
+
+
+
+        dd($request);
     }
 
 
@@ -54,10 +70,7 @@ class HomeController extends Controller
     }
 
 
-    /*public function contact()
-    {
-        return "Página de contacto!! Lenguaje: ".App::getLocale();
-    }*/
+
 
 
 }

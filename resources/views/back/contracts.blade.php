@@ -7,8 +7,6 @@
 
 @section('content')
 			
-
-					<h3 class="page-title">Contrataciones</h3>
 					<div class="panel">
 						<div class="panel-heading">
 							<h3 class="panel-title">Contrataciones</h3>
@@ -83,6 +81,7 @@
 		                            @endforeach
 								</tbody>
 							</table>
+							{{ $contracts->links() }}
 						</div>
 					</div>
 

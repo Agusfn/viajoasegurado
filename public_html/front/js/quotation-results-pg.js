@@ -11,9 +11,6 @@ $(document).ready(function() {
         data: {_token: CSRF_TOKEN, url_code: quot_url_code},
         dataType: 'JSON',
         
-        beforeSend: function() {
-            $("#loading").show();
-        },
         success: function (data) {
         	$("#loading").hide();
             $("#search-results").show();

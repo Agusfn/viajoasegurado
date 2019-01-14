@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('back.layouts.main-auth')
+
+@section('title', 'Olvide contraseña')
 
 @section('content')
 <div class="container">

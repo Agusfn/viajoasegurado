@@ -60,7 +60,7 @@ class ContractController extends Controller
 		}
 
 
-		return view("front.contract.form2")->with($parameters);
+		return view("front.contract.form")->with($parameters);
 
 
 	}
@@ -197,7 +197,7 @@ class ContractController extends Controller
 			{
 
 
-				return view("front.contract.details2")->with([
+				return view("front.contract.details")->with([
 					"contract_found" => true,
 					"contract" => $contract,
 					"quotation" => $contract->quotation,
@@ -208,7 +208,7 @@ class ContractController extends Controller
 
 			}
 			else
-				return view("front.contract.details2")->with(["contract_found" => false]);
+				return view("front.contract.details")->with(["contract_found" => false]);
 
 		}
 		else

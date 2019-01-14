@@ -12,11 +12,12 @@ use \App\ContractStatusHistory;
 class Contract extends Model
 {
     
-	const STATUS_PAYMENT_PENDING = 1;
-	const STATUS_PROCESSING = 2; // pagada exitosamente, esperando envio de poliza
-	const STATUS_COMPLETED = 3; // poliza ya enviada
-	const STATUS_CANCELED_UNPAID = 4;
-	const STATUS_CANCELED_REQUESTED = 5;
+	const STATUS_PAYMENT_PENDING = 1; // pago pendiente (se puede cancelar con cualquiera de los 3 estados)
+	const STATUS_PROCESSING = 2; // Pagada exitosamente, esperando envio de poliza. (Sólo se puede cancelar con STATUS_CANCELED_OTHER y con reembolso)
+	const STATUS_COMPLETED = 3; // Voucher enviado. No se puede volver atrás de este paso.
+	const STATUS_CANCELED_UNPAID = 4; // cancelado porque no se pagó
+	const STATUS_CANCELED_ERROR_PAYMENT = 5; // cancelado por error en pago
+	const STATUS_CANCELED_OTHER = 7; // cancelado por otro motivo (puede tener reembolso)
 
 
 

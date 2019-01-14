@@ -41,6 +41,7 @@ class CreateContractsTable extends Migration
             $table->string('billing_address_state')->nullable();
             $table->string('billing_address_zip')->nullable();
             $table->string('billing_address_country')->nullable();
+            $table->text('notes')->nullable();
             $table->float('final_price');
         });
     }

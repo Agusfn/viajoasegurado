@@ -31,19 +31,19 @@
 									<div class="well well-sm">
 
 										@if ($contract->current_status_id != \App\Contract::STATUS_COMPLETED)
-										<button class="btn btn-primary btn-sm">Enviar póliza y completar</button>&nbsp;&nbsp;
+										<button class="btn btn-primary btn-sm">Voucher enviado</button>&nbsp;&nbsp;
 										@endif
 
 										@if ($contract->current_status_id == \App\Contract::STATUS_PAYMENT_PENDING)
 
 											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_UNPAID)
-											<button class="btn btn-danger btn-sm">Cancelar solicitud</button>&nbsp;&nbsp;
+											<!--button class="btn btn-danger btn-sm">Cancelar solicitud</button-->&nbsp;&nbsp;
 											@endif
 
 										@elseif($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
 
 											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
-											<button class="btn btn-danger btn-sm">Cancelar y reembolsar</button>&nbsp;&nbsp;
+											<!--button class="btn btn-danger btn-sm">Cancelar y reembolsar</button-->&nbsp;&nbsp;
 											@endif
 
 										@endif
@@ -364,8 +364,13 @@
 									<h3 class="panel-title">Notas</h3>
 								</div>
 								<div class="panel-body">
-									<textarea class="form-control" style="margin-bottom: 10px"></textarea>
-									<input type="button" class="btn btn-primary" value="Guardar">
+
+									{{ Form::open( array("url" => url("contracts/".$contract->id."/note"), "method" => "post") ) }}
+
+									<textarea class="form-control" name="notes" style="margin-bottom: 10px">{{ $contract->notes }}</textarea>
+									<input type="submit" class="btn btn-primary" value="Guardar">
+
+									{{ Form::close() }}
 								</div>
 							</div>
 
