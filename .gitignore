@@ -2,7 +2,7 @@
 /public_html/hot
 /public_html/storage
 /storage/*.key
-/storage/settings.json
+storage/settings.json
 /vendor
 /.idea
 /.vscode
