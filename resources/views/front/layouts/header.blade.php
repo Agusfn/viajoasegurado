@@ -4,7 +4,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <a class="logo" href="{{ url('') }}">
-                                <img src="{{ asset('img/logo3.png') }}" alt="{{ env('APP_NAME') }}" style="width:177px" />
+                                <img src="{{ asset('img/logo3.png') }}" alt="{{ config('app.name') }}" style="width:177px" />
                             </a>
                         </div>
                         <div class="col-md-8">

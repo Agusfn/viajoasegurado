@@ -18,13 +18,13 @@
 /***************************** BACK OFFICE ***********************************/
  
 
-Route::domain("backoffice.".env("APP_DOMAIN"))->group(function() {
+Route::domain("backoffice.".config("app.domain"))->group(function() {
 	Auth::routes();
 });
 
 
 
-Route::domain("backoffice.".env("APP_DOMAIN"))->middleware(["auth"])->group(function() {
+Route::domain("backoffice.".config("app.domain"))->middleware(["auth"])->group(function() {
 
 	Route::get("", "Admin\HomeController@index");
 
@@ -51,14 +51,14 @@ Route::domain("backoffice.".env("APP_DOMAIN"))->middleware(["auth"])->group(func
 
 /***************************** FRONT OFFICE ***********************************/
 
-Route::domain(env("APP_DOMAIN"))->group(function() {
+Route::domain(config("app.domain"))->group(function() {
 
 
 
 	//*** URLS sin traducción ****//
 
 
-	Route::get("lang", "homeController@changeLanguage");
+	Route::get("lang", "HomeController@changeLanguage");
 
 	// Obtener cotizaciones
 	Route::post("quotation/getquotation", "QuotationController@obtainQuotedProducts"); // ajax

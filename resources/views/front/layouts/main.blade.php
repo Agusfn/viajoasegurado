@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>@yield('title') - {{ env("APP_NAME") }}</title>
+    <title>@yield('title') - {{ config('app.name') }}</title>
 
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">

@@ -7,7 +7,7 @@ use \App;
 use \Config;
 use App\Library\AseguratuViaje\ATV;
 
-
+use App\Mail\Contact;
 
 class HomeController extends Controller
 {
@@ -51,7 +51,9 @@ class HomeController extends Controller
             "message" => "required"
         ]);
 
+        //return (new Contact($request->name))->render();
 
+        \Mail::to("agusfn20@gmail.com")->send(new Contact($request->name));
 
         dd($request);
     }

@@ -23,8 +23,8 @@ class Paypal
         
         $this->apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
-                (env("APP_ENV") == "production") ? self::CLIENT_ID : self::CLIENT_ID_SANDBOX,
-                (env("APP_ENV") == "production") ? self::CLIENT_SECRET : self::CLIENT_SECRET_SANDBOX
+                (config("app.env") == "production") ? self::CLIENT_ID : self::CLIENT_ID_SANDBOX,
+                (config("app.env") == "production") ? self::CLIENT_SECRET : self::CLIENT_SECRET_SANDBOX
             )
         );
 
@@ -55,8 +55,8 @@ class Paypal
         $transaction->setAmount($amount)->setItemList($itemList);
 
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl(env("APP_URL")."/contract/payment/paypal")
-            ->setCancelUrl(env("APP_URL")."/contract/payment/paypal");
+        $redirectUrls->setReturnUrl(config("app.url")."/contract/payment/paypal")
+            ->setCancelUrl(config("app.url")."/contract/payment/paypal");
 
         $payment = new \PayPal\Api\Payment();
         $payment->setIntent('sale')

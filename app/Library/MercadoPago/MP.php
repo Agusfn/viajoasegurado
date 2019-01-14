@@ -48,9 +48,9 @@ class MP
 			
 
 			$preference->back_urls = array(
-			    "success" => env("APP_URL")."/contract/payment/mercadopago/",
-			    "failure" => env("APP_URL")."/contract/payment/mercadopago/?ft=".$mpRequest->failure_url_token,
-			    "pending" => env("APP_URL")."/contract/payment/mercadopago/"
+			    "success" => config("app.url")."/contract/payment/mercadopago/",
+			    "failure" => config("app.url")."/contract/payment/mercadopago/?ft=".$mpRequest->failure_url_token,
+			    "pending" => config("app.url")."/contract/payment/mercadopago/"
 			);
 
 			//$preference->external_reference = $mpRequest->id;
@@ -102,13 +102,13 @@ class MP
 	 */
 	public static function APIauth()
 	{
-		if(env("APP_ENV") == "local")
+		if(config("app.env") == "local")
 		{
 			//\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID_TEST);
 			//\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET_TEST);
 			\MercadoPago\SDK::setAccessToken(self::ACCESS_TOKEN_TEST);
 		}
-		else if(env("APP_ENV") == "production")
+		else if(config("app.env") == "production")
 		{
 			\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID);
 			\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET);

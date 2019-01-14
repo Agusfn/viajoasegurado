@@ -52,7 +52,21 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://example.com'),
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Domain
+    |--------------------------------------------------------------------------
+    |
+    | Utilizado para la enrutacion de subdominios.
+    | Es la URL sin el protocolo http/https
+    |
+    */
+   
+    'domain' => env('APP_DOMAIN', 'example.com'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +78,7 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
-
+   
     'timezone' => 'America/Argentina/Buenos_Aires',
 
     /*
