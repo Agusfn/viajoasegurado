@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UserPanelController extends Controller
+class UserPanelController extends AdminBaseController
 {
     
     // middleware auth aplicado en route

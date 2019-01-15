@@ -11,19 +11,24 @@
                             <ul class="slimmenu" id="slimmenu">
                                 <li @if(@$section == 'home') class="active" @endif><a href="{{ url('') }}">{{ __("front/shared/main.nav_home") }}</a></li>
                                 <li @if(@$section == 'support') class="active" @endif><a href="{{ url(uri_localed('{support}')) }}">{{ __("front/shared/main.nav_support") }}</a></li>
-                                <li @if(@$section == 'insurances') class="active" @endif><a href="feature-typography.html">{{ __("front/shared/main.nav_insurances") }}</a>
+                                <li @if(@$section == 'insurers') class="active" @endif><a href="#">{{ __("front/shared/main.nav_insurances") }}</a>
                                     <ul>
-                                        <li><a href="feature-typography.html">Assist Card</a></li>
-                                        <li><a href="feature-icons.html">Universal Assistance</a></li>
-                                        <li><a href="feature-forms.html">Coris Asistencia al Viajero</a></li>
-                                        <li><a href="feature-icon-effects.html">AXA Assistance</a></li>
-                                        <li><a href="feature-elements.html">Latin Assistance</a></li>
-                                        <li><a href="feature-grid.html">Cardinal Assistance</a></li>
-                                        <li><a href="feature-hovers.html">Europ Assistance</a></li>
-                                        <li><a href="feature-lightbox.html">Travel Ace</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/assist-card')) }}">Assist Card</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/universal-assistance')) }}">Universal Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/coris')) }}">Coris</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/axa-assistance')) }}">AXA Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/cardinal-assistance')) }}">Cardinal Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/europ-assistance')) }}">Europ Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/travel-ace')) }}">Travel Ace</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/assist-365')) }}">Assist 365</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/latin-assistance')) }}">Latin Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/international-assist')) }}">International Assist</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/euroamerican-assistance')) }}">Euroamerican Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/go-travel-assistance')) }}">Go Travel Assistance</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurer}/allianz-assistance')) }}">Allianz Assistance</a></li>
                                     </ul>
                                 </li>
-                                <li @if(@$section == 'assistances') class="active" @endif><a href="feature-typography.html">{{ __("front/shared/main.nav_assistance") }}</a>
+                                <li @if(@$section == 'assistances') class="active" @endif><a href="#">{{ __("front/shared/main.nav_assistance") }}</a>
                                     <ul>
                                         <li><a href="feature-typography.html">Typography</a>
                                         </li>
@@ -45,7 +50,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li @if(@$section == 'about-us') class="active" @endif><a href="index.html">{{ __("front/shared/main.nav_about_us") }}</a></li>
+                                <li @if(@$section == 'about') class="active" @endif><a href="{{ url(uri_localed('{about_us}')) }}">{{ __("front/shared/main.nav_about_us") }}</a></li>
                             </ul>
                         </div>
                         <div class="col-md-1">

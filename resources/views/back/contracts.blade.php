@@ -33,8 +33,14 @@
 		                            @foreach($contracts as $contract)
 
 		                            	<tr>
-		                            		<td><a href="{{ url('contracts/'.$contract->id) }}" class="btn btn-primary btn-sm">Ver</a></td>
-		                            		<td>{{ date("d/m/Y", strtotime($contract->created_at)) }}</td>
+		                            		<td>
+		                            			<a href="{{ url('contracts/'.$contract->id) }}" class="btn btn-primary btn-sm">Ver</a>
+		                            			@if ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
+		                            			&nbsp;&nbsp;<i class="fa fa-exclamation-circle" style="font-size: 19px; color: #F48024" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Esperando envío de voucher"></i>
+		                            			@endif		                            		
+		                            		</td>
+		                            		<td>
+		                            			{{ date("d/m/Y", strtotime($contract->created_at)) }}</td>
 		                            		<td>#{{ $contract->number }}</td>
 		                            		<td>{{ $contract->product->product_name }}<br/><span style="color:#999;font-size: 13px">{{ $contract->product->provider_name }}</span></td>
 		                            		<td>
@@ -53,7 +59,9 @@
 													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_APPROVED)
 													<span class="label label-success">Completado</span> 
 													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_FAILED)
-													<span class="label label-danger">Fallido</span> 
+													<span class="label label-danger">Fallido</span>
+													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_REFUNDED)
+													<span class="label label-danger">Reembolsado</span> 
 													@endif
 												@endif
 		                            		</td>
@@ -66,6 +74,10 @@
 		                            			<span class="label label-primary">Completado</span>
 		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
 		                            			<span class="label label-danger">Cancelado - Impago</span>
+		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)
+		                            			<span class="label label-danger">Cancelado - Error pago</span>
+		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_OTHER)
+		                            			<span class="label label-danger">Cancelado - Otro</span>
 		                            			@endif
 		                            		</td>
 		                            		<td>{{ $contract->product->price." ".$contract->product->price_currency_code }}</td>
@@ -87,4 +99,12 @@
 
 
 
+@endsection
+
+@section('custom-js')
+<script>
+$(document).ready(function() {
+	$('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 @endsection

@@ -76,6 +76,7 @@ class ProcessPaymentController extends Controller
 				else if(/*$request->collection_status == "rejected" &&*/ $request->has("ft") && $request->ft == $mpRequest->failure_url_token)
 				{
 					$paymentRequest->markAsFailed();
+					$paymentRequest->contract->changeStatus(Contract::STATUS_CANCELED_ERROR_PAYMENT);
 				}
 
 			}
@@ -130,7 +131,10 @@ class ProcessPaymentController extends Controller
 
 				}
 				else
+				{
 					$paymentRequest->markAsFailed();
+					$paymentRequest->contract->changeStatus(Contract::STATUS_CANCELED_ERROR_PAYMENT);
+				}
 			}
 			
 

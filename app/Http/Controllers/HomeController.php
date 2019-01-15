@@ -58,6 +58,26 @@ class HomeController extends Controller
 
 
 
+    public function aboutUs()
+    {
+        return view("front.about");
+    }
+
+
+    public function insurerDetails(Request $request)
+    {
+        $insurers = ["assist-card", "universal-assistance", "coris", "axa-assistance", "cardinal-assistance", "europ-assistance", "travel-ace", "assist-365", "latin-assistance", "international-assist", "euroamerican-assistance", "go-travel-assistance", "allianz-assistance"];
+
+        if(in_array($request->insurer_name, $insurers)) 
+            return view("front.insurers.es.".$request->insurer_name);
+        else
+            return redirect("");
+
+
+
+    }
+
+
     public function changeLanguage(Request $request)
     {
         

@@ -4,7 +4,8 @@ return [
 
 	"quote" => "quote",
 	"contract" => "contract",
-	"payment" => "payment",
-	"support" => "support"
+	"support" => "support",
+	"about_us" => "about",
+	"insurer" => "insurer"
 	
 ];

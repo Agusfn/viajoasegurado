@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 use anlutro\LaravelSettings\SettingStore;
 
 
-class SettingsController extends Controller
+class SettingsController extends AdminBaseController
 {
     
 	public function show()

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use \App\Contract;
 
-class ContractController extends Controller
+class ContractController extends AdminBaseController
 {
 	
 	public function list()

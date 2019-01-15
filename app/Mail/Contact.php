@@ -40,9 +40,17 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this
-        ->view('mails.contact')
-        ->replyTo($this->mail_from, $this->name_from)
-        ->from(config("mail.from.address"), $this->name_from);
+        $this->from(config("mail.from.address"), $this->name_from);
+        ->replyTo($this->mail_from, $this->name_from);
+
+        if($this->contact_reason == "inquire")
+            $this->subject("Consulta - Formulario contacto");
+        else if($this->contact_reason == "inquire-contact")
+            $this->subject("Consulta/reclamo contratación ".$this->contract_no." - Formulario contacto");
+        else if($this->contact_reason == "other")
+            $this->subject("Otras consultas - Formulario contacto");
+
+
+        return $this->view('mails.contact');
     }
 }

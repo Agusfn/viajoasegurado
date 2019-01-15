@@ -90,8 +90,13 @@ Route::domain(config("app.domain"))->group(function() {
 
 		
 		Route::get("/", "HomeController@index");
+
 		Route::get("{support}", "HomeController@support");
 		Route::post("{support}", "HomeController@sendContactForm");
+
+		Route::get("{about_us}", "HomeController@aboutUs");
+
+		Route::get("{insurer}/{insurer_name}", "HomeController@insurerDetails");
 
 		// Crear cotización
 		Route::post("quotation/create", "QuotationController@createQuotation");

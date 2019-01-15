@@ -22,7 +22,21 @@
 							<div class="panel">
 
 								<div class="panel-heading">
-									<h3 class="panel-title">Detalles de la contratación</h3>
+									<h3 class="panel-title">Detalles de la contratación&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Estado:&nbsp;&nbsp;&nbsp;
+                            			@if ($contract->current_status_id == \App\Contract::STATUS_PAYMENT_PENDING)
+                            			<span class="label label-warning">Pendiente de pago</span> 
+                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
+                            			<span class="label label-primary">Esperando póliza</span>
+                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_COMPLETED)
+                            			<span class="label label-primary">Completado</span>
+                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
+                            			<span class="label label-danger">Cancelado - Impago</span>
+                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)
+                            			<span class="label label-danger">Cancelado - Error pago</span>
+                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_OTHER)
+                            			<span class="label label-danger">Cancelado - Otro</span>
+                            			@endif
+									</h3>
 								</div>
 
 								<div class="panel-body">
@@ -50,6 +64,8 @@
 
 									</div>
 									@endif
+
+
 
 									<h4 style="text-align: center;">Historial de estados</h4>
 

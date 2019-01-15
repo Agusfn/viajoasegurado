@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class HomeController extends Controller
+class HomeController extends AdminBaseController
 {
     
 	public function index()
 	{
-		return view("back.home");
+		return redirect("quotations");
+		//return view("back.home");
 	}
 
 

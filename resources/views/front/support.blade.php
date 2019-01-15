@@ -15,43 +15,66 @@
 				<div class="gap"></div>
 				<div class="row">
 					<div class="col-sm-6 col-sm-offset-1">
-						<h3>Formulario de contacto</h3>
+						<h3>{{ __('front/support.contact_form') }}</h3>
 						@include('front.layouts.errors')
 						{{ Form::open( array("method" => "post", "url" => uri_localed('{support}'), "style" => "padding-bottom:35px", "id" => "contact-form") ) }}
 
-							<div class="form-group">
-								<label>Nombre</label>
-								<input type="text" class="form-control" name="name" maxlength="100">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>{{ __('front/support.name') }}</label>
+										<input type="text" class="form-control" name="name" maxlength="100">
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>{{ __('front/support.email') }}</label>
+										<input type="text" class="form-control" name="email" maxlength="100">
+									</div>
+								</div>
 							</div>
+
+
 							<div class="form-group">
-								<label>E-mail</label>
-								<input type="text" class="form-control" name="email" maxlength="100">
-							</div>
-							<div class="form-group">
-								<label>Motivo</label>
+								<label>{{ __('front/support.subject') }}</label>
 								<select class="form-control" name="reason">
-									<option value="select">Seleccionar</option>
-									<option value="inquire">Consulta</option>
-									<option value="inquire-contract">Consulta/reclamo con una compra</option>
-									<option value="other">Otro</option>
+									<option value="select">{{ __('front/support.select') }}</option>
+									<option value="inquire">{{ __('front/support.inquire') }}</option>
+									<option value="inquire-contract">{{ __('front/support.contract_inquire') }}</option>
+									<option value="other">{{ __('front/support.other') }}</option>
 								</select>
 							</div>
 							<div class="form-group" id="contract-no-field" style="display: none">
-								<label>Número de contratación</label>
+								<label>{{ __('front/support.contract_number') }}</label>
 								<input type="text" class="form-control" name="contract_number">
 							</div>
 							<div class="form-group">
-								<label>Mensaje</label>
+								<label>{{ __('front/support.message') }}</label>
 								<textarea class="form-control" style="resize: vertical;" name="message"></textarea>
 							</div>
 							<div class="form-group" style="text-align: right;">
-								<input type="button" class="btn btn-primary" value="Enviar consulta" id="submit-btn" />
+								<input type="button" class="btn btn-primary" value="{{ __('front/support.send_message') }}" id="submit-btn" />
 							</div>				
 						{{ Form::close() }}
 					</div>
 					<div class="col-sm-4 col-sm-offset-1">
-						<h4>Otros medios de contacto</h4>
-						asdasd
+	                    <aside class="sidebar-right">
+	                        <ul class="address-list list">
+	                            <li>
+	                                <h5>Email</h5><a href="#">{{ __('front/support.contact_email') }}</a>
+	                            </li>
+	                            <li>
+	                                <h5>Whatsapp</h5><a href="#">+1 (426) 642-8525</a>
+	                            </li>
+	                            <li>
+	                                <h5>Skype</h5><a href="#">viajoasegurado</a>
+	                            </li>
+	                            <li>&nbsp;</li>
+	                            <li>&nbsp;</li>
+	                            <li>&nbsp;</li>
+	                        </ul>
+	                    </aside>
+
 					</div>
 				</div>
 
@@ -77,17 +100,17 @@ $(document).ready(function() {
 	$("#submit-btn").click(function() {
 
 		if($("input[name=name]").val() == "" || $("input[name=email]").val() == "" || $("textarea[name=message]").val() == "") {
-			alert("Completa todos los campos.");
+			alert("{{ __('front/support.error_fill_all_inputs') }}");
 			return;
 		}
 
 		if($("select[name=reason]").val() == "select") {
-			alert("Selecciona el motivo de la consulta.");
+			alert("{{ __('front/support.error_select_subject') }}");
 			return;
 		}
 
 		if($("select[name=reason]").val() == "inquire-contract" && $("input[name=contract_number]").val() == "") {
-			alert("Ingresa el numero de contratación.");
+			alert("{{ __('front/support.error_insert_contract_no') }}");
 			return;
 		}
 
