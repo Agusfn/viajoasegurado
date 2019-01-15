@@ -53,7 +53,6 @@
         <script src="{{ asset('front/js/vendor/slimmenu.js') }}"></script>
         <script src="{{ asset('front/js/vendor/bootstrap-datepicker.js') }}"></script>
         <script src="{{ asset('front/js/vendor/bootstrap-timepicker.js') }}"></script>
-        <script src="{{ asset('front/js/vendor/nicescroll.js') }}"></script>
         <script src="{{ asset('front/js/vendor/dropit.js') }}"></script>
         <script src="{{ asset('front/js/vendor/ionrangeslider.js') }}"></script>
         <script src="{{ asset('front/js/vendor/icheck.js') }}"></script>
