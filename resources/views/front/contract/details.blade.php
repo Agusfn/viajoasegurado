@@ -2,6 +2,12 @@
 
 @section('title', __('front/contract_details.title'))
 
+
+@section('meta-tags')
+    <meta name="robots" content="noindex, nofollow"> 
+@endsection
+
+
 @section('content')
     
         <div class="gap"></div>

@@ -24,7 +24,7 @@ class MercadoPagoRequest extends Model
 	 * @return mixed 	MercadoPagoRequest o FALSE
 	 */
 	
-	public static function create($contract_id, $item_id, $item_title, $item_quantity, $unit_price, $payer_email, $payer_name, $payer_surname)
+	public static function create($contract_id, $contract_number, $item_id, $item_title, $item_quantity, $unit_price, $payer_email, $payer_name, $payer_surname)
 	{
 
 		$mpRequest = new self();
@@ -39,11 +39,11 @@ class MercadoPagoRequest extends Model
 			"payer_name" => $payer_name,
 			"payer_surname" => $payer_surname,
 			"failure_url_token" => str_random(10),
-			"expiration_date" => date("Y-m-d\TH:i:s.000O", strtotime("+30 minute"))
+			"expiration_date" => date("Y-m-d\TH:i:s.000O", strtotime("+3 hour"))
 		]);
 		$mpRequest->save();
 
-		$preference = MP::createPreference($mpRequest);
+		$preference = MP::createPreference($mpRequest, $contract_number);
 
 
 		if($preference == false)
@@ -76,7 +76,11 @@ class MercadoPagoRequest extends Model
 	}
 
 
-
+	/**
+	 * Buscar por preference id
+	 * @param  string $preference_id
+	 * @return MercadoPagoRequest|null
+	 */
 	public static function findByPreferenceId($preference_id)
 	{
 		return self::where("preference_id", $preference_id)->first();
@@ -84,7 +88,15 @@ class MercadoPagoRequest extends Model
 
 
 
-
+	/**
+	 * Marca la PaymentRequest padre como pago aprobado. Además le carga datos del pago al MercadoPagoRequest
+	 * @param  int $merchant_order_id	 id interno mercadopago
+	 * @param  int $collection_id    id interno mercadopago
+	 * @param  string $collection_method  	medio de pago 
+	 * @param  string $date_paid         fecha pago Y-m-d H:i:s
+	 * @param  float $transaction_fee   comision del procesador de pagos
+	 * @return null
+	 */
 	public function markAsPaidOut($merchant_order_id, $collection_id, $collection_method, $date_paid, $transaction_fee)
 	{
 		
@@ -97,7 +109,11 @@ class MercadoPagoRequest extends Model
 	}
 
 
-
+	/**
+	 * Marca el PaymentRequest como procesando pago. Agrega info al MercadopagoRequest del id de pago de MP.
+	 * @param  int $collection_id    id interno mp
+	 * @return null
+	 */
 	public function markAsProcessing($collection_id) 
 	{
 		$this->collection_id = $collection_id;

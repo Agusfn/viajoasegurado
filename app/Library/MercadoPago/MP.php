@@ -20,12 +20,37 @@ class MP
 
 
 
+
+
+
+	/**
+	 * Autenticar con la API de MercadoPago. 
+	 * Con client id y client secret es suficiente para generar Preferences (botones de pago) y hacer operaciones como buscar pagos y órdenes.
+	 * @return  null
+	 */
+	public static function APIauth()
+	{
+		if(config("app.env") == "local")
+		{
+			\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID_TEST);
+			\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET_TEST);
+			//\MercadoPago\SDK::setAccessToken(self::ACCESS_TOKEN_TEST);
+		}
+		else if(config("app.env") == "production")
+		{
+			\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID);
+			\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET);
+			//\MercadoPago\SDK::setAccessToken("ENV_ACCESS_TOKEN");
+		}
+	}
+
+
 	/**
 	 * Crear la preferencia con la API SDK de MercadoPago a partir de instancia de MercadoPagoRequest
 	 * @param MercadoPagoRequest $mpRequest 	Instancia de obj. de solicitud MercadoPago
-	 * @return mixed 	Preference o FALSE si hay error.
+	 * @return \MercadoPago\Preference | false
 	 */
-	public static function createPreference(MercadoPagoRequest $mpRequest)
+	public static function createPreference(MercadoPagoRequest $mpRequest, $contract_number)
 	{
 		try
 		{
@@ -53,9 +78,7 @@ class MP
 			    "pending" => config("app.url")."/contract/payment/mercadopago/"
 			);
 
-			//$preference->external_reference = $mpRequest->id;
-			//$preference->notification_url = ""; // URL NOTIF
-			
+			$preference->external_reference = "contratacion #".$contract_number;			
 			
 			// excluimos boleta de pago y red link (medios de pago lentos)
 			$preference->payment_methods = array(
@@ -73,20 +96,14 @@ class MP
 			$preference->items = array($item);
 			$preference->payer = $payer;
 
-			$response = $preference->save();
+			$preference = $preference->save();
 
-
-			if($response["code"] == 201)
-				return $preference;
-			else
-				return false;
-
+			return $preference;
 
 		}
 		catch(\Exception $e)
 		{
-			//dump($e->message);
-			// logear
+			\Log::notice("Error generando solicitud mercadopago. ".$e->getMessage());
 			return false;
 		}
 
@@ -95,26 +112,6 @@ class MP
 
 
 
-
-
-	/*
-	Test
-	 */
-	public static function APIauth()
-	{
-		if(config("app.env") == "local")
-		{
-			//\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID_TEST);
-			//\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET_TEST);
-			\MercadoPago\SDK::setAccessToken(self::ACCESS_TOKEN_TEST);
-		}
-		else if(config("app.env") == "production")
-		{
-			\MercadoPago\SDK::setClientId(self::MP_CLIENT_ID);
-			\MercadoPago\SDK::setClientSecret(self::MP_CLIENT_SECRET);
-			\MercadoPago\SDK::setAccessToken("ENV_ACCESS_TOKEN");
-		}
-	}
 
 
 }

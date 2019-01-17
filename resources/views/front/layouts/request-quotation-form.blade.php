@@ -1,5 +1,6 @@
 {{ Form::open( array("url" => uri_localed("quotation/create"), "method" => "post", "id" => "quote-form") ) }}
     <h2 style="margin-bottom: 25px">{{ __("front/shared/quotation_form.find_insurances") }}</h2>
+    @include('front.layouts.errors')
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
@@ -17,7 +18,7 @@
                 <select class="form-control" name="region_code_to">
                     <option>{{ __("Select") }}</option>
                     @foreach($regions_to as $region)
-                    <option value="{{ $region["id"] }}">{{ $region["name"] }}</option>
+                    <option value="{{ $region['id'] }}">{{ $region["name"] }}</option>
                     @endforeach
                 </select>
                 <label class="form-error" id="region-to-error">{{ __("front/shared/quotation_form.invalid_destination") }}</label>
@@ -53,19 +54,19 @@
                 <label>{{ __("front/shared/quotation_form.traveler_ammount") }}</label>
                 <div class="btn-group btn-group-select-num" data-toggle="buttons">
                     <label class="btn btn-primary active" id="passg-ammt-1">
-                        <input type="radio" name="passenger_ammount" value="1" />1
+                        <input type="radio" name="passenger_ammount" value=1 />1
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value="2" />2
+                        <input type="radio" name="passenger_ammount" value=2 />2
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value="3" />3
+                        <input type="radio" name="passenger_ammount" value=3 />3
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value="4" />4
+                        <input type="radio" name="passenger_ammount" value=4 />4
                     </label>
                     <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value="5" />5
+                        <input type="radio" name="passenger_ammount" value=5 />5
                     </label>
                 </div>
             </div>

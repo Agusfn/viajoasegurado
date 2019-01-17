@@ -2,6 +2,12 @@
 
 @section('title', __('front/quote_results.title'))
 
+
+@section('meta-tags')
+    <meta name="robots" content="noindex, nofollow"> 
+@endsection
+
+
 @section('content')
         <div class="container">
             
@@ -13,6 +19,16 @@
             @if ($quotationFound)
 
                 @if (!$quotationExpired)
+
+                <h4 style="text-align: center; margin-top: 80px; display: none" id="error-loading">Ocurrió un error cargando los resultados. <a href="javascript:location.reload();">Recarga la página</a> para reintentar.</h4>
+
+                <div id="no-results-found" style="display: none; text-align: center;">
+                    <div class="gap"></div><div class="gap"></div>
+                    <h3 >{{ __('front/quote_results.no_results') }}</h3>
+                    <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.search_again') }}</a>
+                    <div class="gap"></div><div class="gap"></div><div class="gap"></div>
+                </div>
+
                 <div id="search-results" style="display: none">
 
                     <div class="booking-title">
@@ -70,7 +86,6 @@
                             </div>
                         </li>
 
-
                     </ul>
 
                     <p class="text-right">{{ __('front/quote_results.cant_find') }} <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.search_again') }}</a>
@@ -107,6 +122,7 @@
 
 <script>
     var countries_from = '@php echo json_encode($countries_from) @endphp';
+    var lang = "{{ \App::getLocale() }}";
 </script>
 <script src="{{ asset('front/js/quotation-form.js') }}"></script>
 

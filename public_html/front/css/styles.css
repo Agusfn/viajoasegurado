@@ -2133,9 +2133,9 @@ h5.thumb-title {
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
-/*img {
-  width: 100%;
-}*/
+img {
+  max-width: 100%;
+}
 img.origin {
   width: auto;
 }

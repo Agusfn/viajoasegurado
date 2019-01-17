@@ -3,7 +3,8 @@
 return [
 
 	"title" => "Inicio",
-
+	"meta_description" => "Busca, cotiza y compra los seguros de viaje más accesibles del mercado en un sólo lugar.",
+	
 	"24hs_assistance" => "Asistencia las 24hs",
 	"24hs_assistance_description" => "Las compañías con las que trabajamos ofrecen asistencia las 24 horas sin importar el destino ni el inconveniente sufrido.",
 	"travel_protection" => "Protección para cualquier viaje",

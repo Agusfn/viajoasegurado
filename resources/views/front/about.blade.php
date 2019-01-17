@@ -1,12 +1,15 @@
-        
 @extends('front.layouts.main')       
-
 
 @section('title', __('front/support.title'))
 
-
 @php ($section = 'about') @endphp
 
+
+@section('meta-tags')
+    <meta name="robots" content="index, follow"> 
+    <meta name="description" content="Busca, cotiza y compra los seguros de viaje más accesibles del mercado en un sólo lugar.">
+    <meta name="og:description" property="og:description" content="Busca, cotiza y compra los seguros de viaje más accesibles del mercado en un sólo lugar."> 
+@endsection
 
 
 @section('content')

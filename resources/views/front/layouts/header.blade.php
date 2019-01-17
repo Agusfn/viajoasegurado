@@ -4,7 +4,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <a class="logo" href="{{ url('') }}">
-                                <img src="{{ asset('img/logo3.png') }}" alt="{{ config('app.name') }}" style="width:177px" />
+                                <img src="{{ asset('front/img/logo3.png') }}" alt="{{ config('app.name') }}" style="width:177px" />
                             </a>
                         </div>
                         <div class="col-md-8">
@@ -66,12 +66,12 @@
                                         <ul class="list nav-drop-menu">
                                             <li>
                                                 <a title="Spanish" href="{{ url("lang?code=es") }}" onclick="window.location.assign('{{ url("lang?code=es") }}');">
-                                                    <img src="{{ asset('front/img/flags/32/es.png') }}" alt="Image Alternative text" title="Image Title" /><span class="right">ESP</span>
+                                                    <img src="{{ asset('front/img/lang_flags/es.png') }}" alt="Image Alternative text" title="Image Title" /><span class="right">ESP</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a title="English" href="{{ url('lang?code=en') }}" onclick="window.location.assign('{{ url("lang?code=en") }}');">
-                                                    <img src="{{ asset('front/img/flags/32/uk.png') }}" alt="Image Alternative text" title="Image Title" /><span class="right">ENG</span>
+                                                    <img src="{{ asset('front/img/lang_flags/en.png') }}" alt="Image Alternative text" title="Image Title" /><span class="right">ENG</span>
                                                 </a>
                                             </li>
                                         </ul>

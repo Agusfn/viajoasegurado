@@ -11,9 +11,9 @@ return [
 	"error_billing_name" => "Ingresa el nombre y apellido o razón social de facturación.",
 	"error_billing_tax_no" => "Ingresa el DNI o CUIT correctamente (cuit con guiones).",
 	"error_billing_address" => "Ingresa la dirección de facturación.",
-	"error_contact_phones" => "Ingresa números de teléfono de contacto válidos (sin caracteres especiales).",
-	"error_contact_email" => "Ingresa un e-mail de contacto válido.",
-	"error_contact_emerg_name" => "Ingresa el nombre del contacto de emergencia.",
+	"error_contact_phones" => "Insert valid contact phone numbers (without special characters).",
+	"error_contact_email" => "Insert a valid contact email.",
+	"error_contact_emerg_name" => "Insert the emergency contact person name.",
 
 	"travelers" => "Travelers",
 

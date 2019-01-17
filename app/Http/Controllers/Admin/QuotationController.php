@@ -9,7 +9,10 @@ class QuotationController extends AdminBaseController
 {
 
 
-
+	/**
+	 * Muestra listado de cotizaciones
+	 * @return [type] [description]
+	 */
 	public function list()
 	{
 		$quotations = Quotation::with([
@@ -21,6 +24,11 @@ class QuotationController extends AdminBaseController
 	}
 
 
+	/**
+	 * Muestra detalles de cotizacion
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function details($id)
 	{
 		$quotation = Quotation::with("products", "country_from", "contract")->find($id);

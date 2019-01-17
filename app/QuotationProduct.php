@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use \App\Library\AseguratuViaje\ATVApi;
+use App\Quotation;
+use App\Contract;
 
 class QuotationProduct extends Model
 {
@@ -27,6 +29,29 @@ class QuotationProduct extends Model
 		"gross_cost", 
 		"cost_currency_code"
 	];
+
+
+
+
+    /**
+     * Elimina de la base de datos los QuotationProducts que pertenecen a Quotations que tienen 1 semana de antiguedad y no tienen contratación asociada.
+     * Para que la base de datos no ocupe mucho espacio innecesario.
+     * @return null
+     */
+    public static function cleanOldProducts()
+    {
+    	$quotations = Quotation::where([
+    		["contract_id", null], 
+    		["created_at", "<", date("Y-m-d H:i:s", strtotime("-7 day"))]
+    	])->get();
+
+    	foreach($quotations as $quotation) {
+
+    		if(Contract::where("quotation_id", $quotation->id)->count() == 0)
+    			$quotation->products()->delete();
+
+    	}
+    }
 
 
 

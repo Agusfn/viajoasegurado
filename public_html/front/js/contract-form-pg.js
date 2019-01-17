@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-	
 	if($("#billing-information").length)
 		$("select[name=billing_fiscal_condition]")[0].selectedIndex = 0;
 

@@ -37,6 +37,7 @@ Route::domain("backoffice.".config("app.domain"))->middleware(["auth"])->group(f
 	Route::get("contracts", "Admin\ContractController@list");
 	Route::get("contracts/{id}", "Admin\ContractController@details");
 	Route::post("contracts/{id}/note", "Admin\ContractController@updateNote");
+	Route::post("contracts/{id}/complete", "Admin\ContractController@markVoucherSent");
 	//Route::post("contracts/{id}/cancel", "Admin\ContractController@cancel");
 
 	Route::get("settings", "Admin\SettingsController@show");

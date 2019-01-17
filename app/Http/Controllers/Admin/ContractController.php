@@ -8,6 +8,10 @@ use \App\Contract;
 class ContractController extends AdminBaseController
 {
 	
+	/**
+	 * Lista contrataciones
+	 * @return [type] [description]
+	 */
 	public function list()
 	{
 		$contracts = Contract::with([
@@ -21,7 +25,11 @@ class ContractController extends AdminBaseController
 	}
 
 
-
+	/**
+	 * Muestra detalles de contratacion
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function details($id)
 	{
 		$contract = Contract::with([
@@ -35,7 +43,12 @@ class ContractController extends AdminBaseController
 
 	}
 
-
+	/**
+	 * Actualiza la nota de una contratacion
+	 * @param  Request $request [description]
+	 * @param  [type]  $id      [description]
+	 * @return [type]           [description]
+	 */
 	public function updateNote(Request $request, $id)
 	{
 
@@ -45,6 +58,26 @@ class ContractController extends AdminBaseController
 
 		$contract->notes = $request->notes;
 		$contract->save();
+
+		return redirect("contracts/".$contract->id);
+	}
+
+
+	/**
+	 * Cambia el estado de una contratación a completada y notifica al cliente por email de envio de voucher
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
+	public function markVoucherSent($id)
+	{
+		$contract = Contract::with(["quotation"])->find($id);
+		if(!$contract)
+			return "Error";
+
+		$contract->changeStatus(Contract::STATUS_COMPLETED);
+
+		$mail = new \App\Mail\ContractCompleted($contract);
+		\Mail::to($contract->contact_email)->locale($contract->quotation->lang)->send($mail);
 
 		return redirect("contracts/".$contract->id);
 	}

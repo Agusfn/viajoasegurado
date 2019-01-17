@@ -62,6 +62,8 @@
 													<span class="label label-danger">Fallido</span>
 													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_REFUNDED)
 													<span class="label label-danger">Reembolsado</span> 
+													@elseif ($contract->active_payment_request->status == \App\PaymentRequest::STATUS_EXPIRED)
+													<span class="label label-danger">Expiró</span> 
 													@endif
 												@endif
 		                            		</td>
@@ -71,7 +73,7 @@
 		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
 		                            			<span class="label label-primary">Esperando póliza</span>
 		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_COMPLETED)
-		                            			<span class="label label-primary">Completado</span>
+		                            			<span class="label label-success">Completado</span>
 		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
 		                            			<span class="label label-danger">Cancelado - Impago</span>
 		                            			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)

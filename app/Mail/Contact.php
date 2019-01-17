@@ -16,7 +16,7 @@ class Contact extends Mailable
     public $mail_from;
     public $contact_reason;
     public $contract_no;
-    public $message;
+    public $message_text; // $message ya está ocupado
 
 
     /**
@@ -24,13 +24,13 @@ class Contact extends Mailable
      *
      * @return void
      */
-    public function __construct($name_from, $mail_from, $contact_reason, $contract_no, $message)
+    public function __construct($name_from, $mail_from, $contact_reason, $contract_no, $message_text)
     {
         $this->name_from = $name_from;
         $this->mail_from = $mail_from;
         $this->contact_reason = $contact_reason;
         $this->contract_no = $contract_no;
-        $this->message = $message;
+        $this->message_text = $message_text;
     }
 
     /**
@@ -40,7 +40,8 @@ class Contact extends Mailable
      */
     public function build()
     {
-        $this->from(config("mail.from.address"), $this->name_from);
+        $this
+        ->from(config("mail.from.address"), $this->name_from)
         ->replyTo($this->mail_from, $this->name_from);
 
         if($this->contact_reason == "inquire")

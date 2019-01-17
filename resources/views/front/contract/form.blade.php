@@ -3,6 +3,11 @@
 @section('title', __('front/contract_form.title'))
 
 
+@section('meta-tags')
+    <meta name="robots" content="noindex, nofollow"> 
+@endsection
+
+
 @section('content')
     
         <div class="gap"></div>
@@ -248,10 +253,12 @@
 
 
 @section('custom-js')
+
 @if($validContract)
 <script>
 var passg_ammt = {{ $quotation->passenger_ammount }};
 </script>
-<script src="{{ asset('front/js/contract-form-pg.js') }}">
+<script src="{{ asset('front/js/contract-form-pg.js') }}"></script>
 @endif
+
 @endsection

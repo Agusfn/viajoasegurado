@@ -33,7 +33,7 @@
 					</div>
 					<div class="row" style="margin-top: 20px">
 						<div class="col-sm-3 col-sm-offset-2">
-							Margen ganancia (%) <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="El porcentaje sobre el total que nos pasa aseguratuviaje.com que corresponde a nuestra comisión. Si nos pasan un total de $200 y hay 20% de margen, $40 son comisión y $160 costo."></span>
+							Margen ganancia (%) <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Es el porcentaje de nuestra comisión sobre el total que nos pasa aseguratuviaje.com. Si nos pasan un total de $200 y hay 20% de margen, $40 son comisión y $160 costo. Lo determina aseguratuviaje."></span>
 						</div>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="profit_margin" value="{{ $profit_margin }}">

@@ -8,27 +8,34 @@ $(document).ready(function() {
    $.ajax({
         url: $('meta[name="get-quot-url"]').attr('content'),
         type: 'POST',
-        data: {_token: CSRF_TOKEN, url_code: quot_url_code},
+        data: {_token: CSRF_TOKEN, url_code: quot_url_code, lang: lang},
         dataType: 'JSON',
         
         success: function (data) {
+
         	$("#loading").hide();
-            $("#search-results").show();
-            console.log(data);
+
             if(data.success)
             {
-                $("#product-count").text(data.products.length);
-                $("#country-from").text(data.country_from);
-                $("#region-to").text(data.region_to);
-                $("#trip-date-from").text(data.date_from);
-                $("#trip-date-to").text(data.date_to);
-                $("#passg-count").text(data.passenger_count);
-
-        		data.products.forEach(function(product) {
-                    appendInsuranceProduct(product);
-				});
+                if(data.products.length > 0)
+                {
+                    $("#search-results").show();
+                    $("#product-count").text(data.products.length);
+                    $("#country-from").text(data.country_from);
+                    $("#region-to").text(data.region_to);
+                    $("#trip-date-from").text(data.date_from);
+                    $("#trip-date-to").text(data.date_to);
+                    $("#passg-count").text(data.passenger_count);
+            		data.products.forEach(function(product) {
+                        appendInsuranceProduct(product);
+    				});
+                }
+                else
+                    $("#no-results-found").show();
             }
-       }
+            else
+                $("#error-loading").show();
+        }
     });
 
 

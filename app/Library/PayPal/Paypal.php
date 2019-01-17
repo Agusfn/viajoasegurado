@@ -8,16 +8,18 @@ class Paypal
 {
 
 
-	const CLIENT_ID = "AXHLV6JfwUPJ42XieOsFkZuxNFpcDkrp5hwE2BhEcdEwBNI_JKV9dQcgaQ7l93CyqEXDiBdqxn16plo0";
+	const CLIENT_ID = "AXHLV6JfwUPJ42XieOsFkZuxNFpcDkrp5hwE2BhEcdEwBNI_JKV9dQcgaQ7l93CyqEXDiBdqxn16plo0"; // cuenta admin@viajoasegurado.com
 	const CLIENT_SECRET = "EEkLivaZzpTPIuOLzYru-HtU0wqxi-0u9oUeTEjhwxbCoVK2DUbx61acXq7TiJxrZbYMzj49XLXQTaZ1";
 
-	const CLIENT_ID_SANDBOX = "ATq0sqqUAvNQ8rKwbJioZwcqupg_z0GgVuVtqQIZ6T83AvEaggz54ZP8svBlP04n13LQKvc4DzQ-AIBT";
+	const CLIENT_ID_SANDBOX = "ATq0sqqUAvNQ8rKwbJioZwcqupg_z0GgVuVtqQIZ6T83AvEaggz54ZP8svBlP04n13LQKvc4DzQ-AIBT"; // cuenta test admin-facilitator@viajoasegurado.com
 	const CLIENT_SECRET_SANDBOX = "EC2U9MVNN1AVzvLaIT_mNvxlK_NPfcghjZOnUVTD3Kg-_9OKZzoNqUhmPWxC9ZnHlh09pa7L9I8OTsJa";
 
 
 	private $apiContext;
 
-
+    /**
+     * Autentifica en API
+     */
 	public function __construct()
 	{
         
@@ -30,8 +32,12 @@ class Paypal
 
 	}
 
-
-	public function createPayment(PaypalRequest $ppRequest)
+    /**
+     * Crea pago PayPal por medio del SDK (envia solicitud a api paypal)
+     * @param  PaypalRequest $ppRequest
+     * @return \PayPal\Api\Payment | false
+     */
+	public function createPayment(PaypalRequest $ppRequest, $contract_number)
 	{
 
         
@@ -52,7 +58,7 @@ class Paypal
         $amount->setCurrency('USD');
 
         $transaction = new \PayPal\Api\Transaction();
-        $transaction->setAmount($amount)->setItemList($itemList);
+        $transaction->setAmount($amount)->setItemList($itemList)->setCustom("#".$contract_number);
 
         $redirectUrls = new \PayPal\Api\RedirectUrls();
         $redirectUrls->setReturnUrl(config("app.url")."/contract/payment/paypal")
@@ -64,27 +70,25 @@ class Paypal
             ->setTransactions(array($transaction))
             ->setRedirectUrls($redirectUrls);
 
-
         
         try 
         {
             $payment->create($this->apiContext);
-
             return $payment;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) 
         {
-            echo $ex->getData();
+            \Log::notice("Error creando Payment de PayPal: ".$ex->getMessage());
             return false;
         }
 
 	}
 
     /**
-     * Ejecuta y concreta un pago de PayPal ya preparado.
+     * Ejecuta un pago de PayPal ya preparado.
      * @param  string $paymentId    Id de pago de PayPal
      * @param  string $payerId      Id de payer de PayPal
-     * @return \PayPal\Api\Payment | false
+     * @return \PayPal\Api\Payment | false      Aparentemente sólo devuelve false si hay un problema con la solicitud. Si el pago falla o es exitoso devuelve Payment.
      */
     public function executePayment($paymentId, $payerId)
     {
@@ -99,22 +103,22 @@ class Paypal
         $execution->setPayerId($payerId);
         
         try {
-            $result = $payment->execute($execution, $this->apiContext);
+            $payment->execute($execution, $this->apiContext); // instancia de Payment
         } 
         catch (\Exception $ex) 
         {
-            //dump("Executed Payment", "Payment", null, null, $ex);
+            \Log::notice("Error ejecutando pago PayPal (Payment id ".$paymentId.", Payer id ".$payerId."). Mensaje: ".$ex->getMessage().".".PHP_EOL ."Data: ".$ex->getData());
             return false;
         }
 
-        return $this->getPaymentById($paymentId);
+        return $this->getPaymentById($paymentId); // Lo volvemos a obtener porque tiene más datos
     }
 
 
     /**
-     * [getPaymentById description]
-     * @param  [type] $paymentId [description]
-     * @return [type]            [description]
+     * Obtiene Payment desde api PayPal (usando sdk)
+     * @param  int $paymentId   id de pago
+     * @return \PayPal\Api\Payment | false
      */
     public function getPaymentById($paymentId)
     {
@@ -125,7 +129,7 @@ class Paypal
         } 
         catch (\Exception $ex) 
         {
-            //dump("Executed Payment", "Payment", null, null, $ex);
+            \Log::notice("Error obtiendo datos de pago PayPal (Payment id ".$paymentId."). Mensaje: ".$ex->getMessage());
             return false;
         } 
     }

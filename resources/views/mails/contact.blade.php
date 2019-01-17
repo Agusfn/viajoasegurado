@@ -1,4 +1,4 @@
-{{ $message }}
+{{ $message_text }}
 <br/>
 <br/>
 - - - - - - - - -

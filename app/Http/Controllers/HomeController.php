@@ -22,7 +22,10 @@ class HomeController extends Controller
     }
 
 
-
+    /**
+     * Muestra pagina inicio
+     * @return  \Illuminate\Http\Response
+     */
     public function index()
     {
 
@@ -33,12 +36,21 @@ class HomeController extends Controller
 
     }
 
-
+    /**
+     * Muestra pagina contacto
+     * @return \Illuminate\Http\Response
+     */
     public function support()
     {
         return view("front.support");
     }
 
+
+    /**
+     * Envia mail de formulario de contacto.
+     * @param  Request $request [description]
+     * @return \Illuminate\Http\Response
+     */
     public function sendContactForm(Request $request)
     {
         
@@ -50,20 +62,28 @@ class HomeController extends Controller
         ]);
 
         $mail = new App\Mail\Contact($request->name, $request->email, $request->reason, $request->contract_number, $request->message);
-
         \Mail::to("contacto@viajoasegurado.com")->send($mail);
-
-        dd($request);
+        
+        \Session::flash("success"); 
+        return back();
     }
 
 
-
+    /**
+     * Muestra pag acerca de
+     * @return \Illuminate\Http\Response
+     */
     public function aboutUs()
     {
         return view("front.about");
     }
 
 
+    /**
+     * Muestra detalles de aseguradora
+     * @param  Request $request [description]
+     * @return \Illuminate\Http\Response
+     */
     public function insurerDetails(Request $request)
     {
         $insurers = ["assist-card", "universal-assistance", "coris", "axa-assistance", "cardinal-assistance", "europ-assistance", "travel-ace", "assist-365", "latin-assistance", "international-assist", "euroamerican-assistance", "go-travel-assistance", "allianz-assistance"];
@@ -73,11 +93,14 @@ class HomeController extends Controller
         else
             return redirect("");
 
-
-
     }
 
 
+    /**
+     * Cambia configuracion de lenguaje en cookie y redirige a ruta pag ppal.
+     * @param  Request $request [description]
+     * @return \Illuminate\Http\Response
+     */
     public function changeLanguage(Request $request)
     {
         

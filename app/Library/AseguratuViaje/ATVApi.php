@@ -151,8 +151,8 @@ class ATVApi
 
 
 	/**
-	 * Hacer solicitud POST o GET.
-	 * @param  string $method      POST o GET
+	 * Hacer solicitud http POST o GET.
+	 * @param  string $method      "POST" o "GET"
 	 * @param  string $url
 	 * @param  array  $post_fields
 	 * @return mixed              FALSE o array de respuesta json decoded

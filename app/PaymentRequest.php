@@ -16,6 +16,7 @@ class PaymentRequest extends Model
 	const STATUS_APPROVED = "approved";
 	const STATUS_FAILED = "failed"; // Falló y ya no sirve más.
 	const STATUS_REFUNDED = "refunded";
+	const STATUS_EXPIRED = "expired"; // Expiró
 
 
 
@@ -35,6 +36,12 @@ class PaymentRequest extends Model
 	}
 
 
+	/**
+	 * Marca la solicitud con pago aprobado.
+	 * @param  string $date_paid       Fecha pago. Formato Y-m-d H:i:s
+	 * @param  float $transaction_fee 	comision del procesador de pagos
+	 * @return null
+	 */
 	public function markAsPaidOut($date_paid, $transaction_fee)
 	{
 		
@@ -44,21 +51,29 @@ class PaymentRequest extends Model
 		$this->net_ammount = $this->total_ammount - $transaction_fee;
 
 		$this->save();
-
-		// Cambiar estado de la contratacion asociada
-		// Mandar mail?
-
 	}
 
 
+	/**
+	 * Marca solicitud de pago como fallida.
+	 * @return null
+	 */
 	public function markAsFailed()
 	{
 		$this->status = self::STATUS_FAILED;
 		$this->save();
 	}
 
-
-
+	/**
+	 * Cambia estado de la solicitud de pago.
+	 * @param  string $status_code 		codigo de estado. Debe ser alguno de los definidos en las constantes.
+	 * @return null
+	 */
+	public function changeStatus($status_code)
+	{
+		$this->status = $status_code;
+		$this->save();
+	}
 
 
 	public function contract()

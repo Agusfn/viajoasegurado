@@ -5,6 +5,14 @@
 @php ($section = 'contracts')
 
 
+@section('custom-css')
+<style>
+#voucher-sent-form {
+	display: inline-block;
+}
+</style>
+@endsection
+
 		
 @section('content')
 					
@@ -13,7 +21,7 @@
 
 					@if ($contract != null)					
 
-					<h3 class="page-title">Contratación nro. #{{ $contract->number }}</h3>
+					<h3 class="page-title">Contratación nro. #{{ $contract->number }} (ID: {{ $contract->id }})</h3>
 					
 					<div class="row">
 						
@@ -28,7 +36,7 @@
                             			@elseif ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
                             			<span class="label label-primary">Esperando póliza</span>
                             			@elseif ($contract->current_status_id == \App\Contract::STATUS_COMPLETED)
-                            			<span class="label label-primary">Completado</span>
+                            			<span class="label label-success">Completado</span>
                             			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
                             			<span class="label label-danger">Cancelado - Impago</span>
                             			@elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)
@@ -45,13 +53,14 @@
 									<div class="well well-sm">
 
 										@if ($contract->current_status_id != \App\Contract::STATUS_COMPLETED)
-										<button class="btn btn-primary btn-sm">Voucher enviado</button>&nbsp;&nbsp;
+											{{ Form::open(['method' => 'post', 'url' => url('contracts/'.$contract->id.'/complete'), 'id' => 'voucher-sent-form']) }}
+												<input type="button" class="btn btn-primary btn-sm" id="voucher-sent-btn" value="Voucher enviado">&nbsp;&nbsp;
+											{{ Form::close() }}
 										@endif
 
 										@if ($contract->current_status_id == \App\Contract::STATUS_PAYMENT_PENDING)
-
 											@if ($contract->active_payment_request != null && $contract->active_payment_request->status == \App\PaymentRequest::STATUS_UNPAID)
-											<!--button class="btn btn-danger btn-sm">Cancelar solicitud</button-->&nbsp;&nbsp;
+											<!--button class="btn btn-danger btn-sm">Cancelar solicitud</button>&nbsp;&nbsp;-->
 											@endif
 
 										@elseif($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
@@ -81,6 +90,12 @@
 												<td>Pago realizado</td>
 												@elseif ($statusChange->status_id == \App\Contract::STATUS_COMPLETED)
 												<td>Envío de datos de póliza de seguro</td>
+												@elseif ($statusChange->status_id == \App\Contract::STATUS_CANCELED_UNPAID)
+												<td>Cancelado por pago no realizado a tiempo</td>
+												@elseif ($statusChange->status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)
+												<td>Cancelado por error en el pago</td>
+												@elseif ($statusChange->status_id == \App\Contract::STATUS_CANCELED_OTHER)
+												<td>Cancelado</td>
 												@endif
 												<td>{{ date("d/m/Y H:i:s", strtotime($statusChange->created_at)) }}</td>
 											</tr>
@@ -193,6 +208,12 @@
 														<span class="label label-warning">Procesando</span>
 													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_APPROVED)
 														<span class="label label-success">Completado</span>
+													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_FAILED)
+														<span class="label label-danger">Falló</span>
+													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_REFUNDED)
+														<span class="label label-danger">Reembolsado</span>
+													@elseif ($paymentRequest->status == \App\PaymentRequest::STATUS_EXPIRED)
+														<span class="label label-danger">Expiró</span>
 													@endif
 												</td>
 												<td>
@@ -412,8 +433,8 @@
 @section('custom-js')
 <script>
 $(document).ready(function() {
+
 	$("#show-coverage-btn").click(function() {
-		
 		var coverage_details = JSON.parse($(this).attr("data-coverage-json"));
     	var list = "";
     	coverage_details.forEach(function(elem) {
@@ -421,8 +442,13 @@ $(document).ready(function() {
     	});	
 
     	alert(list);
-
 	});
+
+	$("#voucher-sent-btn").click(function() {
+		if(confirm("¿Completar contratación y marcar voucher como enviado?"))
+			$("#voucher-sent-form").submit();
+	});
+
 });
 </script>
 @endsection

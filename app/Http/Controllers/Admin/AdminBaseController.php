@@ -10,10 +10,11 @@ class AdminBaseController extends Controller
 {
     
 
+	/**
+	 * Arma lista de notificaciones para mostrar en todo el panel admin para usuarios logueados.
+	 */
 	public function __construct()
 	{
-
-		// Armamos lista de notificaciones de panel admin.
 
 		$notifications = [];
 
@@ -26,7 +27,6 @@ class AdminBaseController extends Controller
 				"message" => "Hay ".$pending_contracts_count." contrataciones para enviar voucher."
 			);
 		}
-
 
 		\View::share('notifications', $notifications);
 	}

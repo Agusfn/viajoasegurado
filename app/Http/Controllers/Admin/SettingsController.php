@@ -10,6 +10,10 @@ use anlutro\LaravelSettings\SettingStore;
 class SettingsController extends AdminBaseController
 {
     
+    /**
+     * Muestra formulario de menu de opciones configurables
+     * @return [type] [description]
+     */
 	public function show()
 	{
 		return view("back.settings")->with([
@@ -19,6 +23,11 @@ class SettingsController extends AdminBaseController
 	}
 
 
+	/**
+	 * Actualiza opciones
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function update(Request $request)
 	{
 		

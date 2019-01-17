@@ -3,6 +3,9 @@
 return [
 
 	"title" => "Contacto",
+	"meta_description" => "Ponte en contacto con nosotros ante cualquier consulta.",
+
+	"success_msg" => "El mensaje fue enviado correctamente.",
 	"contact_form" => "Formulario de contacto",
 	"name" => "Nombre",
 	"email" => "E-mail",

@@ -5,129 +5,15 @@
 @php ($section = 'home') @endphp
 
 
+@section('meta-tags')
+    <meta name="robots" content="index, follow"> 
+    <meta name="description" content="{{ __('front/home.meta_description') }}">
+    <meta name="og:description" property="og:description" content="{{ __('front/home.meta_description') }}"> 
+@endsection
+
 
 @section('custom-css')
-<style>
-
-.slick-slide {
-    margin: 0px 20px;
-}
-
-.slick-slide img {
-    width: 100%;
-}
-
-.slick-slider
-{
-    position: relative;
-    display: block;
-    box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-            user-select: none;
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
-        touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.slick-list
-{
-    position: relative;
-    display: block;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-.slick-list:focus
-{
-    outline: none;
-}
-.slick-list.dragging
-{
-    cursor: pointer;
-    cursor: hand;
-}
-
-.slick-slider .slick-track,
-.slick-slider .slick-list
-{
-    -webkit-transform: translate3d(0, 0, 0);
-       -moz-transform: translate3d(0, 0, 0);
-        -ms-transform: translate3d(0, 0, 0);
-         -o-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-}
-
-.slick-track
-{
-    position: relative;
-    top: 0;
-    left: 0;
-    display: block;
-}
-.slick-track:before,
-.slick-track:after
-{
-    display: table;
-    content: '';
-}
-.slick-track:after
-{
-    clear: both;
-}
-.slick-loading .slick-track
-{
-    visibility: hidden;
-}
-
-.slick-slide
-{
-    display: none;
-    float: left;
-    height: 100%;
-    min-height: 1px;
-}
-[dir='rtl'] .slick-slide
-{
-    float: right;
-}
-.slick-slide img
-{
-    width: auto;
-    max-width: 100%;
-    max-height: 60px;
-    display: block;
-    margin: 0 auto;
-}
-.slick-slide.slick-loading img
-{
-    display: none;
-}
-.slick-slide.dragging img
-{
-    pointer-events: none;
-}
-.slick-initialized .slick-slide
-{
-    display: block;
-}
-.slick-loading .slick-slide
-{
-    visibility: hidden;
-}
-.slick-vertical .slick-slide
-{
-    display: block;
-    height: auto;
-    border: 1px solid transparent;
-}
-.slick-arrow.slick-hidden {
-    display: none;
-}
-</style>
+    <link rel="stylesheet" href="{{ asset('front/css/vendor/slick.css') }}">
 @endsection
 
 
@@ -144,18 +30,11 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="search-tabs search-tabs-bg mt50" id="aa">
-                                    <!--h1>Find Your Perfect Trip</h1-->
-
-                                            
-                                    <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">                                        
+                                    <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">
                                         @include('front.layouts.request-quotation-form')
                                     </div>
-                                            
-
                                 </div>
                             </div>
-                            
-
                         </div>
                     </div>
                 </div>
@@ -216,17 +95,17 @@
             
             <div class="gap">
                 <section class="customer-logos slider">
-                    <div class="slide"><img src="{{ asset('front/img/partners/allianz.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/europ-assistance.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/assist-card.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/assist-365.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/assist-med.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/axa-assistance.png') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/euroamerican-assistance.png') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/go-travel-assistance.png') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/latin-assistance.png') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/travel-ace.jpg') }}"></div>
-                    <div class="slide"><img src="{{ asset('front/img/partners/international-assist.png') }}"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/allianz.jpg') }}" alt="Allianz"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/europ-assistance.jpg') }}" alt="Europ Assistance"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/assist-card.jpg') }}" alt="Assist Card"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/assist-365.jpg') }}" alt="Assist 365"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/assist-med.jpg') }}" alt="Assist Med"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/axa-assistance.png') }}" alt="Axa Assistance"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/euroamerican-assistance.png') }}" alt="Euroamerican Assistance"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/go-travel-assistance.png') }}" alt="Go Travel Assistance"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/latin-assistance.png') }}" alt="Latin Assistance"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/travel-ace.jpg') }}" alt="Travel Ace"></div>
+                    <div class="slide"><img src="{{ asset('front/img/partners/international-assist.png') }}" alt="International Assist"></div>
                 </section>
             </div>
             <div class="gap"></div>
@@ -238,10 +117,17 @@
 
 
 @section('custom-js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<script src="{{ asset('front/js/vendor/slick.js') }}"></script>
 <script>
     var countries_from = '@php echo json_encode($countries_from) @endphp';
-    $(document).ready(function(){
+
+    $(document).ready(function() {
+
+        $('input.icheckbox').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'icheckbox_square-blue'
+        });
+        
         $('.customer-logos').slick({
             slidesToShow: 6,
             slidesToScroll: 1,
@@ -263,7 +149,7 @@
             }]
         });
     });
+
 </script>
-<script src="{{ asset('front/js/home-pg.js') }}"></script>
 <script src="{{ asset('front/js/quotation-form.js') }}"></script>
 @endsection

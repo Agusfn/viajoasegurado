@@ -10,6 +10,7 @@ return [
 	"time_to" => "to",
 	"travelers" => "traveler/s",
 	"change_search" => "Change search",
+	"no_results" => "No results found",
 
 	"product_name" => "Product name",
 	"accident_coverage" => "Accident coverage",

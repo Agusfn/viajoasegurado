@@ -132,8 +132,6 @@ class Quotation extends Model
 
 
 
-
-
     /**
      * Devuelve los productos cotizados asociados a la cotización
      * @return Illuminate\Database\Eloquent\Relations\HasMany   colección de elementos
@@ -232,7 +230,6 @@ class Quotation extends Model
     }
 
 
-
     /**
      * Verifica si la cotización expiró
      * @return boolean
@@ -249,7 +246,11 @@ class Quotation extends Model
     }
 
 
-
+    /**
+     * Obtiene las edades de los pasajeros de forma legible en texto en idioma de la app.
+     * Ej: 20 años, 30 años
+     * @return string
+     */
     public function ageEnum()
     {
         $enum = "";
@@ -258,6 +259,7 @@ class Quotation extends Model
         }
         return substr($enum, 0, -2);
     }
+
 
 
 }

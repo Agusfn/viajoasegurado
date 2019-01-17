@@ -9,12 +9,21 @@ class UserPanelController extends AdminBaseController
     
     // middleware auth aplicado en route
 
+	/**
+	 * Muestra formulario de datos del usuario
+	 * @return [type] [description]
+	 */
 	public function show()
 	{
 		return view("back.account")->with("user", \Auth::user());
 	}
 
 
+	/**
+	 * Actualiza datos del usuario
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function update(Request $request)
 	{
 		$user = \Auth::user();

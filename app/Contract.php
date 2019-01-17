@@ -26,7 +26,11 @@ class Contract extends Model
 
 
 
-
+	/**
+	 * Buscar contratación por contract_number
+	 * @param  int $number contract_number
+	 * @return Contract
+	 */
 	public static function findByNumber($number)
 	{
 		return self::where("number", $number)->first();
@@ -49,12 +53,39 @@ class Contract extends Model
 			return $digits;
 		else
 			return self::randomNumber();
+	}
+
+
+
+	/**
+	 * Cancela las contrataciones en estado STATUS_PAYMENT_PENDING (y cuyos pagos no se hayan realizado) que se hayan creado hace 3 horas o más.
+	 * @return null
+	 */
+	public static function cancelUnpaidContracts()
+	{
+		$contracts = Contract::where([
+			["current_status_id", self::STATUS_PAYMENT_PENDING],
+			["created_at", "<", date("Y-m-d H:i:s", strtotime("-3 hour"))]
+		])->get();
+
+		foreach($contracts as $contract) 
+		{
+			if($contract->active_payment_request != null && $contract->active_payment_request->status == PaymentRequest::STATUS_UNPAID)
+			{
+				$contract->active_payment_request->changeStatus(PaymentRequest::STATUS_EXPIRED);
+				$contract->changeStatus(self::STATUS_CANCELED_UNPAID);
+			}
+		}
 
 	}
 
 
 
-
+	/**
+	 * Cambiar estado de la contratación y registra el cambio de estado en el historial.
+	 * @param  int $status_id 	número de estado
+	 * @return null
+	 */
 	public function changeStatus($status_id)
 	{
 		$this->current_status_id = $status_id;

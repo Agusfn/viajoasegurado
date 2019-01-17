@@ -19,8 +19,11 @@ class ProcessPaymentController extends Controller
 {
     
 
-	// marca pago como acreditado o cancelado.
-	
+	/**
+	 * Procesa pago de mercadopago luego de realizar el mismo y ser redirigido
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function processMercadoPagoPayment(Request $request)
 	{
 
@@ -54,7 +57,7 @@ class ProcessPaymentController extends Controller
 			$paymentRequest = $mpRequest->parentRequest;
 
 
-			if($paymentRequest->status == PaymentRequest::STATUS_UNPAID)
+			if($paymentRequest->status == PaymentRequest::STATUS_UNPAID || $paymentRequest->status == PaymentRequest::STATUS_PROCESSING)
 			{
 				
 				if($request->collection_status == "approved" && $payment->status == "approved") // pagó
@@ -67,7 +70,10 @@ class ProcessPaymentController extends Controller
 						$payment->fee_details[0]->amount 
 					);
 
-					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING); // ya se pagó, ahora se "procesa" la contratacion
+					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING); // ya se pagó, ahora se marca como "procesando" la contratacion
+
+					$mail = new \App\Mail\ContractPaidAdminNotif($paymentRequest->contract, $paymentRequest);
+					\Mail::to("agusfn20@gmail.com")->send($mail);
 				}
 				else if($request->collection_status == "in_process" && $payment->status == "in_process")
 				{
@@ -91,7 +97,11 @@ class ProcessPaymentController extends Controller
 
 
 
-
+	/**
+	 * Procesa pago de paypal luego de realizar el mismo y ser redirigido.
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function processPayPalPayment(Request $request)
 	{
 
@@ -115,26 +125,34 @@ class ProcessPaymentController extends Controller
 				$paypal = new Paypal();
 				$payment = $paypal->executePayment($request->paymentId, $request->PayerID);
 				
-				if($payment != false && $payment->state == "approved")
+				if($payment != false)
 				{
-					
-					$pay_time = $payment->transactions[0]->related_resources[0]->sale->create_time;
+					if($payment->state == "approved")
+					{
+						
+						$pay_time = $payment->transactions[0]->related_resources[0]->sale->create_time;
 
-					$ppRequest->markAsPaidOut(
-						$request->PayerID,
-						$payment->transactions[0]->related_resources[0]->sale->id,
-						date("Y-m-d H:i:s", strtotime($pay_time)),
-						$payment->transactions[0]->related_resources[0]->sale->transaction_fee->value
-					);
+						$ppRequest->markAsPaidOut(
+							$request->PayerID,
+							$payment->transactions[0]->related_resources[0]->sale->id,
+							date("Y-m-d H:i:s", strtotime($pay_time)),
+							$payment->transactions[0]->related_resources[0]->sale->transaction_fee->value
+						);
 
-					$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
+						$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
 
+						$mail = new \App\Mail\ContractPaidAdminNotif($paymentRequest->contract, $paymentRequest);
+						\Mail::to("agusfn20@gmail.com")->send($mail);
+					}
+					else
+					{
+						$paymentRequest->markAsFailed();
+						$paymentRequest->contract->changeStatus(Contract::STATUS_CANCELED_ERROR_PAYMENT);
+					}
 				}
 				else
-				{
-					$paymentRequest->markAsFailed();
-					$paymentRequest->contract->changeStatus(Contract::STATUS_CANCELED_ERROR_PAYMENT);
-				}
+					return "There was a problem excecuting the payment. Please try reloading the page or contact support.";
+
 			}
 			
 

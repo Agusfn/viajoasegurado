@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateQuotation;
 use App\Quotation;
 
 use \App\Library\AseguratuViaje\ATV;
@@ -19,11 +20,15 @@ class QuotationController extends Controller
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-	public function createQuotation(Request $req)
+	public function createQuotation(CreateQuotation $req)
 	{
-		
-		//dd($req);
-		// **validar parametros!**
+
+		$req->validated();
+
+		for($i=1; $i<=$req->passenger_ammount; $i++) {
+			if(!$req->filled("age".$i))
+				return redirect('')->withErrors("Ingresa todas las edades.");
+		}
 
 		if($req->has("travel_pregnant"))
 		{
@@ -109,8 +114,10 @@ class QuotationController extends Controller
 
 		$response = ["success" => false];
 
-		if($request->has("url_code"))
+		if($request->has("url_code", "lang") && in_array($request->lang, config("app.langs")))
 		{
+
+			\App::setLocale($request->lang);
 
 			if($quotation = Quotation::findByUrlCode($request->url_code))
 			{
@@ -126,7 +133,7 @@ class QuotationController extends Controller
 							return $response;
 						}
 					}
-					
+
 					$response["date_from"] = \App\Library\Dates::translate($quotation->date_from);
 					$response["date_to"] = \App\Library\Dates::translate($quotation->date_to);
 					$response["country_from"] = __($quotation->country_from->name_english);

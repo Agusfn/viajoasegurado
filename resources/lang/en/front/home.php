@@ -3,6 +3,7 @@
 return [
 
 	"title" => "Home",
+	"meta_description" => "Search, quote, and buy the most affordable travel insurances in one place.",
 
 	"24hs_assistance" => "24/7 assistance",
 	"24hs_assistance_description" => "The companies we work with offer assistance 24 hours a day, no matter the destination or the inconvenience experienced.",

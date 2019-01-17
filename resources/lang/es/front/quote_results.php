@@ -10,6 +10,7 @@ return [
 	"time_to" => "hasta el",
 	"travelers" => "pasajero/s",
 	"change_search" => "Cambiar búsqueda",
+	"no_results" => "No se encontraron resultados",
 
 	"product_name" => "Nombre del producto",
 	"accident_coverage" => "Cobertura por accidentes",

@@ -22,6 +22,11 @@ class ContractController extends Controller
 {
     
 
+	/**
+	 * Verifica validez de cotizacion y luego muestra formulario contratacion.
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function showContractForm(Request $request)
 	{
 		$parameters = [
@@ -67,7 +72,17 @@ class ContractController extends Controller
 
 
 
-
+	/**
+	 * Procesa formulario contratacion.
+	 * 1) Valida datos
+	 * 2) Verifica validez Quotation y QuotationProduct
+	 * 3) Crea Contract con datos de la contratacion.
+	 * 4) Genera solicitud de pago
+	 * 5) Guarda datos y redirige.
+	 * 
+	 * @param  CreateContract $request [description]
+	 * @return [type]                  [description]
+	 */
 	public function processContractForm(CreateContract $request)
 	{
 		$request->validated();
@@ -143,6 +158,7 @@ class ContractController extends Controller
 		{
 			$customRequest = MercadoPagoRequest::create(
 				$contract->id,
+				$contract->number,
 				$quotationProduct->id,
 				$quotationProduct->product_name,
 				1,
@@ -157,6 +173,7 @@ class ContractController extends Controller
 		{
 			$customRequest = PaypalRequest::create(
 				$contract->id,
+				$contract->number,
 				$quotationProduct->product_name,
 				1,
 				$quotationProduct->price
@@ -186,7 +203,11 @@ class ContractController extends Controller
 
 
 
-
+	/**
+	 * Muestra página de información de contratación.
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function viewContractDetails(Request $request)
 	{
 

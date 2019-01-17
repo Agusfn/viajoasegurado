@@ -3,6 +3,9 @@
 return [
 
 	"title" => "Support",
+	"meta_description" => "Get in touch with us.",
+
+	"success_msg" => "The message has been sent successfully.",
 	"contact_form" => "Contact form",
 	"name" => "Name",
 	"email" => "E-mail",

@@ -9,7 +9,10 @@ use \Config;
 class CheckLanguage
 {
     /**
-     * Handle an incoming request.
+     * Redirige usuarios que llegan a la página principal sin prefijo de lenguaje a la página con lenguaje correspondiente.
+     * Si tienen cookie de lenguaje válida, redirige a la pag ppal de ese lenguaje.
+     * Si no tienen cookie, redirige al lenguaje del navegador (si es valido)
+     * Si ninguna de las anteriores, sigue con el lenguaje default.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -21,20 +24,24 @@ class CheckLanguage
         if(Request::segment(1) == null) // Si la URL no especifica lenguaje. (Sólo para index)
         {
 
-            $lang = \App::getLocale(); // default=es
+            $default_lang = \App::getLocale(); // default: es
 
 
-            $cookie_lang = \Cookie::get("lang");
+            $saved_lang = \Cookie::get("lang");
 
-            if($cookie_lang != null && $cookie_lang != $lang)
+            if($saved_lang != null && in_array($saved_lang, Config::get("app.langs")))
             {
-                return redirect($cookie_lang);
+                if($saved_lang == $default_lang)
+                    return $next($request);
+                else
+                    return redirect($saved_lang);
             }
-
+ 
+ 
             $browser_lang = Request::getPreferredLanguage();
             $browser_lang = explode("_", $browser_lang)[0];
 
-            if($browser_lang != $lang && in_array($browser_lang, Config::get("app.langs")))
+            if($browser_lang != $default_lang && in_array($browser_lang, Config::get("app.langs")))
             {
                 return redirect($browser_lang);
             }
@@ -42,6 +49,6 @@ class CheckLanguage
         }
     
 
-        return $next($request); // Sigue lenguaje default=español
+        return $next($request);
     }
 }

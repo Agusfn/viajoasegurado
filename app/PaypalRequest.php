@@ -16,8 +16,15 @@ class PaypalRequest extends Model
 	protected $guarded = [];
 
 
-
-	public static function create($contract_id, $item_title, $item_quantity, $unit_price)
+	/**
+	 * Genera una solicitud de PayPal por medio de la API SDK y una instancia de PaypalRequest y PaymentRequest "padre" asociada.
+	 * @param  int $contract_id   id de contratación
+	 * @param  string $item_title    nombre del producto
+	 * @param  int $item_quantity cantidad de unidades
+	 * @param  float $unit_price    precio por unidad
+	 * @return PaypalRequest|false                Instancia de PaypalRequest con clase "padre" PaymentRequest asociado con toda la información de la solicitud.
+	 */
+	public static function create($contract_id, $contract_number, $item_title, $item_quantity, $unit_price)
 	{
 
 		$ppRequest = new self();
@@ -32,7 +39,7 @@ class PaypalRequest extends Model
 
 
 		$paypal = new Paypal();
-		$payment = $paypal->createPayment($ppRequest);
+		$payment = $paypal->createPayment($ppRequest, $contract_number);
 
 		if($payment == false)
 		{
@@ -65,7 +72,8 @@ class PaypalRequest extends Model
 
 
 	/**
-	 * Buscar solicitud de pago de PayPal por medio del token
+	 * Buscar PaypalRequest por medio del token (dato interno de PayPal) de la solicitud de pago de paypal
+	 * @param string $token 	token de pago
 	 * @return PaypalRequest|null
 	 */
 	public static function findByPPToken($token)
@@ -81,7 +89,14 @@ class PaypalRequest extends Model
 	}
 
 
-
+	/**
+	 * Marcar PaymentRequest "padre" como aprobado, y agrega datos del pago a esta PaypalRequest
+	 * @param  string $payerId         dato interno del pago de paypal
+	 * @param  string $transactionId   dato interno del pago de paypal
+	 * @param  string $date_paid       fecha pago Y-m-d H:i:s
+	 * @param  float $transaction_fee 	comision servicio pagos
+	 * @return null
+	 */
 	public function markAsPaidOut($payerId, $transactionId, $date_paid, $transaction_fee)
 	{
 		
@@ -89,7 +104,7 @@ class PaypalRequest extends Model
 		$this->pp_transaction_id = $transactionId;
 		$this->save();
 
-		$payRequest = $this->parentRequest->markAsPaidOut($date_paid, $transaction_fee);
+		$this->parentRequest->markAsPaidOut($date_paid, $transaction_fee);
 	}
 
 }
