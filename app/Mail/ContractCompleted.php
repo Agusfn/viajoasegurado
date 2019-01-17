@@ -36,9 +36,15 @@ class ContractCompleted extends Mailable
         $passg_details = $this->contract->getPassengerDetails();
         $fullname = $passg_details[0]["name"]." ".$passg_details[0]["surname"];
 
-        if(\App::isLocale("en"))
-            return $this->view('mails.contracts.completed_en')->with("fullname", $fullname);
+        if(\App::isLocale("en")) 
+        {
+            $this->subject("Your travel insurance has been successfully processed and the voucher has been sent");
+            return $this->view('mails.contracts.completed_en')->text("mails.contracts.completed_en_plain")->with("fullname", $fullname);
+        }
         else if(\App::isLocale("es"))
-            return $this->view('mails.contracts.completed_es')->with("fullname", $fullname);
+        {
+            $this->subject("Tu seguro de viaje fue procesado exitosamente y el voucher ha sido enviado");
+            return $this->view('mails.contracts.completed_es')->text("mails.contracts.completed_es_plain")->with("fullname", $fullname);
+        }
     }
 }

@@ -52,6 +52,6 @@ class Contact extends Mailable
             $this->subject("Otras consultas - Formulario contacto");
 
 
-        return $this->view('mails.contact');
+        return $this->view('mails.contact')->text("mails.contact_plain");
     }
 }

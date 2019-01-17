@@ -37,6 +37,7 @@ class ContractPaidAdminNotif extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.contracts.paid_admin_notif');
+        $this->subject("Pago contratación #".$this->contract->number." realizado, enviar voucher");
+        return $this->view('mails.contracts.paid_admin_notif')->text("mails.contracts.paid_admin_notif_plain");
     }
 }
