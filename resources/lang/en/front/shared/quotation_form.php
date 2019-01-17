@@ -7,7 +7,7 @@ return [
 	"region_to" => "To",
 	"date_from" => "Date from",
 	"date_to" => "Date to",
-	"travel_pregnant" => "The insurance is for a pregnant woman",
+	"travel_pregnant" => "I travel pregnant",
 	"traveler_ammount" => "Travelers",
 	"ages" => "Ages",
 	"gestation_weeks" => "Weeks of gestation",

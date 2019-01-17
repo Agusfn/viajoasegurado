@@ -7,7 +7,7 @@ return [
 	"region_to" => "Hacia",
 	"date_from" => "Fecha salida",
 	"date_to" => "Fecha vuelta",
-	"travel_pregnant" => "El seguro es para una mujer embarazada",
+	"travel_pregnant" => "Viajo embarazada",
 	"traveler_ammount" => "Pasajeros",
 	"ages" => "Edades",
 	"gestation_weeks" => "Semanas de gestación",

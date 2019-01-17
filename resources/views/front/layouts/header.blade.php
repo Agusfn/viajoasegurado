@@ -11,7 +11,7 @@
                             <ul class="slimmenu" id="slimmenu">
                                 <li @if(@$section == 'home') class="active" @endif><a href="{{ url('') }}">{{ __("front/shared/main.nav_home") }}</a></li>
                                 <li @if(@$section == 'support') class="active" @endif><a href="{{ url(uri_localed('{support}')) }}">{{ __("front/shared/main.nav_support") }}</a></li>
-                                <li @if(@$section == 'insurers') class="active" @endif><a href="#">{{ __("front/shared/main.nav_insurances") }}</a>
+                                <li @if(@$section == 'insurers') class="active" @endif><a href="#">{{ __("front/shared/main.nav_insurers") }}</a>
                                     <ul>
                                         <li><a href="{{ url(uri_localed('{insurer}/assist-card')) }}">Assist Card</a></li>
                                         <li><a href="{{ url(uri_localed('{insurer}/universal-assistance')) }}">Universal Assistance</a></li>
@@ -30,24 +30,13 @@
                                 </li>
                                 <li @if(@$section == 'assistances') class="active" @endif><a href="#">{{ __("front/shared/main.nav_assistance") }}</a>
                                     <ul>
-                                        <li><a href="feature-typography.html">Typography</a>
-                                        </li>
-                                        <li><a href="feature-icons.html">Icons</a>
-                                        </li>
-                                        <li><a href="feature-forms.html">Forms</a>
-                                        </li>
-                                        <li><a href="feature-icon-effects.html">Icon Effects</a>
-                                        </li>
-                                        <li><a href="feature-elements.html">Elements</a>
-                                        </li>
-                                        <li><a href="feature-grid.html">Grid</a>
-                                        </li>
-                                        <li><a href="feature-hovers.html">Hover effects</a>
-                                        </li>
-                                        <li><a href="feature-lightbox.html">Lightbox</a>
-                                        </li>
-                                        <li><a href="feature-media.html">Media</a>
-                                        </li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{longs_stay_student}')) }}">{{ __("front/shared/main.nav_insurance_long_stay_student") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{multi_trip}')) }}">{{ __("front/shared/main.nav_insurance_multi_trip") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{it_insurance}')) }}">{{ __("front/shared/main.nav_insurance_technology") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{sports_insurance}')) }}">{{ __("front/shared/main.nav_insurance_sports") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{cancellation_insurance}')) }}">{{ __("front/shared/main.nav_insurance_cancellation") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{chronic_disease_senior_insurance}')) }}">{{ __("front/shared/main.nav_insurance_chronic_disease_senior") }}</a></li>
+                                        <li><a href="{{ url(uri_localed('{insurance}/{pregnant_insurance}')) }}">{{ __("front/shared/main.nav_insurance_pregnant") }}</a></li>
                                     </ul>
                                 </li>
                                 <li @if(@$section == 'about') class="active" @endif><a href="{{ url(uri_localed('{about_us}')) }}">{{ __("front/shared/main.nav_about_us") }}</a></li>

@@ -22,6 +22,26 @@ class HomeController extends Controller
     }
 
 
+
+
+    /**
+     * Cambia configuracion de lenguaje en cookie y redirige a ruta pag ppal.
+     * @param  Request $request [description]
+     * @return \Illuminate\Http\Response
+     */
+    public function changeLanguage(Request $request)
+    {
+        
+        if($request->has("code") && in_array($request->code, Config::get("app.langs")))
+        {
+            $cookie = cookie("lang", $request->code, 518400);
+            return redirect('/')->withCookie($cookie);
+        }
+        return redirect('/');
+    }
+
+
+
     /**
      * Muestra pagina inicio
      * @return  \Illuminate\Http\Response
@@ -70,16 +90,6 @@ class HomeController extends Controller
 
 
     /**
-     * Muestra pag acerca de
-     * @return \Illuminate\Http\Response
-     */
-    public function aboutUs()
-    {
-        return view("front.about");
-    }
-
-
-    /**
      * Muestra detalles de aseguradora
      * @param  Request $request [description]
      * @return \Illuminate\Http\Response
@@ -97,20 +107,60 @@ class HomeController extends Controller
 
 
     /**
-     * Cambia configuracion de lenguaje en cookie y redirige a ruta pag ppal.
+     * Muestra detalles de tipos de seguros
      * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function insuranceTypeDetails(Request $request)
+    {
+        $lang = App::getLocale();
+
+        if($request->insurance_type == __("routes.longs_stay_student"))
+            return view("front.insurance_types.".$lang.".longs_stay_student");
+
+        else if($request->insurance_type == __("routes.multi_trip"))
+            return view("front.insurance_types.".$lang.".multi_trip");
+
+        else if($request->insurance_type == __("routes.it_insurance"))
+            return view("front.insurance_types.".$lang.".it_insurance");
+
+        else if($request->insurance_type == __("routes.sports_insurance"))
+            return view("front.insurance_types.".$lang.".sports_insurance");
+
+        else if($request->insurance_type == __("routes.cancellation_insurance"))
+            return view("front.insurance_types.".$lang.".cancellation_insurance");
+
+        else if($request->insurance_type == __("routes.chronic_disease_senior_insurance"))
+            return view("front.insurance_types.".$lang.".chronic_disease_senior_insurance");
+
+        else if($request->insurance_type == __("routes.pregnant_insurance"))
+            return view("front.insurance_types.".$lang.".pregnant_insurance");
+
+        else
+            return redirect("");
+    }
+
+
+
+    /**
+     * Muestra pag acerca de
      * @return \Illuminate\Http\Response
      */
-    public function changeLanguage(Request $request)
+    public function aboutUs()
     {
-        
-        if($request->has("code") && in_array($request->code, Config::get("app.langs")))
-        {
-            $cookie = cookie("lang", $request->code, 518400);
-            return redirect('/')->withCookie($cookie);
-        }
-        return redirect('/');
+        return view("front.about");
     }
+
+
+    /**
+     * Muestra términos y condiciones
+     * @return [type] [description]
+     */
+    public function showTermsAndConditions()
+    {
+        return "Terms & Conditions";
+    }
+
 
 
 

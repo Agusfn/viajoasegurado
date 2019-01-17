@@ -226,7 +226,7 @@ return [
 		["id" => 1002, "name" => "South America"],
 		["id" => 1005, "name" => "Asia"],
 		["id" => 1004, "name" => "Europe"],
-		["id" => 1006, "name" => "Rest of the world"],
+		["id" => 1006, "name" => "All of the world"],
 		["id" => 1009, "name" => "National Coverage"]
 	]
 

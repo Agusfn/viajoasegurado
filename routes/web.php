@@ -89,27 +89,19 @@ Route::domain(config("app.domain"))->group(function() {
 
 	Route::group(array("prefix" => Config::get("app.locale_prefix")), function() {
 
-		
 		Route::get("/", "HomeController@index");
-
 		Route::get("{support}", "HomeController@support");
 		Route::post("{support}", "HomeController@sendContactForm");
-
-		Route::get("{about_us}", "HomeController@aboutUs");
-
 		Route::get("{insurer}/{insurer_name}", "HomeController@insurerDetails");
+		Route::get("{insurance}/{insurance_type}", "HomeController@insuranceTypeDetails");
+		Route::get("{about_us}", "HomeController@aboutUs");
+		Route::get("{terms}", "HomeController@showTermsAndConditions");
 
-		// Crear cotización
 		Route::post("quotation/create", "QuotationController@createQuotation");
-		// Ver cotización
 		Route::get("{quote}/{url_code}", "QuotationController@displayQuotation");
 
-		// Formulario contratación
 		Route::get("{contract}/{quot_url_code}/{quotproduct_atvid}", "ContractController@showContractForm");
-
-		// Página de la contratación una vez generada, donde se puede ver el estado de la misma, pagar si no se pagó, y ver instrucciones una vez pagada.
 		Route::get("{contract}/{contract_number}", "ContractController@viewContractDetails");
-
 
 	});
 
