@@ -28,12 +28,29 @@
                 <div class="bg-content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="search-tabs search-tabs-bg mt50" id="aa">
                                     <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">
                                         @include('front.layouts.request-quotation-form')
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-5">
+                                
+                                <div class="gap hidden-sm"></div>
+                                <div class="gap hidden-xs"></div>
+
+                                <section class="main-slider slider">
+                                    @if(App::isLocale('es'))
+                                    <div class="slide"><img src="{{ asset('front/img/main_slider/es/home_quotation_slider_1.png') }}"></div>
+                                    <div class="slide"><img src="{{ asset('front/img/main_slider/es/home_quotation_slider_2.png') }}"></div>
+                                    @elseif (App::isLocale('en'))
+                                    <div class="slide"><img src="{{ asset('front/img/main_slider/en/home_quotation_slider_1.png') }}"></div>
+                                    <div class="slide"><img src="{{ asset('front/img/main_slider/en/home_quotation_slider_2.png') }}"></div>
+                                    <div class="slide"><img src="{{ asset('front/img/main_slider/en/home_quotation_slider_3.png') }}"></div>
+                                    @endif
+                                </section>
+                                
                             </div>
                         </div>
                     </div>
@@ -148,6 +165,17 @@
                 }
             }]
         });
+
+        $(".main-slider").slick({
+            slidesToShow: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            arrows: false,
+            dots: false,
+            pauseOnHover: false,
+            speed: 1500
+        });
+
     });
 
 </script>

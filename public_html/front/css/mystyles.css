@@ -15,9 +15,10 @@
 	display:none;
 }
 
-.short-input {
-	width: 60px; 
+#age1-input, #age2-input, #age3-input, #age4-input, #age5-input {
+	width: 52px; 
 	display: inline;
+	padding: 10px 14px;
 }
 
 .form-error {
@@ -31,6 +32,10 @@
 /* Home page */
 
 
+
+.customer-logos .slick-slide img {
+    max-height: 60px;
+}
 
 
 
