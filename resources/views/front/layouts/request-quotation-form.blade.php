@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
-                <i class="fa fa-map-marker input-icon"></i>
+                <i class="fa fa-map-marker input-icon" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.country_from") }}</label>
                 <input type="text" class="typeahead form-control" id="country-from-input" placeholder="{{ __('Country') }}" data-provide="typeahead" autocomplete="off" />
                 <input type="hidden" name="country_code_from">
@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
-                <i class="fa fa-map-marker input-icon"></i>
+                <i class="fa fa-map-marker input-icon" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.region_to") }}</label>
                 <select class="form-control" name="region_code_to">
                     <option>{{ __("Select") }}</option>
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
-                <i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                <i class="fa fa-calendar input-icon input-icon-highlight" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.date_from") }}</label>
                 <input class="form-control" name="date_start" type="text" data-date-format="dd/mm/yyyy" data-date-language="{{ \App::getLocale() }}" />
                 <label class="form-error" id="date-start-error">{{ __("front/shared/quotation_form.invalid_date_from") }}</label>
@@ -37,7 +37,7 @@
 
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
-                <i class="fa fa-calendar input-icon input-icon-highlight"></i>
+                <i class="fa fa-calendar input-icon input-icon-highlight" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.date_to") }}</label>
                 <input class="form-control" name="date_end" type="text" data-date-format="dd/mm/yyyy" data-date-language="{{ \App::getLocale() }}" />
                 <label class="form-error" id="date-end-error">{{ __("front/shared/quotation_form.invalid_date_to") }}</label>
@@ -45,58 +45,56 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
-            <!--div class="form-group form-group-lg">
-                <label>{{ __("front/shared/quotation_form.traveler_ammount") }}</label>
-                <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                    <label class="btn btn-primary active" id="passg-ammt-1">
-                        <input type="radio" name="passenger_ammount" value=1 />1
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value=2 />2
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value=3 />3
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value=4 />4
-                    </label>
-                    <label class="btn btn-primary">
-                        <input type="radio" name="passenger_ammount" value=5 />5
-                    </label>
-                </div>
-            </div-->
-            <div class="form-group" style="padding-top: 28px">
-                <label><input type="checkbox" class="icheckbox" name="travel_pregnant"> {{ __("front/shared/quotation_form.travel_pregnant") }}</label>
-            </div>
 
-            
-        </div>
         <div class="col-sm-6">
-            <div class="row">
-                <div class="form-group form-group-lg" style="padding-left: 15px">
+            <div class="form-group" style="padding-top: 28px; margin-bottom: 42px">
+                <label style="display: inline">
+                    <img src="{{ asset('front/img/icons/pregnant.png') }}" style="width: 30px; margin-left: 9px" />
+                    &nbsp;{{ __("front/shared/quotation_form.travel_pregnant") }}
+                    &nbsp;&nbsp;&nbsp;<input type="checkbox" class="icheckbox" name="travel_pregnant">
+                </label>
+                <i class="fa fa-info-circle" style="color: #e81984;margin-left: 17px; font-size: 18px;display: inline" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ __('front/shared/quotation_form.pregnant_message') }}" ></i>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+                <input type="hidden" name="passenger_ammount">
+                <div class="form-group form-group-lg" id="traveler-ages-form-group">
                     <label>{{ __("front/shared/quotation_form.ages") }}</label>
                     <input type="text" class="form-control" name="age1" id="age1-input" maxlength="2">&nbsp;
-                    <input type="text" class="form-control" name="age2" id="age2-input" maxlength="2"">&nbsp;
+                    <input type="text" class="form-control" name="age2" id="age2-input" maxlength="2">&nbsp;
                     <input type="text" class="form-control" name="age3" id="age3-input" maxlength="2">&nbsp;
                     <input type="text" class="form-control" name="age4" id="age4-input" maxlength="2">&nbsp;
                     <input type="text" class="form-control" name="age5" id="age5-input" maxlength="2">&nbsp;
                     <label class="form-error" id="ages-error">{{ __("front/shared/quotation_form.invalid_ages") }}</label>
                 </div>
-                <div class="col-xs-7 form-group form-group-lg" id="gestation-weeks-form-group">
-                    <label>{{ __("front/shared/quotation_form.gestation_weeks") }}</label>
-                    <input type="text" name="gestation_weeks" class="form-control short-input" maxlength="2">
-                    <label class="form-error" id="gest-weeks-error">{{ __("front/shared/quotation_form.invalid_gestation_weeks") }}</label>
+
+                <div class="row" id="pregnant-inputs" style="margin-bottom: 20px">
+                    <div class="col-xs-4">
+                        <div class="form-group form-group-lg" style="margin-bottom: 5px">
+                            <label>Tu edad</label>
+                            <input type="text" name="pregnant_age" class="form-control" maxlength="2" style="width: 65px" disabled="">
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="form-group form-group-lg" style="margin-bottom: 5px">
+                            <label>{{ __("front/shared/quotation_form.gestation_weeks") }}</label>
+                            <input type="text" name="gestation_weeks" class="form-control short-input" maxlength="2" style="width: 65px" disabled="">
+                        </div>
+                    </div>
+                    <label class="form-error" id="pregnant-error">{{ __("front/shared/quotation_form.invalid_pregnant_age_or_weeks") }}</label>
                 </div>
-            </div>
-            
+
+
+
         </div>
+
     </div>
 
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group form-group-lg form-group-icon-left">
-                <i class="fa fa-envelope input-icon input-icon-highlight"></i>
+                <i class="fa fa-envelope input-icon input-icon-highlight" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.email") }}</label>
                 <input type="text" class="form-control" name="email">
                 <label class="form-error" id="email-error">{{ __("front/shared/quotation_form.invalid_email") }}</label>

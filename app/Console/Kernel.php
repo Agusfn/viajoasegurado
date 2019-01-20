@@ -31,8 +31,13 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function() {
             QuotationProduct::cleanOldProducts();
-            Conract::cancelUnpaidContracts();
+            Contract::cancelUnpaidContracts();
         })->hourly();
+
+
+        $schedule->call(function () {
+            \Log::info("Cron job test");
+        })->everyTenMinutes();
 
     }
 

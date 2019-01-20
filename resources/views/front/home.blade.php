@@ -134,7 +134,7 @@
 
 
 @section('custom-js')
-<script src="{{ asset('front/js/vendor/slick.js') }}"></script>
+<script src="{{ asset('front/js/vendor/slick.js?'.rand()) }}"></script>
 <script>
     var countries_from = '@php echo json_encode($countries_from) @endphp';
 
@@ -179,5 +179,5 @@
     });
 
 </script>
-<script src="{{ asset('front/js/quotation-form.js') }}"></script>
+<script src="{{ asset('front/js/quotation-form.js?'.rand()) }}"></script>
 @endsection

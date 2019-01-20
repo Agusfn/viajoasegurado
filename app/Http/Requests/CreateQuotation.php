@@ -51,11 +51,12 @@ class CreateQuotation extends FormRequest
             "date_end" => "required|date_format:d/m/Y|after:date_start",
             "travel_pregnant" => "in:on",
             "passenger_ammount" => "required|integer|in:1,2,3,4,5",
-            "age1" => "required|integer|min:1|max:99",
+            "age1" => "nullable|integer|min:1|max:99",
             "age2" => "nullable|integer|min:1|max:99",
             "age3" => "nullable|integer|min:1|max:99",
             "age4" => "nullable|integer|min:1|max:99",
             "age5" => "nullable|integer|min:1|max:99",
+            "pregnant_age" => "required_if:travel_pregnant,=,on|nullable|integer|min:1|max:99",
             "gestation_weeks" => "required_if:travel_pregnant,=,on|nullable|integer|min:1|max:36",
             "email" => "required|email|max:100",
         ];

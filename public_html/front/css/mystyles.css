@@ -10,13 +10,12 @@
 /* Shared */
 
 
-#gestation-weeks-form-group {
-	/*display: inline-block;*/
+#pregnant-inputs {
 	display:none;
 }
 
 #age1-input, #age2-input, #age3-input, #age4-input, #age5-input {
-	width: 52px; 
+	width: 50px; 
 	display: inline;
 	padding: 10px 14px;
 }

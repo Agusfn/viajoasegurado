@@ -32,7 +32,6 @@ $('ul.slimmenu').slimmenu({
 
 $('.btn').button();
 
-$("[rel='tooltip']").tooltip();
 
 $('.form-group').each(function() {
     var self = $(this),
@@ -142,6 +141,9 @@ $('div.bg-parallax').each(function() {
 $(document).ready(
     function() {
 
+
+            //$("[rel='tooltip']").tooltip();
+            $('[data-toggle="tooltip"]').tooltip();
 
 
             // Owl Carousel
@@ -372,7 +374,7 @@ $(function($) {
     });
 });*/
 
-$(document).ready(function() {
+/*$(document).ready(function() {
     var ul = $('#twitter-ticker').find(".tweet-list");
     var ticker = function() {
         setTimeout(function() {
@@ -385,7 +387,7 @@ $(document).ready(function() {
         }, 5000);
     };
     ticker();
-});
+});*/
 /*$(function() {
     $('#ri-grid').gridrotator({
         rows: 4,

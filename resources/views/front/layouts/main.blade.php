@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="{{ asset('front/css/vendor/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/vendor/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/vendor/icheck/square/blue.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/css/mystyles.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/styles.css?'.rand()) }}">
+    <link rel="stylesheet" href="{{ asset('front/css/mystyles.css?'.rand()) }}">
     @yield('custom-css')
     
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon.png') }}">
@@ -57,7 +57,7 @@
         <script src="{{ asset('front/js/vendor/icheck.js') }}"></script>
         <script src="{{ asset('front/js/vendor/typeahead-bootstrap3.js') }}"></script>
         <script src="{{ asset('front/js/vendor/magnific.js') }}"></script>
-        <script src="{{ asset('front/js/custom.js') }}"></script>
+        <script src="{{ asset('front/js/custom.js?'.rand()) }}"></script>
         @yield('custom-js')
 
     </div>

@@ -49,30 +49,40 @@ $(document).ready(function() {
     });
 
 
-    $("input[name=passenger_ammount]").on("change", function() {
-        var val = parseInt($('input[name=passenger_ammount]:checked').val());
-        $("#age2-input,#age3-input,#age4-input,#age5-input").hide();
-        for(var i=1; i<(val+1); i++) {
-            $("#age"+i+"-input").css('display', 'inline');
-        }
-    });
-
     $("input[name=travel_pregnant]").on("ifChecked", function() {
-        $("#passg-ammt-1").trigger("click");
-        $("#passg-ammt-1").parent().find(".btn").attr("disabled", "disabled");
-        $("#age1-input").parent().addClass("col-xs-5");
-        $("#gestation-weeks-form-group").show()
+        $("#traveler-ages-form-group").hide();
+        $("#traveler-ages-form-group input").prop("disabled", true);
+        $("#pregnant-inputs").show();
+        $("input[name=pregnant_age], input[name=gestation_weeks]").prop("disabled", false);
     });
 
     $("input[name=travel_pregnant]").on("ifUnchecked", function() {
-        $("#passg-ammt-1").parent().find(".btn").removeAttr("disabled");
-        $("#age1-input").parent().removeClass("col-xs-5");
-        $("#gestation-weeks-form-group").hide();
+        $("#pregnant-inputs").hide();
+        $("input[name=pregnant_age], input[name=gestation_weeks]").prop("disabled", true);        
+        $("#traveler-ages-form-group").show();
+        $("#traveler-ages-form-group input").prop("disabled", false);
     });
 
     $("#submit-quote-btn").click(function() {
+        
         if(validateQuoteForm())
+        {
+            var passengers = 0;
+            if(!$("input[name=travel_pregnant]").is(":checked"))
+            {
+                for(i=1; i<=5; i++) {
+                    if($("#age"+i+"-input").val() != "")
+                        passengers += 1;
+                }
+            }
+            else
+                passengers = 1;
+
+            $("input[name=passenger_ammount]").val(passengers);
+
             $("#quote-form").submit();
+        }
+
     });
 
 
@@ -115,29 +125,51 @@ function validateQuoteForm()
     }
 
 
-    var passgs = parseInt($("input[name=passenger_ammount]:checked").val());
-    for(i=1; i<=passgs; i++)
+    if(!$("input[name=travel_pregnant]").is(":checked"))
     {
-        var age = parseInt($("#age"+i+"-input").val());
+        var stop = null;
+        for(i=1; i<=5; i++)
+        {
+            var age = $("#age"+i+"-input").val();
+            if(age != "" || i == 1) 
+            {
+                age = parseInt(age);
+                if((stop != null && i > stop) || !$.isNumeric(age) || !Number.isInteger(age) || age < 1 || age > 99)
+                {
+                    $("#age1-input").parent().addClass("has-error");
+                    $("#ages-error").show();
+                    valid = false;
+                    break;
+                }
+            }
+            else
+            {
+                if(stop == null) 
+                    stop = i;
+            }
+        }
+
+    }
+    else
+    {
+        var age = parseInt($("#age-pregnant-input").val());
         if(!$.isNumeric(age) || !Number.isInteger(age) || age < 1 || age > 99)
         {
-            $("#age1-input").parent().addClass("has-error");
-            $("#ages-error").show();
+            $("#age-pregnant-input").parent().addClass("has-error");
+            $("#pregnant-error").show();
             valid = false;
-            break;
-        }
-    }
+        } 
 
-    if($("input[name=travel_pregnant]").is(":checked"))
-    {
         var gest_weeks = parseInt($("input[name=gestation_weeks]").val());
         if(!$.isNumeric(gest_weeks) || !Number.isInteger(gest_weeks) || gest_weeks < 1 || gest_weeks > 36)
         {
             $("input[name=gestation_weeks]").parent().addClass("has-error");
-            $("#gest-weeks-error").show();
+            $("#pregnant-error").show();
             valid = false;
         }
     }
+
+
 
     if(!validateEmail($("input[name=email]").val()))
     {
@@ -174,8 +206,9 @@ function cleanQuoteFormErrors()
     $("#age1-input").parent().removeClass("has-error");
     $("#ages-error").hide();
 
+    $("#age-pregnant-input").parent().removeClass("has-error");
     $("input[name=gestation_weeks]").parent().removeClass("has-error");
-    $("#gest-weeks-error").hide();
+    $("#pregnant-error").hide();
 
     $("input[name=email]").parent().removeClass("has-error");
     $("#email-error").hide();

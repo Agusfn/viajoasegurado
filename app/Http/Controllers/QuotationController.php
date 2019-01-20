@@ -22,23 +22,26 @@ class QuotationController extends Controller
      */
 	public function createQuotation(CreateQuotation $req)
 	{
-
+		
 		$req->validated();
 
-		for($i=1; $i<=$req->passenger_ammount; $i++) {
-			if(!$req->filled("age".$i))
-				return redirect('')->withErrors("Ingresa todas las edades.");
-		}
 
 		if($req->has("travel_pregnant"))
 		{
-			$ages = $req->age1;
+			$ages = $req->pregnant_age;
 			$gest_weeks = $req->gestation_weeks;
-		} else {
+		} 
+		else
+		{
+			for($i=1; $i<=$req->passenger_ammount; $i++) {
+				if(!$req->filled("age".$i))
+					return redirect('')->withErrors("Insert all ".$req->passenger_ammount." ages.");
+			}
 			$ages = Quotation::agesToCsv($req->passenger_ammount, $req->age1, $req->age2, $req->age3, $req->age4, $req->age5);
 			$gest_weeks = 0;
 		}
 
+		
 
 		$quotation = new Quotation();
 
