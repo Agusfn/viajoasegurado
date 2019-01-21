@@ -13,7 +13,7 @@ return [
 	"ages" => "Ages",
 	"gestation_weeks" => "Weeks of gestation",
 	"email" => "E-mail",
-	"quote" => "Get a quote",
+	"quote" => "QUOTE NOW",
 
 	"invalid_origin" => "Select a country",
 	"invalid_destination" => "Select a destination",

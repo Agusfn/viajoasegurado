@@ -217,8 +217,8 @@ function cleanQuoteFormErrors()
 
 function valid_country(country_name)
 {
-    for(var country of countries_from) {
-        if(country.name == country_name) {
+    for (var i = 0; i<countries_from.length; i++) {
+        if(countries_from[i].name == country_name) {
             return true;
         }
     }

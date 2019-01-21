@@ -2,7 +2,7 @@
 
 return [
 
-	"title" => "Quote search results",
+	"title" => "Insurances quote for trip to",
 
 	"insurances_from" => "insurances found for trip from",
 	"to" => "to",

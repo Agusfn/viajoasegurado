@@ -90,7 +90,9 @@ class MPagoNotificationsController extends Controller
 			return response("Payment result was already notified and applied.", 200);
 
 
-
+		if(config("app.debug")) {
+			\Log::info("MercadoPago IPN payment (PaymentRequest ".$paymentRequest->id.") marked as ".$payment->status);
+		}
 
 		return response("Payment updated successfully.", 200);
 	}

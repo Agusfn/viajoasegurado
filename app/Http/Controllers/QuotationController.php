@@ -91,8 +91,10 @@ class QuotationController extends Controller
 
 			if($quotation->expired() || $quotation->contract_id != null) // si expiró o ya se generó una contratación
 				$parameters["quotationExpired"] = true;
-			else
+			else {
+				$parameters["trip_to"] = ATV::getRegionName($quotation->destination_region_code);
 				$parameters["quotationExpired"] = false;
+			}
 
 
 			return view("front.quotations.search_results")->with($parameters);

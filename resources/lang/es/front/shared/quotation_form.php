@@ -13,7 +13,7 @@ return [
 	"ages" => "Edades",
 	"gestation_weeks" => "Semanas de gestación",
 	"email" => "E-mail",
-	"quote" => "Cotizar ahora",
+	"quote" => "COTIZAR AHORA",
 
 	"invalid_origin" => "Selecciona un país válido",
 	"invalid_destination" => "Selecciona un destino",

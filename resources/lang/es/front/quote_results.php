@@ -2,7 +2,7 @@
 
 return [
 
-	"title" => "Búsqueda cotizaciones",
+	"title" => "Cotización asistencia viaje a",
 
 	"insurances_from" => "seguros para viaje desde",
 	"to" => "a",

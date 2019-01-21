@@ -15,7 +15,7 @@
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-map-marker input-icon" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.region_to") }}</label>
-                <select class="form-control" name="region_code_to">
+                <select class="form-control" name="region_code_to" style="-webkit-appearance: textfield;">
                     <option>{{ __("Select") }}</option>
                     @foreach($regions_to as $region)
                     <option value="{{ $region['id'] }}">{{ $region["name"] }}</option>
@@ -50,10 +50,10 @@
             <div class="form-group" style="padding-top: 28px; margin-bottom: 42px">
                 <label style="display: inline">
                     <img src="{{ asset('front/img/icons/pregnant.png') }}" style="width: 30px; margin-left: 9px" />
-                    &nbsp;{{ __("front/shared/quotation_form.travel_pregnant") }}
-                    &nbsp;&nbsp;&nbsp;<input type="checkbox" class="icheckbox" name="travel_pregnant">
+                    {{ __("front/shared/quotation_form.travel_pregnant") }}
+                    &nbsp;&nbsp;<input type="checkbox" class="icheckbox" name="travel_pregnant">
                 </label>
-                <i class="fa fa-info-circle" style="color: #e81984;margin-left: 17px; font-size: 18px;display: inline" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ __('front/shared/quotation_form.pregnant_message') }}" ></i>
+                <i class="fa fa-info-circle" style="color: #e81984;margin-left: 8px; font-size: 18px;display: inline" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="{{ __('front/shared/quotation_form.pregnant_message') }}" ></i>
             </div>
         </div>
 
@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="col-sm-6" style="text-align: right;">
-            <button type="button" class="btn btn-primary btn-lg" id="submit-quote-btn" style="margin-top: 28px">{{ __("front/shared/quotation_form.quote") }}</button>
+            <button type="button" class="btn btn-primary btn-lg" id="submit-quote-btn" style="margin-top: 28px; width: 100%">{{ __("front/shared/quotation_form.quote") }}</button>
         </div>
             
 

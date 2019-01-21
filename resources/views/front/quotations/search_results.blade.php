@@ -1,7 +1,10 @@
 @extends('front.layouts.main')
 
-@section('title', __('front/quote_results.title'))
-
+@if ($quotationFound && !$quotationExpired)
+    @section('title', __('front/quote_results.title')." ".$trip_to)
+@else
+    @section('title', 'Error')
+@endif
 
 @section('meta-tags')
     <meta name="robots" content="noindex, nofollow"> 
