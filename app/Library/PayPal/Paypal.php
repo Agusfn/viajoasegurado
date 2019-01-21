@@ -61,8 +61,8 @@ class Paypal
         $transaction->setAmount($amount)->setItemList($itemList)->setCustom("#".$contract_number);
 
         $redirectUrls = new \PayPal\Api\RedirectUrls();
-        $redirectUrls->setReturnUrl(config("app.url")."/contract/payment/paypal")
-            ->setCancelUrl(config("app.url")."/contract/payment/paypal");
+        $redirectUrls->setReturnUrl(config("app.url")."/contract/payment/paypal/?lang=".\App::getLocale())
+            ->setCancelUrl(config("app.url")."/contract/payment/paypal/?lang=".\App::getLocale());
 
         $payment = new \PayPal\Api\Payment();
         $payment->setIntent('sale')

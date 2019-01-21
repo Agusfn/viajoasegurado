@@ -4,6 +4,10 @@ return [
 
 	"title" => "Cotización asistencia viaje a",
 
+	"error_loading" => "Ocurrió un error cargando los resultados.",
+	"reload_page" => "Recarga la página",
+	"to_retry" => "para reintentar",
+
 	"insurances_from" => "seguros para viaje desde",
 	"to" => "a",
 	"time_from" => "Desde el",

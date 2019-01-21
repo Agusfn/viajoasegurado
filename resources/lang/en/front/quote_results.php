@@ -4,6 +4,10 @@ return [
 
 	"title" => "Insurances quote for trip to",
 
+	"error_loading" => "An error occurred loading the results.",
+	"reload_page" => "Reload the page",
+	"to_retry" => "to retry",
+
 	"insurances_from" => "insurances found for trip from",
 	"to" => "to",
 	"time_from" => "From",

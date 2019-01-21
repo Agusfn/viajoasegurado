@@ -73,9 +73,9 @@ class MP
 			
 
 			$preference->back_urls = array(
-			    "success" => config("app.url")."/contract/payment/mercadopago/",
-			    "failure" => config("app.url")."/contract/payment/mercadopago/?ft=".$mpRequest->failure_url_token,
-			    "pending" => config("app.url")."/contract/payment/mercadopago/"
+			    "success" => config("app.url")."/contract/payment/mercadopago/?lang=".\App::getLocale(),
+			    "failure" => config("app.url")."/contract/payment/mercadopago/?lang=".\App::getLocale()."&ft=".$mpRequest->failure_url_token,
+			    "pending" => config("app.url")."/contract/payment/mercadopago/?lang=".\App::getLocale()
 			);
 
 			$preference->external_reference = "contratacion #".$contract_number;			

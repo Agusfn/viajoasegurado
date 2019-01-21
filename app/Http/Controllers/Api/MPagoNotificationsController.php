@@ -76,6 +76,9 @@ class MPagoNotificationsController extends Controller
 				);
 
 				$paymentRequest->contract->changeStatus(Contract::STATUS_PROCESSING);
+
+				$mail = new \App\Mail\ContractPaidAdminNotif($paymentRequest->contract, $paymentRequest);
+				\Mail::to("agusfn20@gmail.com")->send($mail);
 			}
 			else if($payment->status == "in_process")
 			{

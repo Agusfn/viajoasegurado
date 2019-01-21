@@ -23,7 +23,7 @@
 
                 @if (!$quotationExpired)
 
-                <h4 style="text-align: center; margin-top: 80px; display: none" id="error-loading">Ocurrió un error cargando los resultados. <a href="javascript:location.reload();">Recarga la página</a> para reintentar.</h4>
+                <h4 style="text-align: center; margin-top: 80px; display: none" id="error-loading">{{ __('front/quote_results.error_loading') }} <a href="javascript:location.reload();">{{ __('front/quote_results.reload_page') }}</a> {{ __('front/quote_results.to_retry') }}.</h4>
 
                 <div id="no-results-found" style="display: none; text-align: center;">
                     <div class="gap"></div><div class="gap"></div>

@@ -18,6 +18,16 @@ use App\Library\PayPal\Paypal;
 class ProcessPaymentController extends Controller
 {
     
+	/**
+	 * Setear lenguaje de App (si se pasó)
+	 */
+	public function __construct()
+	{
+		if(request()->has("lang") && in_array(request("lang"), config("app.langs"))) {
+			\App::setLocale(request("lang"));
+		}
+	}
+
 
 	/**
 	 * Procesa pago de mercadopago luego de realizar el mismo y ser redirigido

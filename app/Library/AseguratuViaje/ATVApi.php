@@ -178,6 +178,11 @@ class ATVApi
 		{
 			self::$req_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			curl_close($ch);
+
+			if(config("app.debug")) {
+			\Log::info("(ATV API) ".$method." request to ".$url.", fields: ".json_encode($post_fields).". Response code: ".self::$req_response_code/*."\r\n".$response*/);
+			}
+
 			return json_decode($response, true);
 		}
 		else // failed
