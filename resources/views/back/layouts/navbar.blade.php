@@ -8,6 +8,9 @@
 				</div>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="{{ url(config('app.url')) }}" target="_blank"><span class="glyphicon glyphicon-log-in"></span></a>
+						</li>						
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>

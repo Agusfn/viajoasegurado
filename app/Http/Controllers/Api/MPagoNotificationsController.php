@@ -37,6 +37,9 @@ class MPagoNotificationsController extends Controller
 			return $this->error("Bad request.");
 
 
+		if(in_array($request->id, ["12345", "4320103611"])) // Enviado por MP al configurar el IPN, para comprobar el funcionamiento de la API. (es el id del primer pago que hay o 12345)
+			return response("Accepted", 200);
+
 
 		$payment = Payment::find_by_id($request->id);
 

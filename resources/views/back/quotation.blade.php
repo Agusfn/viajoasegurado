@@ -216,7 +216,7 @@
 							<div class="row">
 								<div class="col-md-5">
 									<label>Cód URL:</label><br/>
-									<a href="" target="_blank">{{ $quotation->url_code }}</a>
+									<a href="{{ config('app.url').'/cotizacion/'.$quotation->url_code }}" target="_blank">{{ $quotation->url_code }}</a>
 								</div>
 								<div class="col-md-5">
 									<label>Token cotización ATV</label><br/>

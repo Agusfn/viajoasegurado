@@ -16,6 +16,7 @@ return [
 	"payment_failed" => "El pago ha fallado",
 	"payment_failed_details" => "Vuelve a solicitar la cotización.",
 
+	"order_number" => "Pedido número",
 	"contract_not_found" => "No se encontró la contratación"
 
 

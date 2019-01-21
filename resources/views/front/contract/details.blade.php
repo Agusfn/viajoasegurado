@@ -55,6 +55,8 @@
 
                     @endif
 
+                    <div><strong>{{ __('front/contract_details.order_number') }} #{{ $contract->number }}</strong></div>
+
 
                
                 </div>
