@@ -148,7 +148,7 @@ class ContractController extends Controller
 			"billing_address_city" => $request->billing_address_city,
 			"billing_address_state" => $request->billing_address_state,
 			"billing_address_zip" => $request->billing_address_zip,
-			"billing_address_country" => 32, 
+			"billing_address_country" => $request->billing_address_country, 
 			"final_price" => $quotationProduct->price
 		]);
 		$contract->changeStatus(Contract::STATUS_PAYMENT_PENDING);

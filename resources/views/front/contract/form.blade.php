@@ -47,7 +47,7 @@
             <div class="row row-wrap">
                 <div class="col-md-8">
 
-                    {{ Form::open(["url" => "contract", "method" => "post", "id" => "contract-form"]) }}
+                    {{ Form::open(["url" => uri_localed("{contract}"), "method" => "post", "id" => "contract-form"]) }}
                         <input type="hidden" name="quotation_code" value="{{ $quotation->url_code }}">
                         <input type="hidden" name="quotationproduct_atvid" value="{{ $product->product_atv_id }}">
 
@@ -170,7 +170,7 @@
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>País</label>
-                                            <input class="form-control" type="text" name="billing_address_country" value="Argentina" disabled="" />
+                                            <input class="form-control" type="text" name="billing_address_country" value="Argentina" />
                                         </div>
                                     </div>                            
                                 </div>

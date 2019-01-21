@@ -63,10 +63,7 @@ Route::domain(config("app.domain"))->group(function() {
 
 	// Obtener cotizaciones
 	Route::post("quotation/getquotation", "QuotationController@obtainQuotedProducts"); // ajax
-	Route::post("quotation/getproductcoverage", "QuotationController@obtainQuotProductCoverage"); //  ajax
-
-	// Procesamiento formulario contratación
-	Route::post("contract", "ContractController@processContractForm");
+	Route::post("quotation/getproductcoverage", "QuotationController@obtainQuotProductCoverage"); //  ajax	
 
 	// Resultado pago mercadopago y paypal (a donde se redirige el cliente después de pagar)
 	Route::get("contract/payment/mercadopago", "ProcessPaymentController@processMercadoPagoPayment");
@@ -100,6 +97,7 @@ Route::domain(config("app.domain"))->group(function() {
 		Route::post("quotation/create", "QuotationController@createQuotation");
 		Route::get("{quote}/{url_code}", "QuotationController@displayQuotation");
 
+		Route::post("{contract}", "ContractController@processContractForm");
 		Route::get("{contract}/{quot_url_code}/{quotproduct_atvid}", "ContractController@showContractForm");
 		Route::get("{contract}/{contract_number}", "ContractController@viewContractDetails");
 
