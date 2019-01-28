@@ -45,6 +45,10 @@
 
                     @elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_UNPAID)
 
+                        <i class="fa fa-times round box-icon-large box-icon-center box-icon-success mb30"></i>  
+                        <h2 class="text-center">{{ __('front/contract_details.payment_failed') }}</h2>
+                        <h5 class="text-center mb30">{{ __('front/contract_details.payment_failed_details') }}</h5>
+
                     @elseif ($contract->current_status_id == \App\Contract::STATUS_CANCELED_ERROR_PAYMENT)
 
                         <i class="fa fa-times round box-icon-large box-icon-center box-icon-success mb30"></i>  

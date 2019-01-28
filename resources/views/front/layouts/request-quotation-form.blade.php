@@ -1,5 +1,5 @@
 {{ Form::open( array("url" => uri_localed("quotation/create"), "method" => "post", "id" => "quote-form") ) }}
-    <h2 style="margin-bottom: 25px">{{ __("front/shared/quotation_form.find_insurances") }}</h2>
+    <!--h2 style="margin-bottom: 25px">{{ __("front/shared/quotation_form.find_insurances") }}</h2-->
     @include('front.layouts.errors')
     <div class="row">
         <div class="col-sm-6">

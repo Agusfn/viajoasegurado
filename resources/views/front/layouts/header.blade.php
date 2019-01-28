@@ -3,13 +3,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <a class="logo" href="{{ url('') }}">
+                            <a class="logo" href="{{ url(uri_localed('')) }}">
                                 <img src="{{ asset('front/img/logo3.png') }}" alt="{{ config('app.name') }}" style="width:177px" />
                             </a>
                         </div>
                         <div class="col-md-8">
                             <ul class="slimmenu" id="slimmenu">
-                                <li @if(@$section == 'home') class="active" @endif><a href="{{ url('') }}">{{ __("front/shared/main.nav_home") }}</a></li>
+                                <li @if(@$section == 'home') class="active" @endif><a href="{{ url(uri_localed('')) }}">{{ __("front/shared/main.nav_home") }}</a></li>
                                 <li @if(@$section == 'support') class="active" @endif><a href="{{ url(uri_localed('{support}')) }}">{{ __("front/shared/main.nav_support") }}</a></li>
                                 <li @if(@$section == 'insurers') class="active" @endif><a href="#">{{ __("front/shared/main.nav_insurers") }}</a>
                                     <ul>

@@ -152,10 +152,10 @@ function validateQuoteForm()
     }
     else
     {
-        var age = parseInt($("#age-pregnant-input").val());
+        var age = parseInt($("input[name=pregnant_age]").val());
         if(!$.isNumeric(age) || !Number.isInteger(age) || age < 1 || age > 99)
         {
-            $("#age-pregnant-input").parent().addClass("has-error");
+            $("input[name=pregnant_age]").parent().addClass("has-error");
             $("#pregnant-error").show();
             valid = false;
         } 
@@ -206,7 +206,7 @@ function cleanQuoteFormErrors()
     $("#age1-input").parent().removeClass("has-error");
     $("#ages-error").hide();
 
-    $("#age-pregnant-input").parent().removeClass("has-error");
+    $("input[name=pregnant_age]").parent().removeClass("has-error");
     $("input[name=gestation_weeks]").parent().removeClass("has-error");
     $("#pregnant-error").hide();
 
