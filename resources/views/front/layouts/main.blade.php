@@ -19,7 +19,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
     
     <link rel="stylesheet" href="{{ asset('front/css/vendor/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/css/vendor/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/vendor/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/vendor/icheck/square/blue.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/styles.css?'.rand()) }}">

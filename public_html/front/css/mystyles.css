@@ -20,6 +20,7 @@
 	padding: 10px 14px;
 }
 
+
 .form-error {
 	color: #a94442; 
 	font-size: 14px !important; 
@@ -94,3 +95,13 @@
 #error-list ul li {
 	display: none;
 }
+
+
+/* No greater than 900px, no less than 400px */
+/*@media screen and (min-width:970px) and (max-width:1170px) {
+	#age1-input, #age2-input, #age3-input, #age4-input, #age5-input {
+		width: 39px; 
+		padding: 10px 9px;
+	}
+}​
+*/

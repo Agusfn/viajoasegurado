@@ -54,7 +54,7 @@
 
                                         <ul class="list nav-drop-menu">
                                             <li>
-                                                <a title="Spanish" href="{{ url("lang?code=es") }}" onclick="window.location.assign('{{ url("lang?code=es") }}');">
+                                                <a title="Spanish" href="{{ url('lang?code=es') }}" onclick="window.location.assign('{{ url("lang?code=es") }}');">
                                                     <img src="{{ asset('front/img/lang_flags/es.png') }}" alt="Image Alternative text" title="Image Title" /><span class="right">ESP</span>
                                                 </a>
                                             </li>

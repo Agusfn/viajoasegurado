@@ -18,6 +18,7 @@ return [
 	"message" => "Mensaje",
 	"send_message" => "Enviar mensaje",
 	"contact_email" => "contacto@viajoasegurado.com",
+	"address" => "Dirección",
 	"error_fill_all_inputs" => "Completa todos los campos.",
 	"error_select_subject" => "Selecciona el motivo de la consulta.",
 	"error_insert_contract_no" => "Ingresa el numero de contratación."

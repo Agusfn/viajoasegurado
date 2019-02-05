@@ -18,6 +18,7 @@ return [
 	"message" => "Message",
 	"send_message" => "Send message",
 	"contact_email" => "contact@viajoasegurado.com",
+	"address" => "Address",
 	"error_fill_all_inputs" => "Fill all the fields.",
 	"error_select_subject" => "Select the subject of the message.",
 	"error_insert_contract_no" => "Insert the contract number."

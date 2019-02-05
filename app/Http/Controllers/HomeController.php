@@ -158,7 +158,10 @@ class HomeController extends Controller
      */
     public function showTermsAndConditions()
     {
-        return "Terms & Conditions";
+        if(App::getLocale() == "en")
+            return view("front.terms_and_conditions_en");
+        else
+            return view("front.terms_and_conditions_es");
     }
 
 

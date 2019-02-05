@@ -13,7 +13,9 @@
 
 
 @section('content')
-	
+		
+
+		<div id="map-canvas" style="height:400px;"></div>
 		<div>
 			<div class="container">
 				<div class="gap"></div>
@@ -71,12 +73,18 @@
 	                                <h5>Email</h5><a href="#">{{ __('front/support.contact_email') }}</a>
 	                            </li>
 	                            <li>
-	                                <h5>Whatsapp</h5><a href="#">+1 (426) 642-8525</a>
+	                                <h5>Whatsapp</h5><a href="#">+54 9 11 4146 0319</a>
 	                            </li>
 	                            <li>
 	                                <h5>Skype</h5><a href="#">viajoasegurado</a>
 	                            </li>
-	                            <li>&nbsp;</li>
+	                            <li>
+	                                <h5>{{ __('front/support.address') }}</h5>
+	                                <address>Viajoasegurado SAS.<br />Alicia Moreau de Justo 1150, piso 3, oficina 306-A<br />
+	                                	Ciudad de Buenos Aires, CPAAX1107<br />
+	                                	Argentina<br />
+	                                </address>
+	                            </li>
 	                            <li>&nbsp;</li>
 	                            <li>&nbsp;</li>
 	                        </ul>
@@ -92,9 +100,44 @@
 
 
 @section('custom-js')
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
 $(document).ready(function() {
 	
+
+	if ($('#map-canvas').length) {
+	    var map,
+	        service;
+
+	    jQuery(function($) {
+	        $(document).ready(function() {
+	            var latlng = new google.maps.LatLng(-34.610951, -58.366343);
+	            var myOptions = {
+	                zoom: 16,
+	                center: latlng,
+	                mapTypeId: google.maps.MapTypeId.ROADMAP,
+	                scrollwheel: false
+	            };
+
+	            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+
+	            var marker = new google.maps.Marker({
+	                position: latlng,
+	                map: map
+	            });
+	            marker.setMap(map);
+
+
+	            $('a[href="#google-map-tab"]').on('shown.bs.tab', function(e) {
+	                google.maps.event.trigger(map, 'resize');
+	                map.setCenter(latlng);
+	            });
+	        });
+	    });
+	}
+
+
 	$("select[name=reason]")[0].selectedIndex = 0;
 
 	$("select[name=reason]").change(function() {
