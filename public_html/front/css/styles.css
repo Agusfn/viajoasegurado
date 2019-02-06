@@ -1872,16 +1872,16 @@ h5.thumb-title {
 }
 .top-area,
 .special-area {
-  height: 615px;
+  height: auto;
   position: relative;
   overflow: hidden;
 }
-@media (max-width:1183px) {
+/*@media (max-width:1183px) {
   .top-area,
   .special-area {
     height: auto;
   }
-}
+}*/
 .special-area {
   height: 500px;
 }

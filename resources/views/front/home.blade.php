@@ -29,16 +29,15 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-7">
-                                <div class="search-tabs search-tabs-bg mt50" id="aa">
+                                <div class="search-tabs search-tabs-bg" style="margin-top: 20px">
                                     <div style="background: #fff;padding: 25px;-webkit-box-shadow: 0 2px 1px rgba(0,0,0,0.15);box-shadow: 0 2px 1px rgba(0,0,0,0.15);">
                                         @include('front.layouts.request-quotation-form')
                                     </div>
                                 </div>
-                                <div class="gap hidden-sm"></div>
+                                <div class="gap gap-small hidden-sm"></div>
                             </div>
                             <div class="col-md-5">
                                 
-                                <div class="gap hidden-sm"></div>
                                 <div class="gap hidden-xs"></div>
 
                                 <section class="main-slider slider">
@@ -60,56 +59,9 @@
         </div>
         <!-- END TOP AREA  -->
 
-        <div class="gap"></div>
-
-
         <div class="container">
-            <div class="row row-wrap" data-gutter="60">
-                <div class="col-md-4">
-                    <div class="thumb">
-                        <header class="thumb-header"><i class="fa fa-clock-o box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
-                        </header>
-                        <div class="thumb-caption">
-                            <h5 class="thumb-title"><a class="text-darken" href="#">{{ __("front/home.24hs_assistance") }}</a></h5>
-                            <p class="thumb-desc">{{ __("front/home.24hs_assistance_description") }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="thumb">
-                        <header class="thumb-header"><i class="fa fa-shield box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
-                        </header>
-                        <div class="thumb-caption">
-                            <h5 class="thumb-title"><a class="text-darken" href="#">{{ __("front/home.travel_protection") }}</a></h5>
-                            <p class="thumb-desc">{{ __("front/home.travel_protection_description") }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="thumb">
-                        <header class="thumb-header"><i class="fa fa-rocket box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
-                        </header>
-                        <div class="thumb-caption">
-                            <h5 class="thumb-title"><a class="text-darken" href="#">{{ __("front/home.quick_easy") }}</a></h5>
-                            <p class="thumb-desc">{{ __("front/home.quick_easy_description") }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="gap gap-small"></div>
-        </div>
-        <div class="bg-holder">
-            <div class="bg-mask"></div>
-            <div class="bg-parallax" style="background-image:url({{ asset('front/img/bg2.jpg') }});"></div>
-            <div class="bg-content">
-                <div class="container">
-                    <div style="height:400px"></div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="gap"></div>
-            <h2 class="text-center">{{ __("front/home.our_insurers") }}</h2>
+            <!--h2 class="text-center">{{ __("front/home.our_insurers") }}</h2-->
             
             <div class="gap">
                 <section class="customer-logos slider">
@@ -126,8 +78,131 @@
                     <div class="slide"><img src="{{ asset('front/img/partners/international-assist.png') }}" alt="International Assist"></div>
                 </section>
             </div>
-            <div class="gap"></div>
+            
+            <h2 class="text-center" style="margin-bottom: 45px">Asistencia al viajero</h2>
+
+            <div class="row row-wrap" data-gutter="60">
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <i class="fa fa-clock-o box-icon-md round box-icon-black box-icon-left animate-icon-top-to-bottom"></i>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title">{{ __("front/home.24hs_assistance") }}</h5>
+                            <p class="thumb-desc">{{ __("front/home.24hs_assistance_description") }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <i class="fa fa-shield box-icon-md round box-icon-black box-icon-left animate-icon-top-to-bottom"></i>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title">{{ __("front/home.travel_protection") }}</h5>
+                            <p class="thumb-desc">{{ __("front/home.travel_protection_description") }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumb">
+                        <i class="fa fa-rocket box-icon-md round box-icon-black box-icon-left animate-icon-top-to-bottom"></i>
+                        <div class="thumb-caption">
+                            <h5 class="thumb-title">{{ __("front/home.quick_easy") }}</h5>
+                            <p class="thumb-desc">{{ __("front/home.quick_easy_description") }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gap gap-small"></div>
         </div>
+
+        <div class="bg-holder">
+            <div class="bg-mask"></div>
+            <div class="bg-parallax" style="background-image:url({{ asset('front/img/bg2.jpg') }});"></div>
+            <div class="bg-content">
+                <div class="container">
+                    
+                    <div class="gap gap-small"></div>
+                    <h1 class="text-center text-white mb20">Recent Reviews</h1>
+                    <div class="row row-wrap">
+                        <div class="col-md-4">
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimonial text-white">
+                                <div class="testimonial-inner">
+                                    <blockquote>
+                                        <p>Eget penatibus hac tortor imperdiet ante elementum tellus vel habitant in laoreet aenean sapien penatibus</p>
+                                    </blockquote>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="{{ asset('front/img/50x50.png') }}" alt="Image Alternative text" title="Sevenly Shirts - June 2012  2" />
+                                    <p class="testimonial-author-name">Alison Mackenzie</p><cite>on <a class="text-udl" href="#">Waldorf Astoria</a> hotel in New York</cite>
+                                </div>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+                        </div>
+                        <div class="col-md-4">
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimonial text-white">
+                                <div class="testimonial-inner">
+                                    <blockquote>
+                                        <p>Netus cum ornare massa blandit natoque dui volutpat lacus non volutpat enim praesent lobortis semper</p>
+                                    </blockquote>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="{{ asset('front/img/50x50.png') }}" alt="Image Alternative text" title="Flare lens flare" />
+                                    <p class="testimonial-author-name">Cheryl Gustin</p><cite>on <a class="text-udl" href="#">Wellington</a> hotel in New York</cite>
+                                </div>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+                        </div>
+                        <div class="col-md-4">
+                            <!-- START TESTIMONIAL -->
+                            <div class="testimonial text-white">
+                                <div class="testimonial-inner">
+                                    <blockquote>
+                                        <p>Aliquam vulputate velit penatibus elit gravida neque mollis purus vivamus habitasse iaculis nullam cras consectetur</p>
+                                    </blockquote>
+                                </div>
+                                <div class="testimonial-author">
+                                    <img src="{{ asset('front/img/50x50.png') }}" alt="Image Alternative text" title="Afro" />
+                                    <p class="testimonial-author-name">Sarah Slater</p><cite>on <a class="text-udl" href="#">Holiday</a> hotel in New York</cite>
+                                </div>
+                            </div>
+                            <!-- END TESTIMONIAL -->
+                        </div>
+                    </div>
+                    <div class="gap-small gap"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="gap"></div>
+            
+            <div class="gap gap-small"></div>
+        </div>
+
+        <!--div class="container">
+
+            <div class="gap gap-small"></div>
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <img src="{{ asset('front/img/300x300.png') }}" />
+                </div>
+                <div class="col-sm-3">
+                    <img src="{{ asset('front/img/300x300.png') }}" />
+                </div>
+                <div class="col-sm-3">
+                    <img src="{{ asset('front/img/300x300.png') }}" />
+                </div>
+                <div class="col-sm-3">
+                    <img src="{{ asset('front/img/300x300.png') }}" />
+                </div>
+            </div>
+            <div class="gap gap-small"></div>
+        </div-->
+
+
 
 
 @endsection
@@ -147,7 +222,7 @@
         });
         
         $('.customer-logos').slick({
-            slidesToShow: 6,
+            slidesToShow: 8,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 1500,
@@ -157,12 +232,12 @@
             responsive: [{
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 4
+                    slidesToShow: 6
                 }
             }, {
                 breakpoint: 520,
                 settings: {
-                    slidesToShow: 3
+                    slidesToShow: 4
                 }
             }]
         });
