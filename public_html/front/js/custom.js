@@ -3,31 +3,13 @@
 
 
 
-
 $('ul.slimmenu').slimmenu({
-    resizeWidth: '992',
+    resizeWidth: '974',
     collapserTitle: 'Main Menu',
     animSpeed: 250,
     indentChildren: true,
     childrenIndenter: ''
 });
-
-
-// Countdown
-/*$('.countdown').each(function() {
-    var count = $(this);
-    $(this).countdown({
-        zeroCallback: function(options) {
-            var newDate = new Date(),
-                newDate = newDate.setHours(newDate.getHours() + 130);
-
-            $(count).attr("data-countdown", newDate);
-            $(count).countdown({
-                unixFormat: true
-            });
-        }
-    });
-});*/
 
 
 $('.btn').button();
@@ -51,71 +33,6 @@ $('.form-group').each(function() {
     });
 });
 
-/*
-$('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-    todayHighlight: true
-});
-
-
-
-
-
-$('input.time-pick').timepicker({
-    minuteStep: 15,
-    showInpunts: false
-})
-
-$('input.date-pick-years').datepicker({
-    startView: 2
-});
-
-*/
-
-
-
-/*$('.booking-item-price-calc .checkbox label').click(function() {
-    var checkbox = $(this).find('input'),
-        // checked = $(checkboxDiv).hasClass('checked'),
-        checked = $(checkbox).prop('checked'),
-        price = parseInt($(this).find('span.pull-right').html().replace('$', '')),
-        eqPrice = $('#car-equipment-total'),
-        tPrice = $('#car-total'),
-        eqPriceInt = parseInt(eqPrice.attr('data-value')),
-        tPriceInt = parseInt(tPrice.attr('data-value')),
-        value,
-        animateInt = function(val, el, plus) {
-            value = function() {
-                if (plus) {
-                    return el.attr('data-value', val + price);
-                } else {
-                    return el.attr('data-value', val - price);
-                }
-            };
-            return $({
-                val: val
-            }).animate({
-                val: parseInt(value().attr('data-value'))
-            }, {
-                duration: 500,
-                easing: 'swing',
-                step: function() {
-                    if (plus) {
-                        el.text(Math.ceil(this.val));
-                    } else {
-                        el.text(Math.floor(this.val));
-                    }
-                }
-            });
-        };
-    if (!checked) {
-        animateInt(eqPriceInt, eqPrice, true);
-        animateInt(tPriceInt, tPrice, true);
-    } else {
-        animateInt(eqPriceInt, eqPrice, false);
-        animateInt(tPriceInt, tPrice, false);
-    }
-});*/
-
 
 
 
@@ -138,65 +55,33 @@ $('div.bg-parallax').each(function() {
 });
 
 
-$(document).ready(
-    function() {
+$(document).ready(function() {
 
 
-            //$("[rel='tooltip']").tooltip();
-            $('[data-toggle="tooltip"]').tooltip();
-
-
-            // Owl Carousel
-            /*var owlCarousel = $('#owl-carousel'),
-                owlItems = owlCarousel.attr('data-items'),
-                owlCarouselSlider = $('#owl-carousel-slider'),
-                owlNav = owlCarouselSlider.attr('data-nav');
-            // owlSliderPagination = owlCarouselSlider.attr('data-pagination');
-
-            owlCarousel.owlCarousel({
-                items: owlItems,
-                navigation: true,
-                navigationText: ['', '']
-            });
-
-            owlCarouselSlider.owlCarousel({
-                slideSpeed: 300,
-                paginationSpeed: 400,
-                // pagination: owlSliderPagination,
-                singleItem: true,
-                navigation: true,
-                navigationText: ['', ''],
-                transitionStyle: 'fade',
-                autoPlay: 4500
-            });*/
-
-
-        // footer always on bottom
-        var docHeight = $(window).height();
-        var footerHeight = $('#main-footer').outerHeight();
-        var footerTop = $('#main-footer').position().top + footerHeight;
-       
-        if (footerTop < docHeight) {
-            $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
-        }
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if(isSafari) {
+        $("select").addClass("safari-select");
     }
 
 
-);
+    $('[data-toggle="tooltip"]').tooltip();
+
+
+
+    // footer always on bottom
+    var docHeight = $(window).height();
+    var footerHeight = $('#main-footer').outerHeight();
+    var footerTop = $('#main-footer').position().top + footerHeight;
+   
+    if (footerTop < docHeight) {
+        $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
+    }
+});
 
 
 $('.nav-drop').dropit();
 
 
-/*$("#price-slider").ionRangeSlider({
-    min: 130,
-    max: 575,
-    type: 'double',
-    prefix: "$",
-    // maxPostfix: "+",
-    prettify: false,
-    hasGrid: true
-});*/
 
 $('.i-check, .i-radio').iCheck({
     checkboxClass: 'i-check',
@@ -259,12 +144,6 @@ $('.booking-item-container').children('.booking-item').click(function(event) {
 });
 
 
-/*$('.form-group-cc-number input').payment('formatCardNumber');
-$('.form-group-cc-date input').payment('formatCardExpiry');
-$('.form-group-cc-cvc input').payment('formatCardCVC');*/
-
-
-
 
 
 
@@ -324,103 +203,6 @@ $('.form-group-select-plus').each(function() {
         select.removeClass('hidden');
     });
 });
-// Responsive videos
-/*$(document).ready(function() {
-    $("body").fitVids();
-});*/
-
-/*$(function($) {
-    $("#twitter").tweet({
-        username: "remtsoy", //!paste here your twitter username!
-        count: 3
-    });
-});
-
-$(function($) {
-    $("#twitter-ticker").tweet({
-        username: "remtsoy", //!paste here your twitter username!
-        page: 1,
-        count: 20
-    });
-});*/
-
-/*$(document).ready(function() {
-    var ul = $('#twitter-ticker').find(".tweet-list");
-    var ticker = function() {
-        setTimeout(function() {
-            ul.find('li:first').animate({
-                marginTop: '-4.7em'
-            }, 850, function() {
-                $(this).detach().appendTo(ul).removeAttr('style');
-            });
-            ticker();
-        }, 5000);
-    };
-    ticker();
-});*/
-/*$(function() {
-    $('#ri-grid').gridrotator({
-        rows: 4,
-        columns: 8,
-        animType: 'random',
-        animSpeed: 1200,
-        interval: 1200,
-        step: 'random',
-        preventClick: false,
-        maxStep: 2,
-        w992: {
-            rows: 5,
-            columns: 4
-        },
-        w768: {
-            rows: 6,
-            columns: 3
-        },
-        w480: {
-            rows: 8,
-            columns: 3
-        },
-        w320: {
-            rows: 5,
-            columns: 4
-        },
-        w240: {
-            rows: 6,
-            columns: 4
-        }
-    });
-
-});
-
-
-$(function() {
-    $('#ri-grid-no-animation').gridrotator({
-        rows: 4,
-        columns: 8,
-        slideshow: false,
-        w1024: {
-            rows: 4,
-            columns: 6
-        },
-        w768: {
-            rows: 3,
-            columns: 3
-        },
-        w480: {
-            rows: 4,
-            columns: 4
-        },
-        w320: {
-            rows: 5,
-            columns: 4
-        },
-        w240: {
-            rows: 6,
-            columns: 4
-        }
-    });
-
-});*/
 
 var tid = setInterval(tagline_vertical_slide, 2500);
 

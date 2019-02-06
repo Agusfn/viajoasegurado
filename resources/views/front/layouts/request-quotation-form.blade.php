@@ -15,7 +15,7 @@
             <div class="form-group form-group-lg form-group-icon-left">
                 <i class="fa fa-map-marker input-icon" style="color: #84c1e0"></i>
                 <label>{{ __("front/shared/quotation_form.region_to") }}</label>
-                <select class="form-control" name="region_code_to" style="-webkit-appearance: textfield;">
+                <select class="form-control" name="region_code_to">
                     <option>{{ __("Select") }}</option>
                     @foreach($regions_to as $region)
                     <option value="{{ $region['id'] }}">{{ $region["name"] }}</option>
@@ -61,18 +61,14 @@
                 <input type="hidden" name="passenger_ammount">
                 <div class="form-group form-group-lg" id="traveler-ages-form-group">
                     <label>{{ __("front/shared/quotation_form.ages") }}</label>
-                    <input type="text" class="form-control" name="age1" id="age1-input" maxlength="2">&nbsp;
-                    <input type="text" class="form-control" name="age2" id="age2-input" maxlength="2">&nbsp;
-                    <input type="text" class="form-control" name="age3" id="age3-input" maxlength="2">&nbsp;
-                    <input type="text" class="form-control" name="age4" id="age4-input" maxlength="2">&nbsp;
-                    <input type="text" class="form-control" name="age5" id="age5-input" maxlength="2">&nbsp;
+                    <input type="text" class="form-control" name="age1" id="age1-input" maxlength="2"><input type="text" class="form-control" name="age2" id="age2-input" maxlength="2"><input type="text" class="form-control" name="age3" id="age3-input" maxlength="2"><input type="text" class="form-control" name="age4" id="age4-input" maxlength="2"><input type="text" class="form-control" name="age5" id="age5-input" maxlength="2">
                     <label class="form-error" id="ages-error">{{ __("front/shared/quotation_form.invalid_ages") }}</label>
                 </div>
 
                 <div class="row" id="pregnant-inputs" style="margin-bottom: 20px">
                     <div class="col-xs-4">
                         <div class="form-group form-group-lg" style="margin-bottom: 5px">
-                            <label>Tu edad</label>
+                            <label>{{ __('front/shared/quotation_form.your_age') }}</label>
                             <input type="text" name="pregnant_age" class="form-control" maxlength="2" style="width: 65px" disabled="">
                         </div>
                     </div>

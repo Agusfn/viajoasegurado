@@ -34,6 +34,7 @@
                                         @include('front.layouts.request-quotation-form')
                                     </div>
                                 </div>
+                                <div class="gap hidden-sm"></div>
                             </div>
                             <div class="col-md-5">
                                 
