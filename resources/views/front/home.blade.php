@@ -114,6 +114,42 @@
             <div class="gap gap-small"></div>
         </div>
 
+        <div class="container">
+
+            <div class="gap gap-small"></div>
+
+            <div class="row">
+
+                <div class="col-lg-3 col-sm-6">
+                    <img src="{{ asset('front/img/medicine.jpg') }}" />
+                    <h4 style="margin-top: 15px">Asistencia médica</h4>
+                    <p>Cobertura médica en caso de accidente o enfermedad, medicamentos, odontología de urgencia e internación.</p>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <img src="{{ asset('front/img/luggage.jpg') }}" />
+                    <h4 style="margin-top: 15px">Vuelos y equipaje</h4>
+                    <p>Cobertura por pérdida o demora de entrega equipaje, y por cancelación de vuelo.</p>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <img src="{{ asset('front/img/legal.jpg') }}" />
+                    <h4 style="margin-top: 15px">Asistencia legal</h4>
+                    <p>Gastos asistencia legal por en caso de accidentes de tránsito.</p>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <img src="{{ asset('front/img/ski.jpg') }}" />
+                    <h4 style="margin-top: 15px">Asistencia para deportes</h4>
+                    <p>Asistencia médica en caso de accidentes deportivos no profesionales.</p>
+                </div>
+
+            </div>
+
+            <div class="gap"></div>
+
+        </div>
+
         <div class="bg-holder">
             <div class="bg-mask"></div>
             <div class="bg-parallax" style="background-image:url({{ asset('front/img/bg2.jpg') }});"></div>
@@ -121,7 +157,7 @@
                 <div class="container">
                     
                     <div class="gap gap-small"></div>
-                    <h1 class="text-center text-white mb20">Recent Reviews</h1>
+                    <h1 class="text-center text-white mb20">Comentarios de compradores</h1>
                     <div class="row row-wrap">
                         <div class="col-md-4">
                             <!-- START TESTIMONIAL -->
@@ -175,32 +211,6 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="gap"></div>
-            
-            <div class="gap gap-small"></div>
-        </div>
-
-        <!--div class="container">
-
-            <div class="gap gap-small"></div>
-            <div class="row">
-
-                <div class="col-sm-3">
-                    <img src="{{ asset('front/img/300x300.png') }}" />
-                </div>
-                <div class="col-sm-3">
-                    <img src="{{ asset('front/img/300x300.png') }}" />
-                </div>
-                <div class="col-sm-3">
-                    <img src="{{ asset('front/img/300x300.png') }}" />
-                </div>
-                <div class="col-sm-3">
-                    <img src="{{ asset('front/img/300x300.png') }}" />
-                </div>
-            </div>
-            <div class="gap gap-small"></div>
-        </div-->
 
 
 

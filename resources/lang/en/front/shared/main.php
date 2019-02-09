@@ -19,7 +19,8 @@ return [
 	"footer_company_description" => "Quote and purchase travel insurances from more than 20 insurance companies in less than 15 minutes, with the most affordable prices.",
 	"footer_terms_and_conditions" => "Terms and conditions",
 	"footer_contact" => "Contact",
-	"footer_about_us" => "About us"
+	"footer_about_us" => "About us",
+	"footer_need_help" => "Need help?"
 
 
 ];

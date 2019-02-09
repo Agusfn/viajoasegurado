@@ -73,14 +73,15 @@
 	                                <h5>Email</h5><a href="#">{{ __('front/support.contact_email') }}</a>
 	                            </li>
 	                            <li>
-	                                <h5>Whatsapp</h5><a href="#">+54 9 11 4146 0319</a>
+	                                <h5>Whatsapp</h5><a href="#">+54 11 41460319</a>
 	                            </li>
 	                            <li>
 	                                <h5>Skype</h5><a href="#">viajoasegurado</a>
 	                            </li>
 	                            <li>
 	                                <h5>{{ __('front/support.address') }}</h5>
-	                                <address>Viajoasegurado SAS.<br />Alicia Moreau de Justo 1150, piso 3, oficina 306-A<br />
+	                                <address>Alicia Moreau de Justo 1150<br/>
+	                                	Piso 3, oficina 306-A<br />
 	                                	Ciudad de Buenos Aires, CPAAX1107<br />
 	                                	Argentina<br />
 	                                </address>

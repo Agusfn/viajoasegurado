@@ -47,7 +47,7 @@
     <div class="row">
 
         <div class="col-sm-6">
-            <div class="form-group" style="padding-top: 28px; margin-bottom: 42px">
+            <div class="form-group" style="padding-top: 28px; margin-bottom: 34px">
                 <label style="display: inline">
                     <img src="{{ asset('front/img/icons/pregnant.png') }}" style="width: 30px; margin-left: 9px" />
                     {{ __("front/shared/quotation_form.travel_pregnant") }}

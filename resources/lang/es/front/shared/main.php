@@ -19,6 +19,7 @@ return [
 	"footer_company_description" => "Cotiza y compra asistencia de seguros de viaje de más de 20 compañías aseguradoras en menos de 15 minutos y a los precios más accesibles.",
 	"footer_terms_and_conditions" => "Términos y condiciones",
 	"footer_contact" => "Contacto",
-	"footer_about_us" => "Quienes sómos"
+	"footer_about_us" => "Quienes sómos",
+	"footer_need_help" => "¿Necesitas ayuda?"
 
 ];
