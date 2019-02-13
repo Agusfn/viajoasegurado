@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+    <title>Email</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -301,7 +301,7 @@
           <div class="content">
 
             <!-- START CENTERED WHITE CONTAINER -->
-            <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+            <!--span class="preheader">This is preheader text. Some clients will show this text as a preview.</span-->
             <table role="presentation" class="main">
 
               <!-- START MAIN CONTENT AREA -->
