@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'role', 'name', 'email', 'password',
     ];
 
     /**
@@ -27,4 +27,69 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    /**
+     * Verificar si el usuario es super admin
+     * @return boolean       
+     */
+    public function isSuperAdmin()
+    {
+        if($this->role == "superadmin")
+            return true;
+        else
+            return false;
+    }
+
+
+
+    /**
+     * Verificar si el usuario es admin
+     * @param  boolean $atLeast si es admin o superior
+     * @return boolean       
+     */
+    public function isAdmin($atLeast = false)
+    {
+        if($this->role == "admin" || ($atLeast && $this->role == "superadmin"))
+            return true;
+        else
+            return false;
+    }
+
+
+    /**
+     * Verificar si el usuario es operativo
+     * @param  boolean $atLeast si es operativo o superior
+     * @return boolean       
+     */
+    public function isOperative($atLeast = false)
+    {
+        if($this->role == "operative" || ($atLeast && ($this->role == "admin" || $this->role == "superadmin")))
+            return true;
+        else
+            return false;
+    }
+
+
+    /**
+     * Si la cuenta está inhabilitada.
+     * @return boolean
+     */
+    public function isDisabled()
+    {
+        return $this->disabled;
+    }
+
+
+    /**
+     * Actualiza fecha y hora de última actividad
+     * @return null
+     */
+    public function updateActivity()
+    {
+        $this->last_activity = date("Y-m-d H:i:s");
+        $this->save();
+    }
+
 }

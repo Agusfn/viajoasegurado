@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use \Hash;
 use Illuminate\Http\Request;
 
 class UserPanelController extends AdminBaseController
@@ -41,7 +42,7 @@ class UserPanelController extends AdminBaseController
 		if($request->filled("current_password") || $request->filled("new_password") || $request->filled("new_password_2"))
 		{
 
-			if (!\Hash::check($request->current_password, $user->password))
+			if (!Hash::check($request->current_password, $user->password))
 				return redirect()->back()->withErrors("La contraseña actual ingresada no es correcta.");			
 
 			$request->validate([
@@ -49,7 +50,7 @@ class UserPanelController extends AdminBaseController
 				"new_password_2" => "required|min:6|max:100|same:new_password",
 			]);	
 
-			$user->password = Hash::make($password);
+			$user->password = Hash::make($request->new_password);
 		}
 
 		$user->save();

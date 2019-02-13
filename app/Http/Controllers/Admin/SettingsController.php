@@ -10,6 +10,13 @@ use anlutro\LaravelSettings\SettingStore;
 class SettingsController extends AdminBaseController
 {
     
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->middleware("admin_only");
+	}
+
     /**
      * Muestra formulario de menu de opciones configurables
      * @return [type] [description]

@@ -4,6 +4,9 @@ $(document).ready(function() {
 	/*	TOP NAVIGATION AND LAYOUT
 	/*----------------------------------*/
 
+	$('[data-toggle="tooltip"]').tooltip();
+
+
 	$('.btn-toggle-fullwidth').on('click', function() {
 		if(!$('body').hasClass('layout-fullwidth')) {
 			$('body').addClass('layout-fullwidth');

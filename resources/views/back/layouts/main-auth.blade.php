@@ -25,9 +25,15 @@
 	<div id="wrapper">
 		<div class="vertical-align-wrap">
 			<div class="vertical-align-middle">
-				<div class="auth-box ">
-					@yield('content')
+
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+						<div class="auth-box">
+							@yield('content')
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

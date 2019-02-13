@@ -19,6 +19,18 @@
 
 					{{ Form::open( array("url" => url("account"), "method" => "post") ) }}
 					<div class="row" style="margin-top: 70px">
+						<div class="col-sm-3 col-sm-offset-2">Tipo de usuario</div>
+						<div class="col-sm-2">
+							@if($user->role == 'superadmin')
+								Super admin
+							@elseif($user->role == 'admin')
+								Administrador
+							@elseif($user->role == 'operative')
+								Operativo
+							@endif
+						</div>
+					</div>
+					<div class="row" style="margin-top: 20px">
 						<div class="col-sm-3 col-sm-offset-2">Nombre de usuario</div>
 						<div class="col-sm-2">
 							<input type="text" class="form-control" name="name" value="{{ $user->name }}">

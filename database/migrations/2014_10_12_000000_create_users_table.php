@@ -15,19 +15,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('role');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->datetime('last_activity')->nullable();
+            $table->boolean('disabled')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
 
         // Agregamos admin user
         DB::table('users')->insert([
-            'name' => 'Agusfn',
-            'email' => 'agusfn20@gmail.com',
-            'password' => bcrypt('1167261446'),
+            'role' => 'superadmin',
+            'name' => 'Daniela',
+            'email' => 'info@studytripnz.com',
+            'password' => bcrypt('viajo123asegurado'),
         ]);
     }
 

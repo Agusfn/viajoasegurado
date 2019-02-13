@@ -43,6 +43,14 @@ Route::domain("backoffice.".config("app.domain"))->middleware(["auth"])->group(f
 	Route::get("settings", "Admin\SettingsController@show");
 	Route::post("settings", "Admin\SettingsController@update");
 
+
+	Route::get("users", "Admin\UsersController@list");
+	Route::get("users/new", "Admin\UsersController@new");
+	Route::post("users/create", "Admin\UsersController@create");
+	Route::get("users/{id}", "Admin\UsersController@details");
+	Route::post("users/{id}", "Admin\UsersController@update");
+	Route::post("users/{id}/delete", "Admin\UsersController@delete");
+
 });
 
 
