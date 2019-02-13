@@ -33,7 +33,7 @@
 		                            @foreach($contracts as $contract)
 
 		                            	<tr>
-		                            		<td>
+		                            		<td style="min-width: 113px;">
 		                            			<a href="{{ url('contracts/'.$contract->id) }}" class="btn btn-primary btn-sm">Ver</a>
 		                            			@if ($contract->current_status_id == \App\Contract::STATUS_PROCESSING)
 		                            			&nbsp;&nbsp;<i class="fa fa-exclamation-circle" style="font-size: 19px; color: #F48024" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Esperando envío de voucher"></i>

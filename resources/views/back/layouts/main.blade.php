@@ -20,6 +20,17 @@
 
 	<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('favicon.png') }}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{ asset('favicon.png') }}">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134361603-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-134361603-1');
+	</script>
+
 </head>
 
 <body>

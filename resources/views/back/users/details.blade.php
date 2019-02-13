@@ -63,11 +63,11 @@
 								</div>
 								<div class="form-group">
 									<label>Contraseña</label>
-									<input type="password" class="form-control" name="password" placeholder="Dejar vacio para no cambiar" @if(!$can_modify) disabled="" @endif>
+									<input type="password" class="form-control" name="password" value="" placeholder="Dejar vacio para no cambiar" @if(!$can_modify) disabled="" @endif>
 								</div>
 								<div class="form-group">
 									<label>Repetir contraseña</label>
-									<input type="password" class="form-control" name="password_repeat" @if(!$can_modify) disabled="" @endif>
+									<input type="password" class="form-control" name="password_repeat" value="" @if(!$can_modify) disabled="" @endif>
 								</div>		
 								<div class="form-group">
 			  						<div class="checkbox">
