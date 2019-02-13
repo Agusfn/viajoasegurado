@@ -66,7 +66,7 @@ class ResetPassword extends Notification
         return (new MailMessage)
             ->subject(Lang::getFromJson('Reestablecimiento de contraseña'))
             ->line(Lang::getFromJson('Estás recibiendo este email porque recibimos una solicitud de reestablecimiento de contraseña para tu cuenta.'))
-            ->action(Lang::getFromJson('Reestablecer contraseña'), url("https://backoffice".config('app.domain').route('password.reset', $this->token, false)))
+            ->action(Lang::getFromJson('Reestablecer contraseña'), url("https://backoffice.".config('app.domain').route('password.reset', $this->token, false)))
             ->line(Lang::getFromJson('Si no solicitaste reestablecer tu contraseña, ignora este mensaje.'));
     }
 
