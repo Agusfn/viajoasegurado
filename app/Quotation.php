@@ -17,6 +17,7 @@ class Quotation extends Model
 
     protected $guarded = [];
 
+    protected $dates = ["date_from", "date_to"];
 
 
     /**
@@ -47,6 +48,7 @@ class Quotation extends Model
     {
     	return self::where('url_code', $url_code)->first();
     }
+
 
 
     /**
@@ -182,8 +184,8 @@ class Quotation extends Model
             $this->origin_country_code,
             $this->destination_region_code,
             $this->trip_type_code,
-            $this->date_from,
-            $this->date_to,
+            $this->date_from->format("Y-m-d"),
+            $this->date_to->format("Y-m-d"),
             $ages[0], $ages[1], $ages[2], $ages[3], $ages[4],
             ATV::getLocale($this->lang),
             $this->customer_email,
@@ -247,6 +249,16 @@ class Quotation extends Model
 
 
     /**
+     * Check if a contract was made from this quotation.
+     * @return boolean
+     */
+    public function contracted()
+    {
+        return $this->contract_id != null ? true : false;
+    }
+
+
+    /**
      * Obtiene las edades de los pasajeros de forma legible en texto en idioma de la app.
      * Ej: 20 años, 30 años
      * @return string
@@ -261,5 +273,33 @@ class Quotation extends Model
     }
 
 
+    /**
+     * Get destination name of this quotation.
+     * @return [type] [description]
+     */
+    public function destinationName()
+    {
+        return ATV::getRegionName($this->destination_region_code);
+    }
+
+
+    /**
+     * Return array of ages. eg [32, 35, 0, 0, 0]
+     * @return array
+     */
+    public function agesArray()
+    {
+        return self::agesCsvToArray($this->passenger_ages, 5);
+    }
+
+
+    /**
+     * [travelPregnant description]
+     * @return bolean
+     */
+    public function travelPregnant()
+    {
+        return $this->gestation_weeks > 0;
+    }
 
 }

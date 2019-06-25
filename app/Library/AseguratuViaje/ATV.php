@@ -24,27 +24,39 @@ class ATV
 	/**
 	 * Obtiene productos cotizados desde la API de aseguratuviaje.com a partir de los datos del viaje.
 	 * 
-	 * @param  int $paisDesde       codigo pais desde
-	 * @param  int $paisHasta       codigo pis hasta
-	 * @param  int $tipoViaje       codigo tipo viaje
-	 * @param  string $fechaDesde      fecha inicio seguro
-	 * @param  string $fechaHasta      fecha fin seguro
-	 * @param  int $edad1           
-	 * @param  int $edad2           
-	 * @param  int $edad3           
-	 * @param  int $edad4           
-	 * @param  int $edad5           
-	 * @param  string $cultura         codigo localizacion
-	 * @param  string $email           
-	 * @param  int $semanaGestacion [description]
+	 * @param  int $paisDesde       Cod pais desde (en Config::get("custom.insurances.regions_to"))
+	 * @param  int $paisHasta       Cod region hasta (en Config::get("custom.insurances.regions_to"))
+	 * @param  int $tipoViaje       Cod tipo viaje (en Config::get("custom.insurances.trip_types"))
+	 * @param  string $fechaDesde      Y-m-d
+	 * @param  string $fechaHasta      Y-m-d
+	 * @param  int $edad1           edad 1er pasajero (obligatoria)
+	 * @param  int $edad2           edad ó 0
+	 * @param  int $edad3           edad ó 0
+	 * @param  int $edad4           edad ó 0
+	 * @param  int $edad5           edad ó 0       
+	 * @param  string $cultura         "es-ES" o "en-US"
+	 * @param  string $email           mail interesado
+	 * @param  int $semanaGestacion 	Si no embarazada 0, si embarazada, solo debe haber edad1.
 	 * @return mixed                  FALSE o array con datos
 	 */
 	public static function obtainQuotedProducts($paisDesde, $paisHasta, $tipoViaje, $fechaDesde, $fechaHasta, $edad1, $edad2, $edad3, $edad4, $edad5, $cultura, $email, $semanaGestacion)
 	{
 
-		/* Obtenemos productos */
-
-		$token = ATVApi::getToken($paisDesde, $paisHasta, $tipoViaje, $fechaDesde, $fechaHasta, $edad1, $edad2, $edad3, $edad4, $edad5, $cultura, $email, $semanaGestacion, "");
+		$token = ATVApi::getToken(
+			$paisDesde, 
+			$paisHasta, 
+			$tipoViaje,
+			$fechaDesde, 
+			$fechaHasta, 
+			$edad1, 
+			$edad2, 
+			$edad3, 
+			$edad4, 
+			$edad5, 
+			$cultura, 
+			$email, 
+			$semanaGestacion
+		);
 
 		if(!$token)
 			return false;

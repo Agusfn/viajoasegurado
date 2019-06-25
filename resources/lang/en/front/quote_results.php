@@ -20,8 +20,8 @@ return [
 	"accident_coverage" => "Accident coverage",
 	"disease_coverage" => "Disease coverage",
 	"baggage_coverage" => "Baggage coverage",
-	"view_terms" => "View terms and conditions",
-	"select" => "Select this insurance",
+	"view_terms" => "Terms and conditions",
+	"select" => "Purchase",
 	"coverage_details" => "Details of the insurance coverage",
 
 	"cant_find" => "Can't find what you're looking for?",

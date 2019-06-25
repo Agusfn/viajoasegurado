@@ -29,35 +29,29 @@ class ATVApi
 	 */
 	private static $req_response_code;
 
-
-
-
 	
 	/**
 	 * Obtiene el token de cotizacion desde la API de aseguratuviaje.com
 	 * 
-	 * @param  [type] $paisDesde       [description]
-	 * @param  [type] $paisHasta       [description]
-	 * @param  [type] $tipoViaje       [description]
-	 * @param  [type] $fechaDesde      [description]
-	 * @param  [type] $fechaHasta      [description]
-	 * @param  [type] $edad1           [description]
-	 * @param  [type] $edad2           [description]
-	 * @param  [type] $edad3           [description]
-	 * @param  [type] $edad4           [description]
-	 * @param  [type] $edad5           [description]
-	 * @param  [type] $cultura         [description]
-	 * @param  [type] $email           [description]
-	 * @param  [type] $semanaGestacion [description]
-	 * @param  [type] $source          [description]
-	 * @return string|false
+	 * @param  int $paisDesde       Cod pais desde (en config Config::get("custom.insurances.regions_to"))
+	 * @param  int $paisHasta       Cod region hasta (en config Config::get("custom.insurances.regions_to"))
+	 * @param  int $tipoViaje       Cod tipo viaje (en config Config::get("custom.insurances.trip_types"))
+	 * @param  string $fechaDesde      Y-m-d
+	 * @param  string $fechaHasta      Y-m-d
+	 * @param  int $edad1           edad 1er pasajero (obligatoria)
+	 * @param  int $edad2           edad ó 0
+	 * @param  int $edad3           edad ó 0
+	 * @param  int $edad4           edad ó 0
+	 * @param  int $edad5           edad ó 0
+	 * @param  string $cultura         "es-ES" o "en-US"
+	 * @param  string $email           mail interesado
+	 * @param  int $semanaGestacion 	Si no embarazada 0, si embarazada, solo debe haber edad1.
+	 * @return string|false 		token
 	 */
-	public static function getToken($paisDesde, $paisHasta, $tipoViaje, $fechaDesde, $fechaHasta, $edad1, $edad2, $edad3, $edad4, $edad5, $cultura, $email, $semanaGestacion, $source)
+	public static function getToken($paisDesde, $paisHasta, $tipoViaje, $fechaDesde, $fechaHasta, $edad1, $edad2, $edad3, $edad4, $edad5, $cultura, $email, $semanaGestacion)
 	{
 
-
-		$trip_data = array(
-
+		$trip_data = [
 			"PaisDesde" => $paisDesde,
 			"PaisHasta" => $paisHasta,
 			"TipoViaje" => $tipoViaje,
@@ -72,20 +66,19 @@ class ATVApi
 			"Email" => $email,
 			"WebService" => self::WEB_SERVICE,
 			"SemanaGestacion" => $semanaGestacion,
-			"Source" => $source,
+			"Source" => "", // origen tráfico
 			"Token" => "" // this is the piece of info we need
-
-		);
+		];
 
 		$response = self::makeRequest("POST", "https://sistema.aseguratuviaje.com/webapi18/api/CotizacionSeguroViajero", $trip_data);
 
 		if($response === false)
 			return false;
 
-		if(self::$req_response_code == 200)
+		if(self::$req_response_code == 200) {
 			return $response["Token"];
-		else
-		{	
+		}
+		else {	
 			self::$error_text = "Error obteniendo token ATV Api. Respuesta: " . $response["Message"];
 			\Log::notice(self::$error_text);
 			return false;

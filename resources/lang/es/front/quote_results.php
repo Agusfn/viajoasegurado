@@ -20,8 +20,8 @@ return [
 	"accident_coverage" => "Cobertura por accidentes",
 	"disease_coverage" => "Cobertura por enfermedad",
 	"baggage_coverage" => "Cobertura por equipaje",
-	"view_terms" => "Ver términos y condiciones",
-	"select" => "Seleccionar",
+	"view_terms" => "Términos y condiciones",
+	"select" => "Comprar",
 	"coverage_details" => "Detalles de la cobertura del seguro",
 
 	"cant_find" => "¿No encuentras lo que estás buscando?",

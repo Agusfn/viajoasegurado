@@ -71,38 +71,25 @@ class QuotationController extends Controller
 
 
 	/**
-	 * Dirige la página donde se muestran las cotizaciones
+	 * Página donde se muestran los productos cotizados.
 	 * @param  [type] $url_id [description]
 	 * @return [type]         [description]
 	 */
 	public function displayQuotation(Request $request)
 	{
-		$parameters = [
+
+		if(!$request->url_code)
+			return redirect()->route("home");
+
+		$quotation = Quotation::findByUrlCode($request->url_code);
+
+		return view("front.quotations.search_results")->with([
+			"quotation" => $quotation,
 			"countries_from" => ATV::getCountriesFrom(), 
             "regions_to" => ATV::getRegionsTo(),
             "quotationFound" => false
-		];
+		]);
 
-		if($request->url_code != null && $quotation = Quotation::findByUrlCode($request->url_code))
-		{
-
-			$parameters["quotation"] = $quotation;
-			$parameters["quotationFound"] = true;
-			$parameters["url_code"] = $request->url_code;
-
-			if($quotation->expired() || $quotation->contract_id != null) // si expiró o ya se generó una contratación
-				$parameters["quotationExpired"] = true;
-			else {
-				$parameters["trip_to"] = ATV::getRegionName($quotation->destination_region_code);
-				$parameters["quotationExpired"] = false;
-			}
-
-
-			return view("front.quotations.search_results")->with($parameters);
-
-		}
-		else
-			return view("front.quotations.search_results")->with($parameters);
 	}
 
 
@@ -140,8 +127,8 @@ class QuotationController extends Controller
 						}
 					}
 
-					$response["date_from"] = \App\Library\Dates::translate($quotation->date_from);
-					$response["date_to"] = \App\Library\Dates::translate($quotation->date_to);
+					$response["date_from"] = \App\Library\Dates::translate($quotation->date_from->format('Y-m-d'));
+					$response["date_to"] = \App\Library\Dates::translate($quotation->date_to->format('Y-m-d'));
 					$response["country_from"] = __($quotation->country_from->name_english);
 					$response["region_to"] = ATV::getRegionName($quotation->destination_region_code);
 					$response["passenger_count"] = $quotation->passenger_ammount;

@@ -228,6 +228,18 @@ return [
 		["id" => 1004, "name" => "Europe"],
 		["id" => 1006, "name" => "All of the world"],
 		["id" => 1009, "name" => "National Coverage"]
+	],
+
+
+	"trip_types" => [
+
+		["id" => 1, "name" => "Placer, Estudio o Trabajo"],
+		["id" => 2, "name" => "Anual Multiviajes"],
+		["id" => 6, "name" => "Deportes"],
+		["id" => 10, "name" => "Viajes en Cruceros"],
+		["id" => 4, "name" => "Seguros de Cancelación"],
+		["id" => 14, "name" => "Embarazadas"],
+		["id" => 15, "name" => "Preexistencias y Enf. Crónicas"]
 	]
 
 

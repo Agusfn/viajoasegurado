@@ -94,7 +94,7 @@ Route::domain(config("app.domain"))->group(function() {
 
 	Route::group(array("prefix" => Config::get("app.locale_prefix")), function() {
 
-		Route::get("/", "HomeController@index");
+		Route::get("/", "HomeController@index")->name("home");
 		Route::get("{support}", "HomeController@support");
 		Route::post("{support}", "HomeController@sendContactForm");
 		Route::get("{insurer}/{insurer_name}", "HomeController@insurerDetails");

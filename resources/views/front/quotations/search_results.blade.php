@@ -1,7 +1,7 @@
 @extends('front.layouts.main')
 
-@if ($quotationFound && !$quotationExpired)
-    @section('title', __('front/quote_results.title')." ".$trip_to)
+@if ($quotation && !$quotation->expired() && !$quotation->contracted())
+    @section('title', __('front/quote_results.title')." ".$quotation->destinationName())
 @else
     @section('title', 'Error')
 @endif
@@ -60,6 +60,18 @@
 .form-error {
     color: #fff;
 }
+
+.insurance-terms-url {
+    font-size: 13px;
+}
+
+.booking-item-price {
+    font-size: 30px;
+}
+
+.booking-item-airline-logo {
+    text-align: center;
+}
 </style>
 @endsection
 
@@ -79,16 +91,16 @@
 
                 <div class="col-md-9">
                     
-                    @if ($quotationFound)
+                    @if ($quotation)
 
-                        @if (!$quotationExpired)
+                        @if (!$quotation->expired() && !$quotation->contracted())
 
                         <h4 style="text-align: center; margin-top: 80px; display: none" id="error-loading">{{ __('front/quote_results.error_loading') }} <a href="javascript:location.reload();">{{ __('front/quote_results.reload_page') }}</a> {{ __('front/quote_results.to_retry') }}.</h4>
 
                         <div id="no-results-found" style="display: none; text-align: center;">
                             <div class="gap"></div><div class="gap"></div>
                             <h3 >{{ __('front/quote_results.no_results') }}</h3>
-                            <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.search_again') }}</a>
+                            {{ __('front/quote_results.search_again') }}
                             <div class="gap"></div><div class="gap"></div><div class="gap"></div>
                         </div>
 
@@ -104,38 +116,47 @@
                                 <li id="copy-quote-element" style="display: none">
                                     <div class="booking-item-container" data-product-id="">
                                         <div class="booking-item">
+                                            
                                             <div class="row">
-                                                <div class="col-md-2">
+
+                                                <div class="col-md-3">
                                                     <div class="booking-item-airline-logo">
                                                         <img class="insurer-img" src="" alt="" />
                                                         <p class="insurer-name"></p>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
+
+                                                <div class="col-md-6">
+
                                                     <h5 class="insurance-product-name">{{ __('front/quote_results.product_name') }}</h5>
                                                     <div class="row">
                                                         <div class="col-xs-7"><i class="fa fa-ambulance insurance-icon" aria-hidden="true"></i> {{ __('front/quote_results.accident_coverage') }}</div>
                                                         <div class="col-xs-5"><span class="accident-coverage"></span></div>
                                                     </div>
+                                                    
                                                     <div class="row">
                                                         <div class="col-xs-7"><i class="fa fa-plus-square insurance-icon" aria-hidden="true"></i> {{ __('front/quote_results.disease_coverage') }}</div>
                                                         <div class="col-xs-5"><span class="disease-coverage"></span></div>
                                                     </div>
+                                                    
                                                     <div class="row">
                                                         <div class="col-xs-7"><i class="fa fa-suitcase insurance-icon" aria-hidden="true"></i> {{ __('front/quote_results.baggage_coverage') }}</div>
                                                         <div class="col-xs-5"><span class="baggage-coverage"></span></div>
                                                     </div>
+
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <a class="insurance-terms-url" href="" target="_blank"><i class="fa fa-file-text-o" aria-hidden="true"></i> {{ __('front/quote_results.view_terms') }}</a>
-                                                </div>
+
                                                 <div class="col-md-3">
                                                     <span class="booking-item-price"></span>&nbsp;<span class="insurance-currency"></span>
                                                     <br/>
-                                                    <a class="btn btn-primary select-insurance-btn" href="">{{ __('front/quote_results.select') }}</a>
+                                                    <a class="btn btn-primary btn-lg select-insurance-btn" href="">{{ __('front/quote_results.select') }}</a><br/>
+                                                    <a class="insurance-terms-url" href="" target="_blank"><i class="fa fa-file-text-o" aria-hidden="true"></i> {{ __('front/quote_results.view_terms') }}</a>
                                                 </div>
+
                                             </div>
+
                                         </div>
+
                                         <div class="booking-item-details">
                                             <div class="row">
                                                 <div class="col-md-8">
@@ -150,8 +171,6 @@
 
                             </ul>
 
-                            <p class="text-right">{{ __('front/quote_results.cant_find') }} <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.search_again') }}</a>
-                            </p>
                         </div>
 
                         <div id="loading">
@@ -165,24 +184,18 @@
 
                         @else
                         <h4 style="text-align: center; margin-top: 100px">{{ __('front/quote_results.quotation_expired') }}<br/>
-                        <small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.try_search_again') }}</a></small></h4>
+                        <small>{{ __('front/quote_results.try_search_again') }}</small></h4>
                         @endif
 
                     @else
                         <h4 style="text-align: center; margin-top: 100px">{{ __('front/quote_results.quotation_not_found') }}<br/>
-                        <small><a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">{{ __('front/quote_results.try_search_again') }}</a></small></h4>
+                        <small>{{ __('front/quote_results.try_search_again') }}</small></h4>
                     @endif
 
                 </div>
 
-
             </div>
 
-
-            <div class="mfp-with-anim mfp-hide mfp-dialog mfp-search-dialog" id="search-dialog">
-                asd
-            </div>
-        
 
             <div class="gap"></div>
 
@@ -200,8 +213,8 @@
 </script>
 <script src="{{ asset('front/js/quotation-form.js') }}"></script>
 
-@if ($quotationFound && !$quotationExpired)
-<meta name="url-code" content="{{ $url_code }}" />
+@if ($quotation && !$quotation->expired() && !$quotation->contracted())
+<meta name="url-code" content="{{ $quotation->url_code }}" />
 <meta name="get-quot-url" content="{{ URL::to('quotation/getquotation') }}" />
 <meta name="get-coverage-url" content="{{ URL::to('quotation/getproductcoverage') }}" />
 <meta name="contract-form-url" content="{{ URL::to(uri_localed('{contract}')) }}" />
@@ -209,5 +222,22 @@
 <script src="{{ asset('front/js/quotation-results-pg.js') }}"></script>
 @endif
 
+
+<script type="text/javascript">
+    
+    $(document).ready(function() {
+
+        $('input.icheckbox').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'icheckbox_square-blue'
+        });
+        
+        @if($quotation && $quotation->travelPregnant())
+        $('.icheckbox').iCheck('check');
+        @endif
+
+    });
+
+</script>
 
 @endsection

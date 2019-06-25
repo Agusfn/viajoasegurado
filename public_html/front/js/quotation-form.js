@@ -15,14 +15,21 @@ $(document).ready(function() {
         startDate: '+0d',
         endDate: '+365d'
     });
-    $('input[name="date_start"]').datepicker("setDate", "+0d");
+    
+    if($('input[name="date_start"]').val() == "") {
+        $('input[name="date_start"]').datepicker("setDate", "+0d");
+    }
+    
 
     $('input[name="date_end"]').datepicker({
         autoclose: true,
         startDate: '+0d',
         endDate: '+365d'
     });
-    $('input[name="date_end"]').datepicker("setDate", "+7d");
+
+    if($('input[name="date_end"]').val() == "") {
+        $('input[name="date_end"]').datepicker("setDate", "+7d");
+    }    
 
 
 
