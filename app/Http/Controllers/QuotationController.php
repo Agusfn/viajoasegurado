@@ -86,6 +86,7 @@ class QuotationController extends Controller
 		if($request->url_code != null && $quotation = Quotation::findByUrlCode($request->url_code))
 		{
 
+			$parameters["quotation"] = $quotation;
 			$parameters["quotationFound"] = true;
 			$parameters["url_code"] = $request->url_code;
 

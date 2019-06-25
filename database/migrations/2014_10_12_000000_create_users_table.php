@@ -26,13 +26,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        // Agregamos admin user
-        DB::table('users')->insert([
-            'role' => 'superadmin',
-            'name' => 'Daniela',
-            'email' => 'info@studytripnz.com',
-            'password' => bcrypt('viajo123asegurado'),
-        ]);
     }
 
     /**

@@ -32,12 +32,25 @@ class ATVApi
 
 
 
-
-
+	
 	/**
 	 * Obtiene el token de cotizacion desde la API de aseguratuviaje.com
-	 * @param  array $trip_data		datos del viaje a cotizar
-	 * @return mixed            String del token o FALSE si hay error.
+	 * 
+	 * @param  [type] $paisDesde       [description]
+	 * @param  [type] $paisHasta       [description]
+	 * @param  [type] $tipoViaje       [description]
+	 * @param  [type] $fechaDesde      [description]
+	 * @param  [type] $fechaHasta      [description]
+	 * @param  [type] $edad1           [description]
+	 * @param  [type] $edad2           [description]
+	 * @param  [type] $edad3           [description]
+	 * @param  [type] $edad4           [description]
+	 * @param  [type] $edad5           [description]
+	 * @param  [type] $cultura         [description]
+	 * @param  [type] $email           [description]
+	 * @param  [type] $semanaGestacion [description]
+	 * @param  [type] $source          [description]
+	 * @return string|false
 	 */
 	public static function getToken($paisDesde, $paisHasta, $tipoViaje, $fechaDesde, $fechaHasta, $edad1, $edad2, $edad3, $edad4, $edad5, $cultura, $email, $semanaGestacion, $source)
 	{
