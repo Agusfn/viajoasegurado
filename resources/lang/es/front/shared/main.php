@@ -16,7 +16,10 @@ return [
 	"nav_insurance_chronic_disease_senior" => "Asistencia enfermedades crónicas",
 	"nav_insurance_pregnant" => "Asistencia para embarazadas",
 
+
 	"footer_company_description" => "Cotiza y compra asistencia de seguros de viaje de más de 20 compañías aseguradoras en menos de 15 minutos y a los precios más accesibles.",
+	"footer_coverages" => "Prestaciones",
+	"footer_pages" => "Páginas",
 	"footer_terms_and_conditions" => "Términos y condiciones",
 	"footer_contact" => "Contacto",
 	"footer_about_us" => "Quienes sómos",

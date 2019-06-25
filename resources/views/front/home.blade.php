@@ -61,7 +61,6 @@
 
         <div class="container">
             <div class="gap gap-small"></div>
-            <!--h2 class="text-center">{{ __("front/home.our_insurers") }}</h2-->
             
             <div class="gap">
                 <section class="customer-logos slider">
@@ -79,7 +78,7 @@
                 </section>
             </div>
             
-            <h2 class="text-center" style="margin-bottom: 45px">Asistencia al viajero</h2>
+            <h2 class="text-center" style="margin-bottom: 45px">{{ __('front/home.travel_assistance') }}</h2>
 
             <div class="row row-wrap" data-gutter="60">
                 <div class="col-md-4">
@@ -122,26 +121,26 @@
 
                 <div class="col-lg-3 col-sm-6">
                     <img src="{{ asset('front/img/medicine.jpg') }}" />
-                    <h4 style="margin-top: 15px">Asistencia médica</h4>
-                    <p>Cobertura médica en caso de accidente o enfermedad, medicamentos, odontología de urgencia e internación.</p>
+                    <h4 style="margin-top: 15px">{{ __("front/home.medical_assistance") }}</h4>
+                    <p>{{ __("front/home.medical_assistance_desc") }}</p>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
                     <img src="{{ asset('front/img/luggage.jpg') }}" />
-                    <h4 style="margin-top: 15px">Vuelos y equipaje</h4>
-                    <p>Cobertura por pérdida o demora de entrega equipaje, y por cancelación de vuelo.</p>
+                    <h4 style="margin-top: 15px">{{ __("front/home.flights_assistance") }}</h4>
+                    <p>{{ __("front/home.flights_assistance_desc") }}</p>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
                     <img src="{{ asset('front/img/legal.jpg') }}" />
-                    <h4 style="margin-top: 15px">Asistencia legal</h4>
-                    <p>Gastos asistencia legal por en caso de accidentes de tránsito.</p>
+                    <h4 style="margin-top: 15px">{{ __("front/home.legal_assistance") }}</h4>
+                    <p>{{ __("front/home.legal_assistance_desc") }}</p>
                 </div>
 
                 <div class="col-lg-3 col-sm-6">
                     <img src="{{ asset('front/img/ski.jpg') }}" />
-                    <h4 style="margin-top: 15px">Asistencia para deportes</h4>
-                    <p>Asistencia médica en caso de accidentes deportivos no profesionales.</p>
+                    <h4 style="margin-top: 15px">{{ __("front/home.sport_assistance") }}</h4>
+                    <p>{{ __("front/home.sport_assistance_desc") }}</p>
                 </div>
 
             </div>
@@ -157,7 +156,7 @@
                 <div class="container">
                     
                     <div class="gap gap-small"></div>
-                    <h1 class="text-center text-white mb20">Comentarios de compradores</h1>
+                    <h1 class="text-center text-white mb20">{{ __('front/home.customer_reviews') }}</h1>
                     <div class="row row-wrap">
                         <div class="col-md-4">
                             <!-- START TESTIMONIAL -->
@@ -168,8 +167,8 @@
                                     </blockquote>
                                 </div>
                                 <div class="testimonial-author">
-                                    <img src="{{ asset('front/img/50x50.png') }}" alt="Image Alternative text" title="Sevenly Shirts - June 2012  2" />
-                                    <p class="testimonial-author-name">Alison Mackenzie</p><cite>on <a class="text-udl" href="#">Waldorf Astoria</a> hotel in New York</cite>
+                                    <img src="{{ asset('front/img/testimonios/215645765.jpg') }}" style="width: 60px" alt="Testimonio" title="Sevenly Shirts - June 2012  2" />
+                                    <p class="testimonial-author-name">Maximiliano</p><cite>de Argentina</cite>
                                 </div>
                             </div>
                             <!-- END TESTIMONIAL -->
@@ -184,7 +183,7 @@
                                 </div>
                                 <div class="testimonial-author">
                                     <img src="{{ asset('front/img/50x50.png') }}" alt="Image Alternative text" title="Flare lens flare" />
-                                    <p class="testimonial-author-name">Cheryl Gustin</p><cite>on <a class="text-udl" href="#">Wellington</a> hotel in New York</cite>
+                                    <p class="testimonial-author-name">Joaquín</p><cite>on <a class="text-udl" href="#">Wellington</a> hotel in New York</cite>
                                 </div>
                             </div>
                             <!-- END TESTIMONIAL -->

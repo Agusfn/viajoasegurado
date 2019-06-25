@@ -6,13 +6,13 @@
                             <img src="{{ asset('front/img/logo3bw.png') }}" alt="{{ config('app.name') }}" style="max-width: 200px" />
                         </a>
                         <p class="mb20">{{ __('front/shared/main.footer_company_description') }}</p>
-                        <p>Viajoasegurado © 2019</p>
+                        <p>Viajoasegurado © {{ date('Y') }}</p>
 
                     </div>
 
                     <div class="col-md-3">
                         
-                        <h4>Prestaciones</h4>
+                        <h4>{{ __('front/shared/main.footer_coverages') }}</h4>
                         <ul class="list list-footer">
                             <li><a href="{{ url(uri_localed('{insurance}/{longs_stay_student}')) }}">{{ __("front/shared/main.nav_insurance_long_stay_student") }}</a></li>
                             <li><a href="{{ url(uri_localed('{insurance}/{multi_trip}')) }}">{{ __("front/shared/main.nav_insurance_multi_trip") }}</a></li>
@@ -24,7 +24,7 @@
                         </ul>
                     </div>
                     <div class="col-md-2">
-                        <h4>Páginas</h4>
+                        <h4>{{ __('front/shared/main.footer_pages') }}</h4>
                         <ul class="list list-footer">
                             <li><a href="{{ url(uri_localed('{support}')) }}">{{ __('front/shared/main.footer_contact') }}</a></li>
                             <li><a href="{{ url(uri_localed('{about_us}')) }}">{{ __('front/shared/main.footer_about_us') }}</a></li>

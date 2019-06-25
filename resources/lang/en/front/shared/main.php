@@ -16,7 +16,10 @@ return [
 	"nav_insurance_chronic_disease_senior" => "Seniors insurance",
 	"nav_insurance_pregnant" => "Pregnant insurance",
 
+	
 	"footer_company_description" => "Quote and purchase travel insurances from more than 20 insurance companies in less than 15 minutes, with the most affordable prices.",
+	"footer_coverages" => "Coverages",
+	"footer_pages" => "Pages",
 	"footer_terms_and_conditions" => "Terms and conditions",
 	"footer_contact" => "Contact",
 	"footer_about_us" => "About us",
