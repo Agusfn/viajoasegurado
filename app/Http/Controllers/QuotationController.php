@@ -132,7 +132,7 @@ class QuotationController extends Controller
 					$response["country_from"] = __($quotation->country_from->name_english);
 					$response["region_to"] = ATV::getRegionName($quotation->destination_region_code);
 					$response["passenger_count"] = $quotation->passenger_ammount;
-					$response["products"] = $quotation->products()->get()->toArray();
+					$response["products"] = $quotation->products()->orderBy("price", "ASC")->get()->toArray();
 					$response["success"] = true;
 				}
 
