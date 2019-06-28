@@ -15,9 +15,19 @@ use anlutro\LaravelSettings\SettingStore;
 class Quotation extends Model
 {
 
+    /**
+     * Margen de ganancia sobre el precio final. Es igual al descuento que hace ATV, dejando el precio final igual al de ATV.
+     * OJO: No se agrega este porcentaje al costo, el costo es el precio final menos este porcentaje.
+     * 
+     */
+    const PROFIT_MARGIN = 25;
+
+
+
     protected $guarded = [];
 
     protected $dates = ["date_from", "date_to"];
+
 
 
     /**
@@ -88,7 +98,10 @@ class Quotation extends Model
 
 
     /**
-     * Devuelve un monto tal que si se le resta el porcentaje $percentage se obtiene $ammount
+     * Devuelve un monto tal que si se le resta un porcentaje dado, se obtendría un monto dado.
+     * Si se da 750, y 25, devuelve 1000.
+     * No agrega un porcentaje a un número.
+     * 
      * @param float $ammount
      * @param float $percentage     porcentaje 0-100
      */
@@ -108,29 +121,20 @@ class Quotation extends Model
     public static function calculateSellingPrices($cost, $gross_cost, $currency_code)
     {
 
-        $profit_margin = setting()->get("profit_margin");
-
-
-        if($currency_code == "EUR") 
-        {
-
-            $prices["price"] = self::addPercentage2(Currency::toUsd($cost, "EUR"), $profit_margin);
-            $prices["gross_price"] = self::addPercentage2(Currency::toUsd($gross_cost, "EUR"), $profit_margin);
+        if($currency_code == "EUR")  {
+            $prices["price"] = self::addPercentage2(Currency::toUsd($cost, "EUR"), self::PROFIT_MARGIN);
+            $prices["gross_price"] = self::addPercentage2(Currency::toUsd($gross_cost, "EUR"), self::PROFIT_MARGIN);
             $prices["currency"] = "USD";
         }
-        else
-        {
-            $prices["price"] = self::addPercentage2($cost, $profit_margin);
-            $prices["gross_price"] = self::addPercentage2($gross_cost, $profit_margin);
+        else {
+            $prices["price"] = self::addPercentage2($cost, self::PROFIT_MARGIN);
+            $prices["gross_price"] = self::addPercentage2($gross_cost, self::PROFIT_MARGIN);
             $prices["currency"] = $currency_code;
         }
 
         return $prices;
 
     }
-
-
-
 
 
 

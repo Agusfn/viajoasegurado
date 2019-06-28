@@ -12,10 +12,11 @@ class ATV
 
 
 	/**
-	 * Procentaje de comisión pre-fijada por aseguratuviaje, no es la comisión real que se cobra después.
-	 * Se usa para obtener el costo de cada producto a partir del supuesto precio de venta que asumen que vamos a vender.
+	 * El descuento que hace aseguratuviaje sobre el precio final al público en su sitio de un producto (que viene de la API)
+	 * Este ultimo precio menos este descuento conforma el costo del producto para viajoasegurado. 
+	 * Luego se agregará la comisión de viajoasegurado para conformar el precio final de venta.
 	 */
-	const ATV_COMMISSION = 15;
+	const ATV_DISCOUNT = 25;
 
 
 	private static $last_token;
@@ -70,7 +71,11 @@ class ATV
 
 
 
-		/* Agregamos a cada producto información del costo real y su respectiva moneda */
+		/* 
+		Agregamos a cada producto información del costo real y su respectiva moneda 
+		Los datos de costo provenientes de la API ATV indican el precio de venta al público en aseguratuviaje.com
+		ATV ofrece un descuento sobre este último, dejando como costo el precio descontado.
+		*/
 
 		for($i=0; $i<sizeof($quoteResponse["Productos"]); $i++)
 		{
@@ -79,14 +84,14 @@ class ATV
 
 			if(in_array($paisDesde, [32, 724])) // para seguros desde ARG y ESP nos cobran en su moneda local
 			{
-				$quoteResponse["Productos"][$i]["real_cost"] = self::substractCommission($product["CostoOrigen"]);
-				$quoteResponse["Productos"][$i]["real_gross_cost"] = self::substractCommission($product["CostoBrutoOrigen"]);
+				$quoteResponse["Productos"][$i]["real_cost"] = self::applyAtvDiscount($product["CostoOrigen"]);
+				$quoteResponse["Productos"][$i]["real_gross_cost"] = self::applyAtvDiscount($product["CostoBrutoOrigen"]);
 				$quoteResponse["Productos"][$i]["real_cost_currency"] = Currency::codeFromAtvId($quoteResponse["PaisOrigen"]["Moneda"]["id"]);
 			}
 			else // el resto podemos pagarlo en USD
 			{
-                $quoteResponse["Productos"][$i]["real_cost"] = self::substractCommission($product["Costo"]);
-                $quoteResponse["Productos"][$i]["real_gross_cost"] = self::substractCommission($product["CostoBruto"]);
+                $quoteResponse["Productos"][$i]["real_cost"] = self::applyAtvDiscount($product["Costo"]);
+                $quoteResponse["Productos"][$i]["real_gross_cost"] = self::applyAtvDiscount($product["CostoBruto"]);
                 $quoteResponse["Productos"][$i]["real_cost_currency"] = Currency::codeFromAtvId($product["MonedaId"]);
 			}
 
@@ -99,13 +104,13 @@ class ATV
 
 
 	/**
-	 * Resta porcentaje de comisión (pre-fijada por aseguratuviaje, es decir, no es la comisión real) al monto con comisión incluida.
+	 * Resta 
 	 * @param  float 	$ammount
 	 * @return float    costo sin comisión
 	 */
-	private static function substractCommission($ammount)
+	private static function applyAtvDiscount($ammount)
 	{
-		return round($ammount * ((100 - self::ATV_COMMISSION)/100), 2);
+		return round($ammount * ((100 - self::ATV_DISCOUNT)/100), 2);
 	}
 
 
