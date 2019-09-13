@@ -40,14 +40,17 @@
 
                         <ul class="list list-horizontal list-space" style="margin-top: 30px">
                             <li>
-                                <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                                <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="https://www.facebook.com/viajoasegurado-101727314556901/" target="_blank"></a>
                             </li>
                             <li>
+                                <a class="fa fa-instagram box-icon-normal round animate-icon-bottom-to-top" href="https://www.instagram.com/viajo.asegurado/" target="_blank"></a>
+                            </li>
+                            <!--li>
                                 <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                             </li>
                             <li>
                                 <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
-                            </li>
+                            </li-->
                         </ul>
                     </div>
 
